@@ -16,9 +16,7 @@
   </a>
 </p>
 
-<!-- Replace these placeholder images with real ChatGPT screenshots before store submission. -->
-
-<h2 align="center">Install locally</h2>
+<h2 align="center">Install</h2>
 
 <p align="center">
   <a href="https://github.com/jasperdevs/themes-for-chatgpt/releases/latest">Download the packaged release files</a>
@@ -51,7 +49,7 @@
 Switch ChatGPT between Claude, Gemini, and Perplexity-inspired presets while keeping a native default option.
 </td>
 <td width="60%">
-<img src="./docs/assets/theme-picker-placeholder.svg" alt="Theme picker placeholder" width="100%" />
+<img src="./docs/assets/theme-picker.svg" alt="Theme picker preview" width="100%" />
 </td>
 </tr>
 <tr>
@@ -60,16 +58,16 @@ Switch ChatGPT between Claude, Gemini, and Perplexity-inspired presets while kee
 Auto mode follows ChatGPT's current appearance, or you can force Light/Dark from the popup.
 </td>
 <td width="60%">
-<img src="./docs/assets/chat-surfaces-placeholder.svg" alt="Themed ChatGPT surface placeholder" width="100%" />
+<img src="./docs/assets/chat-surfaces.svg" alt="Light and dark ChatGPT theme preview" width="100%" />
 </td>
 </tr>
 <tr>
 <td width="40%" valign="middle">
-<h3>Audited surfaces</h3>
-The theme CSS is checked against composer, menus, settings toggles, tables, report cards, library rows, files, tooltips, and message actions.
+<h3>Broad ChatGPT coverage</h3>
+Keeps common ChatGPT surfaces readable and usable, including the composer, menus, settings, tables, report cards, library rows, files, tooltips, generated images, and message actions.
 </td>
 <td width="60%">
-<img src="./docs/assets/audit-placeholder.svg" alt="Theme audit placeholder" width="100%" />
+<img src="./docs/assets/coverage.svg" alt="ChatGPT surface coverage preview" width="100%" />
 </td>
 </tr>
 </table>
@@ -83,7 +81,7 @@ The theme CSS is checked against composer, menus, settings toggles, tables, repo
 
 <h2 align="center">Development</h2>
 
-<p align="center">Install dependencies and launch the Zen dev loop:</p>
+<p align="center">Install dependencies and run the local dev loop:</p>
 
 ```bash
 npm install

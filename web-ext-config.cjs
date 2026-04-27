@@ -11,6 +11,7 @@ module.exports = {
     'package-lock.json',
     'web-ext-artifacts',
     'web-ext-config.cjs',
+    '.github',
     'README.md',
     'LICENSE',
     'docs'
