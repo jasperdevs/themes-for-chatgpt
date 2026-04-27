@@ -386,8 +386,9 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedImageCardFilter === 'none', `${theme.id}/${mode}: generated image card kept halo filter ${values.generatedImageCardFilter}`);
     assert(values.generatedImageCardBeforeDisplay === 'none', `${theme.id}/${mode}: generated image card pseudo halo still displays ${values.generatedImageCardBeforeDisplay}`);
     assert(values.generatedImageGlowDisplay === 'none', `${theme.id}/${mode}: generated image glow child still displays ${values.generatedImageGlowDisplay}`);
+    const expectedImageRadius = theme.radii.card;
     assert(Number.parseFloat(values.generatedImageHeight) > 220, `${theme.id}/${mode}: generated image appears clipped`);
-    assert(values.generatedImageRadius === '0px', `${theme.id}/${mode}: generated image kept rounded corners`);
+    assert(values.generatedImageRadius === expectedImageRadius, `${theme.id}/${mode}: generated image radius is ${values.generatedImageRadius}, expected ${expectedImageRadius}`);
     assert(values.generatedImageBorderWidth === '0px', `${theme.id}/${mode}: generated image kept themed border`);
     assert(values.generatedCropFrameOverflow === 'visible', `${theme.id}/${mode}: aspect image frame overflow is ${values.generatedCropFrameOverflow}`);
     assert(values.generatedCropFrameMaxHeight === 'none', `${theme.id}/${mode}: aspect image frame max-height is ${values.generatedCropFrameMaxHeight}`);
@@ -396,7 +397,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedCoverPosition === 'static', `${theme.id}/${mode}: generated cover image position is ${values.generatedCoverPosition}`);
     assert(values.generatedCoverObjectFit === 'contain', `${theme.id}/${mode}: generated cover image object-fit is ${values.generatedCoverObjectFit}`);
     assert(Number.parseFloat(values.generatedCoverHeight) > 360, `${theme.id}/${mode}: generated cover image still appears cropped`);
-    assert(values.generatedCoverRadius === '0px', `${theme.id}/${mode}: generated cover image kept rounded corners`);
+    assert(values.generatedCoverRadius === expectedImageRadius, `${theme.id}/${mode}: generated cover image radius is ${values.generatedCoverRadius}, expected ${expectedImageRadius}`);
     assert(values.generatedCoverBorderWidth === '0px', `${theme.id}/${mode}: generated cover image kept themed border`);
     assert(values.generatedMediaShellOverflow === 'visible', `${theme.id}/${mode}: generated media shell overflow is ${values.generatedMediaShellOverflow}`);
     assert(values.generatedMediaShellMaxHeight === 'none', `${theme.id}/${mode}: generated media shell max-height is ${values.generatedMediaShellMaxHeight}`);
@@ -411,7 +412,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedMediaFrameRadius === '0px', `${theme.id}/${mode}: generated media frame kept partial rounded corners ${values.generatedMediaFrameRadius}`);
     assert(Number.parseFloat(values.generatedMediaPhotoHeight) > 360, `${theme.id}/${mode}: generated media photo remains cropped`);
     assert(values.generatedMediaPhotoObjectFit === 'contain', `${theme.id}/${mode}: generated media photo object-fit is ${values.generatedMediaPhotoObjectFit}`);
-    assert(values.generatedMediaPhotoRadius === '0px', `${theme.id}/${mode}: generated media photo kept rounded corners`);
+    assert(values.generatedMediaPhotoRadius === expectedImageRadius, `${theme.id}/${mode}: generated media photo radius is ${values.generatedMediaPhotoRadius}, expected ${expectedImageRadius}`);
     assert(values.generatedMediaPhotoBorderWidth === '0px', `${theme.id}/${mode}: generated media photo kept themed border`);
     assert(values.generatedMediaFooterBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media footer kept black background ${values.generatedMediaFooterBg}`);
     assert(Number.parseFloat(values.generatedMediaFooterHeight) < 80, `${theme.id}/${mode}: generated media footer still reserves crop space ${values.generatedMediaFooterHeight}`);

@@ -648,7 +648,7 @@ const CHATTHEMES = (() => {
         object-fit: contain !important;
         aspect-ratio: auto !important;
         border: 0 !important;
-        border-radius: 0 !important;
+        border-radius: ${r.card} !important;
         clip-path: none !important;
       }
 
