@@ -52,6 +52,14 @@ const baseHtml = `<!doctype html><html><head></head><body>
         <button id="send-button" data-testid="send-button" aria-label="Send"><svg></svg></button>
       </div>
     </form>
+    <form data-testid="composer" id="composer-alt">
+      <div id="composer-alt-nested" style="overflow:hidden;max-height:18px;box-shadow:0 0 0 2px red;border-top:1px solid red">
+        <div data-testid="prompt-textarea" id="prompt-alt" contenteditable="true">Ask anything</div>
+        <button id="active-model-chip-alt" aria-haspopup="menu" data-state="active" class="bg-blue-500 text-white"><span class="bg-blue-600">x</span>Pro</button>
+        <button id="dictate-button-alt" aria-label="Dictate"><svg></svg></button>
+        <button id="send-button-alt" aria-label="Send"><svg></svg></button>
+      </div>
+    </form>
     <div role="tooltip" id="tooltip">Dictate <kbd>Ctrl+Shift+D</kbd></div>
     <button id="menu-trigger" aria-haspopup="menu" aria-expanded="true">Pro</button>
     <div role="menu" id="model-menu">
@@ -153,6 +161,19 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         dictateColor: styleById('dictate-button').color,
         sendBg: styleById('send-button').backgroundColor,
         sendColor: styleById('send-button').color,
+        composerAltOverflow: styleById('composer-alt').overflow,
+        composerAltBg: styleById('composer-alt').backgroundColor,
+        nestedAltOverflow: styleById('composer-alt-nested').overflow,
+        nestedAltMaxHeight: styleById('composer-alt-nested').maxHeight,
+        nestedAltShadow: styleById('composer-alt-nested').boxShadow,
+        nestedAltBorderTop: styleById('composer-alt-nested').borderTopWidth,
+        promptAltBg: styleById('prompt-alt').backgroundColor,
+        activeModelChipAltBg: styleById('active-model-chip-alt').backgroundColor,
+        activeModelChipAltColor: styleById('active-model-chip-alt').color,
+        activeModelChipAltInnerBg: styleBySelector('#active-model-chip-alt span').backgroundColor,
+        dictateAltColor: styleById('dictate-button-alt').color,
+        sendAltBg: styleById('send-button-alt').backgroundColor,
+        sendAltColor: styleById('send-button-alt').color,
         tooltipBg: styleById('tooltip').backgroundColor,
         tooltipKbdBg: styleBySelector('#tooltip kbd').backgroundColor,
         menuTriggerBg: styleById('menu-trigger').backgroundColor,
@@ -231,6 +252,20 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.dictateColor !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: dictate button is black`);
     assert(values.sendBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: send button background is transparent`);
     assert(values.sendColor !== values.sendBg, `${theme.id}/${mode}: send button text matches background`);
+    assert(values.composerAltOverflow === 'visible', `${theme.id}/${mode}: data-testid composer overflow is ${values.composerAltOverflow}`);
+    assert(values.composerAltBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer background is transparent`);
+    assert(values.nestedAltOverflow === 'visible', `${theme.id}/${mode}: data-testid composer nested overflow is ${values.nestedAltOverflow}`);
+    assert(values.nestedAltMaxHeight === 'none', `${theme.id}/${mode}: data-testid composer nested max-height is ${values.nestedAltMaxHeight}`);
+    assert(values.nestedAltShadow === 'none', `${theme.id}/${mode}: data-testid composer nested wrapper has unwanted shadow`);
+    assert(values.nestedAltBorderTop === '0px', `${theme.id}/${mode}: data-testid composer nested wrapper has unwanted border`);
+    assert(values.promptAltBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer prompt should stay transparent`);
+    assert(values.activeModelChipAltBg !== 'rgb(59, 130, 246)', `${theme.id}/${mode}: data-testid composer model chip kept Tailwind blue`);
+    assert(values.activeModelChipAltBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer model chip background is transparent`);
+    assert(values.activeModelChipAltColor !== values.activeModelChipAltBg, `${theme.id}/${mode}: data-testid composer model chip text matches background`);
+    assert(values.activeModelChipAltInnerBg !== 'rgb(37, 99, 235)', `${theme.id}/${mode}: data-testid composer model chip inner icon kept Tailwind blue`);
+    assert(values.dictateAltColor !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: data-testid composer dictate button is black`);
+    assert(values.sendAltBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer send button background is transparent`);
+    assert(values.sendAltColor !== values.sendAltBg, `${theme.id}/${mode}: data-testid composer send button text matches background`);
     assert(values.tooltipBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: tooltip background is transparent`);
     assert(values.tooltipKbdBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: tooltip keyboard shortcut background is transparent`);
     assert(values.menuTriggerBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: open model trigger background is transparent`);

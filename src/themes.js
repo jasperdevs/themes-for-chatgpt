@@ -657,6 +657,9 @@ const CHATTHEMES = (() => {
       }
 
       [data-testid*="prompt-textarea"],
+      [data-testid="composer"],
+      form:has([data-testid*="prompt-textarea"]),
+      form:has(#prompt-textarea),
       form[data-type="unified"],
       textarea,
       [contenteditable="true"] {
@@ -668,25 +671,41 @@ const CHATTHEMES = (() => {
         box-sizing: border-box !important;
       }
 
-      form[data-type="unified"] {
+      form[data-type="unified"],
+      [data-testid="composer"],
+      form:has([data-testid*="prompt-textarea"]),
+      form:has(#prompt-textarea) {
         overflow: visible !important;
         background-color: ${c.bg2} !important;
         border-color: ${c.border} !important;
         border-radius: ${r.input} !important;
       }
 
-      form[data-type="unified"] > * {
+      form[data-type="unified"] > *,
+      [data-testid="composer"] > *,
+      form:has([data-testid*="prompt-textarea"]) > *,
+      form:has(#prompt-textarea) > * {
         min-height: 0 !important;
       }
 
       form[data-type="unified"] > div,
-      form[data-type="unified"] > div > div {
+      form[data-type="unified"] > div > div,
+      [data-testid="composer"] > div,
+      [data-testid="composer"] > div > div,
+      form:has([data-testid*="prompt-textarea"]) > div,
+      form:has([data-testid*="prompt-textarea"]) > div > div,
+      form:has(#prompt-textarea) > div,
+      form:has(#prompt-textarea) > div > div {
         overflow: visible !important;
         max-height: none !important;
+        border-width: 0 !important;
         box-shadow: none !important;
       }
 
-      form[data-type="unified"] > div > div {
+      form[data-type="unified"] > div > div,
+      [data-testid="composer"] > div > div,
+      form:has([data-testid*="prompt-textarea"]) > div > div,
+      form:has(#prompt-textarea) > div > div {
         background: transparent !important;
         border-color: transparent !important;
       }
@@ -709,7 +728,16 @@ const CHATTHEMES = (() => {
 
       form[data-type="unified"] textarea,
       form[data-type="unified"] [contenteditable="true"],
-      form[data-type="unified"] [data-testid*="prompt-textarea"] {
+      form[data-type="unified"] [data-testid*="prompt-textarea"],
+      [data-testid="composer"] textarea,
+      [data-testid="composer"] [contenteditable="true"],
+      [data-testid="composer"] [data-testid*="prompt-textarea"],
+      form:has([data-testid*="prompt-textarea"]) textarea,
+      form:has([data-testid*="prompt-textarea"]) [contenteditable="true"],
+      form:has([data-testid*="prompt-textarea"]) [data-testid*="prompt-textarea"],
+      form:has(#prompt-textarea) textarea,
+      form:has(#prompt-textarea) [contenteditable="true"],
+      form:has(#prompt-textarea) [data-testid*="prompt-textarea"] {
         min-height: 24px !important;
         line-height: 1.5 !important;
       }
@@ -717,7 +745,19 @@ const CHATTHEMES = (() => {
       form[data-type="unified"] button[aria-haspopup],
       form[data-type="unified"] [role="button"][aria-haspopup],
       form[data-type="unified"] button[data-state="active"],
-      form[data-type="unified"] button[aria-pressed="true"] {
+      form[data-type="unified"] button[aria-pressed="true"],
+      [data-testid="composer"] button[aria-haspopup],
+      [data-testid="composer"] [role="button"][aria-haspopup],
+      [data-testid="composer"] button[data-state="active"],
+      [data-testid="composer"] button[aria-pressed="true"],
+      form:has([data-testid*="prompt-textarea"]) button[aria-haspopup],
+      form:has([data-testid*="prompt-textarea"]) [role="button"][aria-haspopup],
+      form:has([data-testid*="prompt-textarea"]) button[data-state="active"],
+      form:has([data-testid*="prompt-textarea"]) button[aria-pressed="true"],
+      form:has(#prompt-textarea) button[aria-haspopup],
+      form:has(#prompt-textarea) [role="button"][aria-haspopup],
+      form:has(#prompt-textarea) button[data-state="active"],
+      form:has(#prompt-textarea) button[aria-pressed="true"] {
         background-color: ${c.bg3} !important;
         color: ${c.text1} !important;
         border-color: ${c.border} !important;
@@ -728,14 +768,35 @@ const CHATTHEMES = (() => {
       form[data-type="unified"] button[aria-haspopup] svg,
       form[data-type="unified"] [role="button"][aria-haspopup] svg,
       form[data-type="unified"] button[data-state="active"] svg,
-      form[data-type="unified"] button[aria-pressed="true"] svg {
+      form[data-type="unified"] button[aria-pressed="true"] svg,
+      [data-testid="composer"] button[aria-haspopup] svg,
+      [data-testid="composer"] [role="button"][aria-haspopup] svg,
+      [data-testid="composer"] button[data-state="active"] svg,
+      [data-testid="composer"] button[aria-pressed="true"] svg,
+      form:has([data-testid*="prompt-textarea"]) button[aria-haspopup] svg,
+      form:has([data-testid*="prompt-textarea"]) [role="button"][aria-haspopup] svg,
+      form:has([data-testid*="prompt-textarea"]) button[data-state="active"] svg,
+      form:has([data-testid*="prompt-textarea"]) button[aria-pressed="true"] svg,
+      form:has(#prompt-textarea) button[aria-haspopup] svg,
+      form:has(#prompt-textarea) [role="button"][aria-haspopup] svg,
+      form:has(#prompt-textarea) button[data-state="active"] svg,
+      form:has(#prompt-textarea) button[aria-pressed="true"] svg {
         color: currentColor !important;
         stroke: currentColor !important;
       }
 
       form[data-type="unified"] button[aria-haspopup] [class*="bg-blue"],
       form[data-type="unified"] button[data-state="active"] [class*="bg-blue"],
-      form[data-type="unified"] button[aria-pressed="true"] [class*="bg-blue"] {
+      form[data-type="unified"] button[aria-pressed="true"] [class*="bg-blue"],
+      [data-testid="composer"] button[aria-haspopup] [class*="bg-blue"],
+      [data-testid="composer"] button[data-state="active"] [class*="bg-blue"],
+      [data-testid="composer"] button[aria-pressed="true"] [class*="bg-blue"],
+      form:has([data-testid*="prompt-textarea"]) button[aria-haspopup] [class*="bg-blue"],
+      form:has([data-testid*="prompt-textarea"]) button[data-state="active"] [class*="bg-blue"],
+      form:has([data-testid*="prompt-textarea"]) button[aria-pressed="true"] [class*="bg-blue"],
+      form:has(#prompt-textarea) button[aria-haspopup] [class*="bg-blue"],
+      form:has(#prompt-textarea) button[data-state="active"] [class*="bg-blue"],
+      form:has(#prompt-textarea) button[aria-pressed="true"] [class*="bg-blue"] {
         background-color: ${c.bg4} !important;
         color: ${c.text1} !important;
       }
@@ -1246,6 +1307,9 @@ const CHATTHEMES = (() => {
       }
 
       form[data-type="unified"] button,
+      [data-testid="composer"] button,
+      form:has([data-testid*="prompt-textarea"]) button,
+      form:has(#prompt-textarea) button,
       button[aria-label*="Attach"],
       button[aria-label*="Dictate"],
       button[aria-label*="Voice"],
@@ -1261,6 +1325,9 @@ const CHATTHEMES = (() => {
       }
 
       form[data-type="unified"] button:hover,
+      [data-testid="composer"] button:hover,
+      form:has([data-testid*="prompt-textarea"]) button:hover,
+      form:has(#prompt-textarea) button:hover,
       button[aria-label*="Attach"]:hover,
       button[aria-label*="Dictate"]:hover,
       button[aria-label*="Voice"]:hover,
@@ -1273,6 +1340,9 @@ const CHATTHEMES = (() => {
       }
 
       form[data-type="unified"] button svg,
+      [data-testid="composer"] button svg,
+      form:has([data-testid*="prompt-textarea"]) button svg,
+      form:has(#prompt-textarea) button svg,
       button[aria-label*="Dictate"] svg,
       button[aria-label*="Voice"] svg,
       button[aria-label*="Microphone"] svg,
@@ -1292,7 +1362,13 @@ const CHATTHEMES = (() => {
       form[data-type="unified"] button[aria-label*="Submit"],
       [data-testid="composer"] button[data-testid*="send"],
       [data-testid="composer"] button[aria-label*="Send"],
-      [data-testid="composer"] button[aria-label*="Submit"] {
+      [data-testid="composer"] button[aria-label*="Submit"],
+      form:has([data-testid*="prompt-textarea"]) button[data-testid*="send"],
+      form:has([data-testid*="prompt-textarea"]) button[aria-label*="Send"],
+      form:has([data-testid*="prompt-textarea"]) button[aria-label*="Submit"],
+      form:has(#prompt-textarea) button[data-testid*="send"],
+      form:has(#prompt-textarea) button[aria-label*="Send"],
+      form:has(#prompt-textarea) button[aria-label*="Submit"] {
         background-color: ${c.accent} !important;
         color: ${onAccent} !important;
         border-color: ${c.accent} !important;
@@ -1307,7 +1383,13 @@ const CHATTHEMES = (() => {
       form[data-type="unified"] button[aria-label*="Submit"]:hover,
       [data-testid="composer"] button[data-testid*="send"]:hover,
       [data-testid="composer"] button[aria-label*="Send"]:hover,
-      [data-testid="composer"] button[aria-label*="Submit"]:hover {
+      [data-testid="composer"] button[aria-label*="Submit"]:hover,
+      form:has([data-testid*="prompt-textarea"]) button[data-testid*="send"]:hover,
+      form:has([data-testid*="prompt-textarea"]) button[aria-label*="Send"]:hover,
+      form:has([data-testid*="prompt-textarea"]) button[aria-label*="Submit"]:hover,
+      form:has(#prompt-textarea) button[data-testid*="send"]:hover,
+      form:has(#prompt-textarea) button[aria-label*="Send"]:hover,
+      form:has(#prompt-textarea) button[aria-label*="Submit"]:hover {
         background-color: ${c.accentHover} !important;
         color: ${onAccent} !important;
         border-color: ${c.accentHover} !important;
