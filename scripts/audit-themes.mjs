@@ -56,6 +56,7 @@ const REQUIRED_CSS = [
   'main:has([role="tablist"]) h1',
   '[data-testid*="deep-research"]',
   '.text-blue-400',
+  '[class*="bg-[#0d0d0d]"]',
   '[class*="spinner"]',
   '[data-testid*="thought"]',
   '[class*="bottom"][class*="bg-gradient-to-"]',

@@ -6,6 +6,7 @@ const CHATTHEMES = require('../src/themes.js');
 
 const baseHtml = `<!doctype html><html><head></head><body>
   <main>
+    <div id="hardcoded-dark-surface" class="bg-[#0d0d0d]" style="background-color:#0d0d0d">Hardcoded dark surface</div>
     <aside data-testid="sidebar">
       <a id="side-link" href="#"><svg width="10" height="10"></svg><span>Recent chat</span></a>
       <a id="side-active" data-state="active" href="#"><svg width="10" height="10"></svg><span>Active chat</span></a>
@@ -123,6 +124,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
       const styleBySelector = selector => getComputedStyle(document.querySelector(selector));
       return {
         bodyBg: getComputedStyle(document.body).backgroundColor,
+        hardcodedDarkSurfaceBg: styleById('hardcoded-dark-surface').backgroundColor,
         sideLinkColor: styleById('side-link').color,
         sideActiveBg: styleById('side-active').backgroundColor,
         sideActiveColor: styleById('side-active').color,
@@ -252,6 +254,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     });
 
     assert(values.bodyBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: body background is transparent`);
+    assert(values.hardcodedDarkSurfaceBg === values.bodyBg, `${theme.id}/${mode}: hardcoded ChatGPT dark surface kept ${values.hardcodedDarkSurfaceBg} instead of ${values.bodyBg}`);
     assert(values.sideLinkColor !== values.contentLinkColor, `${theme.id}/${mode}: sidebar link matches content accent`);
     assert(values.sideActiveBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: active sidebar row background is transparent`);
     assert(values.sideActiveColor !== values.sideLinkColor, `${theme.id}/${mode}: active sidebar row did not get selected text color`);
