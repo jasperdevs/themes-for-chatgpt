@@ -30,6 +30,12 @@ const baseHtml = `<!doctype html><html><head></head><body>
       <button id="source-chip" data-testid="sources"><svg></svg><span>Sources</span></button>
       <a id="action-link" role="button" href="#">Share</a>
     </section>
+    <section data-testid="conversation-turn" id="image-turn">
+      <div id="generated-image-card" class="group/imagegen-image overflow-hidden max-h-80" style="overflow:hidden;max-height:220px;width:500px">
+        <img id="generated-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
+        <button id="generated-image-action">Edit</button>
+      </div>
+    </section>
     <section data-message-author-role="user"><div class="bg-token-message-surface" id="user-bubble">User message</div></section>
     <button id="deep-research" data-testid="deep-research-button" aria-label="Deep research" class="text-blue-400 border-blue-400"><svg></svg>Deep research</button>
     <a href="/reports/example" id="report-card" data-testid="report-card">
@@ -41,6 +47,7 @@ const baseHtml = `<!doctype html><html><head></head><body>
       <div id="composer-nested" class="composer-nested-wrapper">
         <div data-testid="prompt-textarea" id="prompt-textarea" contenteditable="true">Ask anything</div>
         <button id="attach-button" aria-label="Attach files"><svg></svg></button>
+        <button id="active-model-chip" aria-haspopup="menu" data-state="active" class="bg-blue-500 text-white"><span class="bg-blue-600">x</span>Pro</button>
         <button id="dictate-button" aria-label="Dictate"><svg></svg></button>
         <button id="send-button" data-testid="send-button" aria-label="Send"><svg></svg></button>
       </div>
@@ -73,6 +80,10 @@ const baseHtml = `<!doctype html><html><head></head><body>
       <div role="columnheader" id="library-header">Name</div>
       <div role="row" id="library-row"><div role="cell">sample.png</div></div>
     </div>
+  </main>
+  <main id="analytics-main">
+    <h1 id="analytics-heading">Codex Analytics</h1>
+    <div role="tablist" id="analytics-tabs"><button role="tab" aria-selected="true" id="analytics-active-tab">Usage</button><button role="tab" id="analytics-inactive-tab">Code review</button></div>
   </main>
 </body></html>`;
 
@@ -117,6 +128,10 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         imageSpanOverflow: styleById('image-span').overflow,
         imageSpanMaxHeight: styleById('image-span').maxHeight,
         nestedImageHeight: styleById('nested-answer-image').height,
+        generatedImageCardOverflow: styleById('generated-image-card').overflow,
+        generatedImageCardMaxHeight: styleById('generated-image-card').maxHeight,
+        generatedImageHeight: styleById('generated-image').height,
+        generatedImageActionBg: styleById('generated-image-action').backgroundColor,
         inlineCodeBg: styleById('inline-code').backgroundColor,
         sourceBg: styleById('source-chip').backgroundColor,
         sourceRadius: styleById('source-chip').borderRadius,
@@ -132,6 +147,9 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         nestedShadow: styleById('composer-nested').boxShadow,
         nestedBorderTop: styleById('composer-nested').borderTopWidth,
         promptBg: styleById('prompt-textarea').backgroundColor,
+        activeModelChipBg: styleById('active-model-chip').backgroundColor,
+        activeModelChipColor: styleById('active-model-chip').color,
+        activeModelChipInnerBg: styleBySelector('#active-model-chip span').backgroundColor,
         dictateColor: styleById('dictate-button').color,
         sendBg: styleById('send-button').backgroundColor,
         sendColor: styleById('send-button').color,
@@ -164,6 +182,9 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         libraryTableBg: styleById('library-table').backgroundColor,
         libraryRowBg: styleById('library-row').backgroundColor,
         libraryHeaderColor: styleById('library-header').color,
+        analyticsHeadingFont: styleById('analytics-heading').fontFamily,
+        analyticsHeadingColor: styleById('analytics-heading').color,
+        analyticsTabsShadow: styleById('analytics-tabs').boxShadow,
         fadeImage: styleById('fade').backgroundImage
       };
     });
@@ -187,6 +208,10 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.imageSpanOverflow === 'visible', `${theme.id}/${mode}: nested image span overflow is ${values.imageSpanOverflow}`);
     assert(values.imageSpanMaxHeight === 'none', `${theme.id}/${mode}: nested image span max-height is ${values.imageSpanMaxHeight}`);
     assert(Number.parseFloat(values.nestedImageHeight) > 12, `${theme.id}/${mode}: nested answer image height appears clipped`);
+    assert(values.generatedImageCardOverflow === 'visible', `${theme.id}/${mode}: generated image card overflow is ${values.generatedImageCardOverflow}`);
+    assert(values.generatedImageCardMaxHeight === 'none', `${theme.id}/${mode}: generated image card max-height is ${values.generatedImageCardMaxHeight}`);
+    assert(Number.parseFloat(values.generatedImageHeight) > 220, `${theme.id}/${mode}: generated image appears clipped`);
+    assert(values.generatedImageActionBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated image action should not be a solid block by default`);
     assert(values.sourceBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: source chip background is transparent`);
     assert(values.bubbleBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: user bubble background is transparent`);
     assert(values.deepResearchColor !== 'rgb(96, 165, 250)', `${theme.id}/${mode}: deep research mode kept Tailwind blue`);
@@ -199,6 +224,10 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.nestedShadow === 'none', `${theme.id}/${mode}: nested composer wrapper has unwanted shadow`);
     assert(values.nestedBorderTop === '0px', `${theme.id}/${mode}: nested composer wrapper has unwanted border`);
     assert(values.promptBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: prompt textarea should stay transparent inside composer`);
+    assert(values.activeModelChipBg !== 'rgb(59, 130, 246)', `${theme.id}/${mode}: composer active model chip kept Tailwind blue`);
+    assert(values.activeModelChipBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer active model chip background is transparent`);
+    assert(values.activeModelChipColor !== values.activeModelChipBg, `${theme.id}/${mode}: composer active model chip text matches background`);
+    assert(values.activeModelChipInnerBg !== 'rgb(37, 99, 235)', `${theme.id}/${mode}: composer active model chip inner icon kept Tailwind blue`);
     assert(values.dictateColor !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: dictate button is black`);
     assert(values.sendBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: send button background is transparent`);
     assert(values.sendColor !== values.sendBg, `${theme.id}/${mode}: send button text matches background`);
@@ -228,6 +257,11 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.libraryTableBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: library table should not be a solid slab`);
     assert(values.libraryRowBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: library row should stay transparent by default`);
     assert(values.libraryHeaderColor !== values.contentLinkColor, `${theme.id}/${mode}: library header matches accent link color`);
+    if (theme.id === 'claude') {
+      assert(values.analyticsHeadingFont !== values.h2Font, `${theme.id}/${mode}: utility page heading inherited Claude article heading font`);
+    }
+    assert(values.analyticsHeadingColor !== values.contentLinkColor, `${theme.id}/${mode}: utility page heading matches accent link color`);
+    assert(values.analyticsTabsShadow !== 'none', `${theme.id}/${mode}: utility tablist lacks divider shadow`);
     assert(!values.fadeImage.includes('rgba(0, 0, 0, 0)'), `${theme.id}/${mode}: fade gradient still contains transparency`);
     checked.push(`${theme.id}/${mode}`);
   }

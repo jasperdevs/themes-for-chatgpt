@@ -499,6 +499,7 @@ const CHATTHEMES = (() => {
       .markdown img,
       .prose img,
       [data-message-author-role] img,
+      [data-testid*="conversation-turn"] img,
       [data-message-author-role] picture,
       .markdown video,
       .prose video,
@@ -521,7 +522,12 @@ const CHATTHEMES = (() => {
       [data-message-author-role] figure:has(img),
       [data-message-author-role] [style*="overflow"]:has(img),
       [data-message-author-role] [class*="overflow-hidden"]:has(img),
-      [data-message-author-role] [class*="max-h-"]:has(img) {
+      [data-message-author-role] [class*="max-h-"]:has(img),
+      [data-testid*="conversation-turn"] [style*="overflow"]:has(img),
+      [data-testid*="conversation-turn"] [class*="overflow-hidden"]:has(img),
+      [data-testid*="conversation-turn"] [class*="max-h-"]:has(img),
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img),
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) {
         overflow: visible !important;
         max-height: none !important;
         height: auto !important;
@@ -706,6 +712,32 @@ const CHATTHEMES = (() => {
       form[data-type="unified"] [data-testid*="prompt-textarea"] {
         min-height: 24px !important;
         line-height: 1.5 !important;
+      }
+
+      form[data-type="unified"] button[aria-haspopup],
+      form[data-type="unified"] [role="button"][aria-haspopup],
+      form[data-type="unified"] button[data-state="active"],
+      form[data-type="unified"] button[aria-pressed="true"] {
+        background-color: ${c.bg3} !important;
+        color: ${c.text1} !important;
+        border-color: ${c.border} !important;
+        border-radius: ${r.chip} !important;
+        box-shadow: none !important;
+      }
+
+      form[data-type="unified"] button[aria-haspopup] svg,
+      form[data-type="unified"] [role="button"][aria-haspopup] svg,
+      form[data-type="unified"] button[data-state="active"] svg,
+      form[data-type="unified"] button[aria-pressed="true"] svg {
+        color: currentColor !important;
+        stroke: currentColor !important;
+      }
+
+      form[data-type="unified"] button[aria-haspopup] [class*="bg-blue"],
+      form[data-type="unified"] button[data-state="active"] [class*="bg-blue"],
+      form[data-type="unified"] button[aria-pressed="true"] [class*="bg-blue"] {
+        background-color: ${c.bg4} !important;
+        color: ${c.text1} !important;
       }
 
       textarea::placeholder,
@@ -907,6 +939,19 @@ const CHATTHEMES = (() => {
         background: transparent !important;
         border-color: ${c.border} !important;
         font-family: ${uiFont} !important;
+      }
+
+      main:has([role="tablist"]) h1:not(.markdown h1):not(.prose h1),
+      main:has([role="tablist"]) h2:not(.markdown h2):not(.prose h2) {
+        color: ${c.text1} !important;
+        font-family: ${uiFont} !important;
+        font-weight: ${strongWeight} !important;
+        letter-spacing: 0 !important;
+      }
+
+      main:has([role="tablist"]) [role="tablist"] {
+        border-color: ${c.border} !important;
+        box-shadow: inset 0 -1px ${c.border} !important;
       }
 
       [role="tab"] {
