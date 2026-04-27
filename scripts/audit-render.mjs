@@ -210,6 +210,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedImageHeight: styleById('generated-image').height,
         generatedImageRadius: styleById('generated-image').borderRadius,
         generatedImageBorderWidth: styleById('generated-image').borderTopWidth,
+        generatedImageBottom: document.getElementById('generated-image').getBoundingClientRect().bottom,
         generatedCropFrameHeight: styleById('generated-image-crop-frame').height,
         generatedCropFrameMaxHeight: styleById('generated-image-crop-frame').maxHeight,
         generatedCropFrameOverflow: styleById('generated-image-crop-frame').overflow,
@@ -234,6 +235,8 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedMediaPhotoObjectFit: styleById('generated-image-media-photo').objectFit,
         generatedMediaPhotoRadius: styleById('generated-image-media-photo').borderRadius,
         generatedMediaPhotoBorderWidth: styleById('generated-image-media-photo').borderTopWidth,
+        generatedMediaPhotoTop: document.getElementById('generated-image-media-photo').getBoundingClientRect().top,
+        generatedMediaPhotoBottom: document.getElementById('generated-image-media-photo').getBoundingClientRect().bottom,
         generatedMediaFooterBg: styleById('generated-image-media-footer').backgroundColor,
         generatedMediaFooterHeight: styleById('generated-image-media-footer').height,
         generatedMediaFooterRadius: styleById('generated-image-media-footer').borderRadius,
@@ -244,12 +247,23 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedImageActionLeft: styleById('generated-image-action').left,
         generatedImageActionRadius: styleById('generated-image-action').borderRadius,
         generatedImageActionShadow: styleById('generated-image-action').boxShadow,
+        generatedImageActionBottomEdge: document.getElementById('generated-image-action').getBoundingClientRect().bottom,
+        generatedMediaFooterPosition: styleById('generated-image-media-footer').position,
+        generatedMediaFooterBottom: styleById('generated-image-media-footer').bottom,
+        generatedMediaFooterLeft: styleById('generated-image-media-footer').left,
+        generatedMediaFooterRight: styleById('generated-image-media-footer').right,
+        generatedMediaFooterTop: document.getElementById('generated-image-media-footer').getBoundingClientRect().top,
+        generatedMediaFooterBottomEdge: document.getElementById('generated-image-media-footer').getBoundingClientRect().bottom,
         generatedMediaEditPosition: styleById('generated-image-media-edit').position,
         generatedMediaEditBottom: styleById('generated-image-media-edit').bottom,
         generatedMediaEditLeft: styleById('generated-image-media-edit').left,
         generatedMediaEditBg: styleById('generated-image-media-edit').backgroundColor,
         generatedMediaEditRadius: styleById('generated-image-media-edit').borderRadius,
         generatedMediaEditShadow: styleById('generated-image-media-edit').boxShadow,
+        generatedMediaEditTop: document.getElementById('generated-image-media-edit').getBoundingClientRect().top,
+        generatedMediaEditBottomEdge: document.getElementById('generated-image-media-edit').getBoundingClientRect().bottom,
+        generatedMediaEditClientWidth: document.getElementById('generated-image-media-edit').clientWidth,
+        generatedMediaEditScrollWidth: document.getElementById('generated-image-media-edit').scrollWidth,
         generatedMediaDownloadPosition: styleById('generated-image-media-download').position,
         generatedMediaDownloadLeft: styleById('generated-image-media-download').left,
         generatedMediaDownloadRight: styleById('generated-image-media-download').right,
@@ -450,26 +464,36 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedMediaPhotoRadius === expectedImageRadius, `${theme.id}/${mode}: generated media photo radius is ${values.generatedMediaPhotoRadius}, expected ${expectedImageRadius}`);
     assert(values.generatedMediaPhotoBorderWidth === '0px', `${theme.id}/${mode}: generated media photo kept themed border`);
     assert(values.generatedMediaFooterBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media footer kept black background ${values.generatedMediaFooterBg}`);
-    assert(Number.parseFloat(values.generatedMediaFooterHeight) < 80, `${theme.id}/${mode}: generated media footer still reserves crop space ${values.generatedMediaFooterHeight}`);
+    assert(values.generatedMediaFooterHeight === '32px', `${theme.id}/${mode}: generated media footer height is ${values.generatedMediaFooterHeight}`);
     assert(values.generatedMediaFooterRadius === '0px', `${theme.id}/${mode}: generated media footer kept partial rounded corners ${values.generatedMediaFooterRadius}`);
     assert(values.generatedMediaFooterShadow === 'none', `${theme.id}/${mode}: generated media footer kept divider shadow ${values.generatedMediaFooterShadow}`);
+    assert(values.generatedMediaFooterPosition === 'absolute', `${theme.id}/${mode}: generated media footer position is ${values.generatedMediaFooterPosition}`);
+    assert(values.generatedMediaFooterBottom === '12px', `${theme.id}/${mode}: generated media footer bottom is ${values.generatedMediaFooterBottom}`);
+    assert(values.generatedMediaFooterLeft === '12px', `${theme.id}/${mode}: generated media footer left is ${values.generatedMediaFooterLeft}`);
+    assert(values.generatedMediaFooterRight === '12px', `${theme.id}/${mode}: generated media footer right is ${values.generatedMediaFooterRight}`);
+    assert(values.generatedMediaFooterTop > values.generatedMediaPhotoTop, `${theme.id}/${mode}: generated media footer starts above the image`);
+    assert(values.generatedMediaFooterBottomEdge < values.generatedMediaPhotoBottom, `${theme.id}/${mode}: generated media footer crosses below image edge`);
     assert(values.generatedImageActionBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: generated image action kept black overlay background`);
     assert(values.generatedImageActionBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated image action lost overlay surface`);
     assert(values.generatedImageActionPosition === 'absolute', `${theme.id}/${mode}: generated image action position is ${values.generatedImageActionPosition}`);
     assert(values.generatedImageActionBottom === '12px', `${theme.id}/${mode}: generated image action bottom is ${values.generatedImageActionBottom}`);
     assert(values.generatedImageActionLeft === '12px', `${theme.id}/${mode}: generated image action left is ${values.generatedImageActionLeft}`);
+    assert(values.generatedImageActionBottomEdge < values.generatedImageBottom, `${theme.id}/${mode}: generated image action crosses below image edge`);
     assert(values.generatedImageActionRadius === theme.radii.chip, `${theme.id}/${mode}: generated image action radius is ${values.generatedImageActionRadius}`);
     assert(values.generatedImageActionShadow !== 'none', `${theme.id}/${mode}: generated image action lost overlay depth`);
-    assert(values.generatedMediaEditPosition === 'absolute', `${theme.id}/${mode}: generated media edit position is ${values.generatedMediaEditPosition}`);
-    assert(values.generatedMediaEditBottom === '12px', `${theme.id}/${mode}: generated media edit bottom is ${values.generatedMediaEditBottom}`);
-    assert(values.generatedMediaEditLeft === '12px', `${theme.id}/${mode}: generated media edit left is ${values.generatedMediaEditLeft}`);
+    assert(values.generatedMediaEditPosition === 'static', `${theme.id}/${mode}: generated media edit position is ${values.generatedMediaEditPosition}`);
+    assert(values.generatedMediaEditBottom === 'auto', `${theme.id}/${mode}: generated media edit bottom is ${values.generatedMediaEditBottom}`);
+    assert(values.generatedMediaEditLeft === 'auto', `${theme.id}/${mode}: generated media edit left is ${values.generatedMediaEditLeft}`);
+    assert(values.generatedMediaEditTop > values.generatedMediaPhotoTop, `${theme.id}/${mode}: generated media edit starts above the image`);
+    assert(values.generatedMediaEditBottomEdge < values.generatedMediaPhotoBottom, `${theme.id}/${mode}: generated media edit crosses below image edge`);
+    assert(values.generatedMediaEditClientWidth >= values.generatedMediaEditScrollWidth, `${theme.id}/${mode}: generated media edit text is clipped`);
     assert(values.generatedMediaEditBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: generated media edit kept black overlay background`);
     assert(values.generatedMediaEditBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media edit lost overlay surface`);
     assert(values.generatedMediaEditRadius === theme.radii.chip, `${theme.id}/${mode}: generated media edit radius is ${values.generatedMediaEditRadius}`);
     assert(values.generatedMediaEditShadow !== 'none', `${theme.id}/${mode}: generated media edit lost overlay depth`);
-    assert(values.generatedMediaDownloadPosition === 'absolute', `${theme.id}/${mode}: generated media download position is ${values.generatedMediaDownloadPosition}`);
-    assert(Number.parseFloat(values.generatedMediaDownloadLeft) > 400, `${theme.id}/${mode}: generated media download was not right anchored (${values.generatedMediaDownloadLeft})`);
-    assert(values.generatedMediaDownloadRight === '12px', `${theme.id}/${mode}: generated media download right is ${values.generatedMediaDownloadRight}`);
+    assert(values.generatedMediaDownloadPosition === 'static', `${theme.id}/${mode}: generated media download position is ${values.generatedMediaDownloadPosition}`);
+    assert(values.generatedMediaDownloadLeft === 'auto', `${theme.id}/${mode}: generated media download left is ${values.generatedMediaDownloadLeft}`);
+    assert(values.generatedMediaDownloadRight === 'auto', `${theme.id}/${mode}: generated media download right is ${values.generatedMediaDownloadRight}`);
     assert(values.generatedMediaDownloadBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: generated media download kept black overlay background`);
     assert(values.generatedMediaDownloadBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media download lost overlay surface`);
     assert(values.inlineCodeBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: inline code lost its chip background`);

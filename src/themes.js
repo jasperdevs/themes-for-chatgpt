@@ -633,11 +633,12 @@ const CHATTHEMES = (() => {
         display: none !important;
       }
 
-      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) :is(div, span, figure, picture):not(button):not(a):not([role="button"]),
-      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) :is(div, span, figure, picture):not(button):not(a):not([role="button"]),
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > :is(div, span, figure, picture):not(button):not(a):not([role="button"]),
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):not(button):not(a):not([role="button"]) {
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) :is(div, span, figure, picture):not(:has(button)):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) :is(div, span, figure, picture):not(:has(button)):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > :is(div, span, figure, picture):not(:has(button)):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):not(:has(button)):not(button):not(a):not([role="button"]) {
         background: transparent !important;
+        position: static !important;
         overflow: visible !important;
         max-height: none !important;
         min-height: 0 !important;
@@ -668,6 +669,12 @@ const CHATTHEMES = (() => {
         border: 0 !important;
         border-radius: ${r.card} !important;
         clip-path: none !important;
+      }
+
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) :is(div, span, figure, picture):has(> img),
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) :is(div, span, figure, picture):has(> img),
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) {
+        position: relative !important;
       }
 
       [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) button,
@@ -711,6 +718,49 @@ const CHATTHEMES = (() => {
         left: auto !important;
         width: 2rem !important;
         padding: 0 !important;
+      }
+
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):has(button) {
+        position: absolute !important;
+        inset: auto 0.75rem 0.75rem 0.75rem !important;
+        z-index: 3 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 0.5rem !important;
+        width: auto !important;
+        height: 2rem !important;
+        min-height: 2rem !important;
+        max-height: 2rem !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+        pointer-events: none !important;
+      }
+
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):has(button) button {
+        position: static !important;
+        inset: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        flex: 0 0 auto !important;
+        max-width: none !important;
+        overflow: visible !important;
+        white-space: nowrap !important;
+        pointer-events: auto !important;
+      }
+
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):has(button) button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):has(button) button[aria-label*="Save"] {
+        right: auto !important;
+        left: auto !important;
+        margin-left: auto !important;
       }
 
       pre,
