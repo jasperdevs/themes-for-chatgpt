@@ -669,6 +669,29 @@ const CHATTHEMES = (() => {
         clip-path: none !important;
       }
 
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) button,
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) button,
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > button,
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)) button {
+        position: static !important;
+        inset: auto !important;
+        transform: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: auto !important;
+        min-width: 0 !important;
+        height: 2rem !important;
+        min-height: 2rem !important;
+        margin: 0.5rem 0 0 !important;
+        padding: 0 0.75rem !important;
+        color: ${c.text2} !important;
+        background-color: transparent !important;
+        border-color: transparent !important;
+        border-radius: ${r.chip} !important;
+        box-shadow: none !important;
+      }
+
       pre,
       code,
       kbd,

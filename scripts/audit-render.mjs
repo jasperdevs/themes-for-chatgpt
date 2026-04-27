@@ -60,7 +60,7 @@ const baseHtml = `<!doctype html><html><head><style>
       <div id="generated-image-card" class="group/imagegen-image overflow-hidden max-h-80" style="position:relative;overflow:hidden;max-height:220px;width:500px;background:#fff4df;box-shadow:0 0 90px 44px #fff4df;filter:drop-shadow(0 0 32px #fff4df)">
         <div id="generated-image-glow" class="image-blur-gradient"></div>
         <img id="generated-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
-        <button id="generated-image-action">Edit</button>
+        <button id="generated-image-action" style="position:absolute;left:16px;bottom:10px;background:#000;border-radius:9999px;box-shadow:0 0 0 1px #000">Edit</button>
       </div>
       <div id="generated-image-crop-frame" class="group/imagegen-image aspect-square overflow-hidden" style="position:relative;overflow:hidden;width:500px;height:360px;max-height:360px;aspect-ratio:1 / 1;border-radius:24px">
         <img id="generated-image-cover" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:24px;border:1px solid red" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
@@ -70,8 +70,8 @@ const baseHtml = `<!doctype html><html><head><style>
           <img id="generated-image-media-photo" style="display:block;width:500px;height:360px;object-fit:cover;border-radius:28px;border:1px solid red" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
         </div>
         <div id="generated-image-media-footer" style="height:80px;background:#000;border-radius:0 0 28px 28px;box-shadow:inset 0 1px #000">
-          <button id="generated-image-media-edit">Edit</button>
-          <button id="generated-image-media-download" aria-label="Download"></button>
+          <button id="generated-image-media-edit" style="position:absolute;left:16px;bottom:10px;background:#000;border-radius:9999px;box-shadow:0 0 0 1px #000">Edit</button>
+          <button id="generated-image-media-download" aria-label="Download" style="position:absolute;right:16px;bottom:10px;background:#000;border-radius:9999px;box-shadow:0 0 0 1px #000"></button>
         </div>
       </div>
     </section>
@@ -239,6 +239,17 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedMediaFooterRadius: styleById('generated-image-media-footer').borderRadius,
         generatedMediaFooterShadow: styleById('generated-image-media-footer').boxShadow,
         generatedImageActionBg: styleById('generated-image-action').backgroundColor,
+        generatedImageActionPosition: styleById('generated-image-action').position,
+        generatedImageActionBottom: styleById('generated-image-action').bottom,
+        generatedImageActionRadius: styleById('generated-image-action').borderRadius,
+        generatedImageActionShadow: styleById('generated-image-action').boxShadow,
+        generatedMediaEditPosition: styleById('generated-image-media-edit').position,
+        generatedMediaEditBottom: styleById('generated-image-media-edit').bottom,
+        generatedMediaEditBg: styleById('generated-image-media-edit').backgroundColor,
+        generatedMediaEditRadius: styleById('generated-image-media-edit').borderRadius,
+        generatedMediaEditShadow: styleById('generated-image-media-edit').boxShadow,
+        generatedMediaDownloadPosition: styleById('generated-image-media-download').position,
+        generatedMediaDownloadBg: styleById('generated-image-media-download').backgroundColor,
         inlineCodeBg: styleById('inline-code').backgroundColor,
         inlineCodeColor: styleById('inline-code').color,
         codeShellBg: styleById('code-shell').backgroundColor,
@@ -438,6 +449,17 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedMediaFooterRadius === '0px', `${theme.id}/${mode}: generated media footer kept partial rounded corners ${values.generatedMediaFooterRadius}`);
     assert(values.generatedMediaFooterShadow === 'none', `${theme.id}/${mode}: generated media footer kept divider shadow ${values.generatedMediaFooterShadow}`);
     assert(values.generatedImageActionBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated image action should not be a solid block by default`);
+    assert(values.generatedImageActionPosition === 'static', `${theme.id}/${mode}: generated image action position is ${values.generatedImageActionPosition}`);
+    assert(values.generatedImageActionBottom === 'auto', `${theme.id}/${mode}: generated image action bottom is ${values.generatedImageActionBottom}`);
+    assert(values.generatedImageActionRadius === theme.radii.chip, `${theme.id}/${mode}: generated image action radius is ${values.generatedImageActionRadius}`);
+    assert(values.generatedImageActionShadow === 'none', `${theme.id}/${mode}: generated image action kept overlay shadow ${values.generatedImageActionShadow}`);
+    assert(values.generatedMediaEditPosition === 'static', `${theme.id}/${mode}: generated media edit position is ${values.generatedMediaEditPosition}`);
+    assert(values.generatedMediaEditBottom === 'auto', `${theme.id}/${mode}: generated media edit bottom is ${values.generatedMediaEditBottom}`);
+    assert(values.generatedMediaEditBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media edit kept overlay background ${values.generatedMediaEditBg}`);
+    assert(values.generatedMediaEditRadius === theme.radii.chip, `${theme.id}/${mode}: generated media edit radius is ${values.generatedMediaEditRadius}`);
+    assert(values.generatedMediaEditShadow === 'none', `${theme.id}/${mode}: generated media edit kept overlay shadow ${values.generatedMediaEditShadow}`);
+    assert(values.generatedMediaDownloadPosition === 'static', `${theme.id}/${mode}: generated media download position is ${values.generatedMediaDownloadPosition}`);
+    assert(values.generatedMediaDownloadBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media download kept overlay background ${values.generatedMediaDownloadBg}`);
     assert(values.inlineCodeBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: inline code lost its chip background`);
     assert(values.codeShellBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own background`);
     assert(values.codeShellBorderColor === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own border`);
