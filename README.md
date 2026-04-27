@@ -1,117 +1,82 @@
-<h1 align="center">Themes for ChatGPT</h1>
-<p align="center">A lightweight Chrome, Firefox, and Zen extension for Claude, Gemini, and Perplexity-style ChatGPT themes.</p>
+# Themes for ChatGPT
+
+A Chrome, Firefox, and Zen extension that gives ChatGPT Claude, Gemini, and Perplexity-style themes.
 
 <p align="center">
-  <a href="https://github.com/jasperdevs/themes-for-chatgpt/stargazers">
-    <img src="https://img.shields.io/github/stars/jasperdevs/themes-for-chatgpt?style=flat&logo=github&label=stars&color=d97757" alt="GitHub stars" />
-  </a>
-  <a href="https://github.com/jasperdevs/themes-for-chatgpt/releases">
-    <img src="https://img.shields.io/github/downloads/jasperdevs/themes-for-chatgpt/total?style=flat&logo=github&label=downloads&color=555" alt="GitHub downloads" />
-  </a>
-  <a href="https://github.com/jasperdevs/themes-for-chatgpt/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/jasperdevs/themes-for-chatgpt?style=flat&color=555" alt="Repository license" />
-  </a>
-  <a href="https://github.com/jasperdevs/themes-for-chatgpt/releases/latest">
-    <img src="https://img.shields.io/badge/release-v1.0.0-555?style=flat&logo=github" alt="Latest release" />
-  </a>
+  <img src="./docs/assets/chat-surfaces-placeholder.svg" alt="Light and dark ChatGPT theme comparison" width="100%" />
 </p>
 
-<!-- Replace these placeholder images with real ChatGPT screenshots before store submission. -->
+## What it does
 
-<h2 align="center">Install locally</h2>
+- Adds Claude, Gemini, and Perplexity-inspired themes.
+- Follows ChatGPT's light or dark mode automatically.
+- Lets you force Auto, Light, or Dark from the popup.
+- Keeps the native ChatGPT theme available as the default option.
+- Themes common ChatGPT UI: messages, composer, menus, settings, tables, files, reports, and sidebars.
+
+## Install locally
+
+Download the latest package from the [releases page](https://github.com/jasperdevs/themes-for-chatgpt/releases/latest), or load the repo folder directly while developing.
+
+### Chrome, Edge, Brave
+
+1. Open `chrome://extensions`.
+2. Enable `Developer mode`.
+3. Click `Load unpacked`.
+4. Select this repository folder.
+
+### Firefox / Zen
+
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click `Load Temporary Add-on`.
+3. Select `manifest.json`.
+
+## Themes
 
 <p align="center">
-  <a href="https://github.com/jasperdevs/themes-for-chatgpt/releases/latest">Download the packaged release files</a>
+  <img src="./docs/assets/theme-picker-placeholder.svg" alt="Theme picker preview" width="720" />
 </p>
 
-<table align="center">
-<tr>
-<td width="50%" valign="top" align="center">
-<h3><img src="https://cdn.simpleicons.org/googlechrome/4285F4" alt="Chrome" width="16" height="16" /> Chrome</h3>
-<p>1. Open <code>chrome://extensions</code></p>
-<p>2. Enable <code>Developer mode</code></p>
-<p>3. Click <code>Load unpacked</code></p>
-<p>4. Select the repository folder</p>
-</td>
-<td width="50%" valign="top" align="center">
-<h3><img src="https://cdn.simpleicons.org/firefoxbrowser/FF7139" alt="Firefox" width="16" height="16" /> Firefox / Zen</h3>
-<p>1. Open <code>about:debugging#/runtime/this-firefox</code></p>
-<p>2. Click <code>Load Temporary Add-on</code></p>
-<p>3. Select <code>manifest.json</code></p>
-</td>
-</tr>
-</table>
+The popup includes a theme picker and a mode switcher. `Auto` follows the current ChatGPT appearance. `Light` and `Dark` force the selected mode.
 
-<h2 align="center">Features</h2>
+## What it handles
 
-<table align="center">
-<tr>
-<td width="40%" valign="middle">
-<h3>Adaptive AI themes</h3>
-Switch ChatGPT between Claude, Gemini, and Perplexity-inspired presets while keeping a native default option.
-</td>
-<td width="60%">
-<img src="./docs/assets/theme-picker-placeholder.svg" alt="Theme picker placeholder" width="100%" />
-</td>
-</tr>
-<tr>
-<td width="40%" valign="middle">
-<h3>Light and dark aware</h3>
-Auto mode follows ChatGPT's current appearance, or you can force Light/Dark from the popup.
-</td>
-<td width="60%">
-<img src="./docs/assets/chat-surfaces-placeholder.svg" alt="Themed ChatGPT surface placeholder" width="100%" />
-</td>
-</tr>
-<tr>
-<td width="40%" valign="middle">
-<h3>Audited surfaces</h3>
-The theme CSS is checked against composer, menus, settings toggles, tables, report cards, library rows, files, tooltips, and message actions.
-</td>
-<td width="60%">
-<img src="./docs/assets/audit-placeholder.svg" alt="Theme audit placeholder" width="100%" />
-</td>
-</tr>
-</table>
+<p align="center">
+  <img src="./docs/assets/audit-placeholder.svg" alt="Theme coverage preview" width="720" />
+</p>
 
-<h2 align="center">Notes</h2>
+The CSS covers the parts of ChatGPT that usually break when recolored: the message composer, model menus, settings toggles, report cards, library rows, generated images, tables, tooltips, sidebars, and message actions.
 
-<p align="center">Uses only the browser <code>storage</code> permission</p>
-<p align="center">Runs on <code>chatgpt.com</code> and <code>chat.openai.com</code></p>
-<p align="center">Supports Chrome, Firefox, Edge, Brave, and Zen from one MV3 WebExtension codebase</p>
-<p align="center">Includes render audits and a live DOM scanner for clipped, invisible, or unthemed ChatGPT surfaces</p>
+## Development
 
-<h2 align="center">Development</h2>
-
-<p align="center">Install dependencies and launch the Zen dev loop:</p>
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Run the extension locally:
+
+```bash
 npm run dev
 ```
 
-<p align="center">Run the full verification suite:</p>
+Run the full check before publishing:
 
 ```bash
 npm run check
 ```
 
-<p align="center">Scan a real logged-in ChatGPT page from a browser started with remote debugging:</p>
+Scan a real ChatGPT tab from a browser started with remote debugging:
 
 ```bash
 npm run scan:chatgpt-dom
 ```
 
-<p align="center">
-  <a href="https://star-history.com/#jasperdevs/themes-for-chatgpt&Date">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=jasperdevs/themes-for-chatgpt&type=Date&theme=dark" />
-      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=jasperdevs/themes-for-chatgpt&type=Date" />
-      <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=jasperdevs/themes-for-chatgpt&type=Date" width="700" />
-    </picture>
-  </a>
-</p>
+## Permissions
 
-<h2 align="center">License</h2>
+The extension only requests `storage`. It runs on `chatgpt.com` and `chat.openai.com`.
 
-<p align="center">Themes for ChatGPT is available under the <a href="./LICENSE">MIT License</a>.</p>
+## License
+
+MIT. See [LICENSE](./LICENSE).
