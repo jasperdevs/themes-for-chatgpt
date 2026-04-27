@@ -182,6 +182,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         sourceRadius: styleById('source-chip').borderRadius,
         actionBg: styleById('message-action').backgroundColor,
         bubbleBg: styleById('user-bubble').backgroundColor,
+        bubbleFont: styleById('user-bubble').fontFamily,
         deepResearchColor: styleById('deep-research').color,
         deepResearchBorder: styleById('deep-research').borderTopColor,
         reportBg: styleById('report-card').backgroundColor,
@@ -192,8 +193,12 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         nestedShadow: styleById('composer-nested').boxShadow,
         nestedBorderTop: styleById('composer-nested').borderTopWidth,
         promptBg: styleById('prompt-textarea').backgroundColor,
+        promptFont: styleById('prompt-textarea').fontFamily,
+        promptWeight: styleById('prompt-textarea').fontWeight,
+        attachBg: styleById('attach-button').backgroundColor,
         activeModelChipBg: styleById('active-model-chip').backgroundColor,
         activeModelChipColor: styleById('active-model-chip').color,
+        activeModelChipWeight: styleById('active-model-chip').fontWeight,
         activeModelChipInnerBg: styleBySelector('#active-model-chip span').backgroundColor,
         dictateColor: styleById('dictate-button').color,
         sendBg: styleById('send-button').backgroundColor,
@@ -207,6 +212,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         promptAltBg: styleById('prompt-alt').backgroundColor,
         activeModelChipAltBg: styleById('active-model-chip-alt').backgroundColor,
         activeModelChipAltColor: styleById('active-model-chip-alt').color,
+        activeModelChipAltWeight: styleById('active-model-chip-alt').fontWeight,
         activeModelChipAltInnerBg: styleBySelector('#active-model-chip-alt span').backgroundColor,
         dictateAltColor: styleById('dictate-button-alt').color,
         sendAltBg: styleById('send-button-alt').backgroundColor,
@@ -269,6 +275,8 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
       assert(Number.parseFloat(values.h2Weight) <= 500, `${theme.id}/${mode}: Claude markdown heading weight is too heavy (${values.h2Weight})`);
       assert(Number.parseFloat(values.markdownStrongWeight) <= 500, `${theme.id}/${mode}: Claude markdown strong weight is too heavy (${values.markdownStrongWeight})`);
       assert(Number.parseFloat(values.tableThWeight) <= 500, `${theme.id}/${mode}: Claude markdown table header weight is too heavy (${values.tableThWeight})`);
+      assert(values.bubbleFont !== values.h2Font, `${theme.id}/${mode}: user bubble inherited Claude article font`);
+      assert(values.promptFont !== values.h2Font, `${theme.id}/${mode}: composer prompt inherited Claude article font`);
     }
     assert(values.tableDisplay === 'table', `${theme.id}/${mode}: markdown table display is ${values.tableDisplay}`);
     assert(values.tableMinWidth === '0px', `${theme.id}/${mode}: markdown table min-width is ${values.tableMinWidth}`);
@@ -318,9 +326,11 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.nestedShadow === 'none', `${theme.id}/${mode}: nested composer wrapper has unwanted shadow`);
     assert(values.nestedBorderTop === '0px', `${theme.id}/${mode}: nested composer wrapper has unwanted border`);
     assert(values.promptBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: prompt textarea should stay transparent inside composer`);
+    assert(values.attachBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer attach button background is ${values.attachBg}`);
+    assert(Number.parseFloat(values.promptWeight) <= 450, `${theme.id}/${mode}: composer prompt weight is too heavy (${values.promptWeight})`);
     assert(values.activeModelChipBg !== 'rgb(59, 130, 246)', `${theme.id}/${mode}: composer active model chip kept Tailwind blue`);
-    assert(values.activeModelChipBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer active model chip background is transparent`);
     assert(values.activeModelChipColor !== values.activeModelChipBg, `${theme.id}/${mode}: composer active model chip text matches background`);
+    assert(Number.parseFloat(values.activeModelChipWeight) <= 500, `${theme.id}/${mode}: composer model chip weight is too heavy (${values.activeModelChipWeight})`);
     assert(values.activeModelChipInnerBg !== 'rgb(37, 99, 235)', `${theme.id}/${mode}: composer active model chip inner icon kept Tailwind blue`);
     assert(values.dictateColor !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: dictate button is black`);
     assert(values.sendBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: send button background is transparent`);
@@ -333,8 +343,8 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.nestedAltBorderTop === '0px', `${theme.id}/${mode}: data-testid composer nested wrapper has unwanted border`);
     assert(values.promptAltBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer prompt should stay transparent`);
     assert(values.activeModelChipAltBg !== 'rgb(59, 130, 246)', `${theme.id}/${mode}: data-testid composer model chip kept Tailwind blue`);
-    assert(values.activeModelChipAltBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer model chip background is transparent`);
     assert(values.activeModelChipAltColor !== values.activeModelChipAltBg, `${theme.id}/${mode}: data-testid composer model chip text matches background`);
+    assert(Number.parseFloat(values.activeModelChipAltWeight) <= 500, `${theme.id}/${mode}: data-testid composer model chip weight is too heavy (${values.activeModelChipAltWeight})`);
     assert(values.activeModelChipAltInnerBg !== 'rgb(37, 99, 235)', `${theme.id}/${mode}: data-testid composer model chip inner icon kept Tailwind blue`);
     assert(values.dictateAltColor !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: data-testid composer dictate button is black`);
     assert(values.sendAltBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer send button background is transparent`);

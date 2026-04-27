@@ -301,9 +301,14 @@ const CHATTHEMES = (() => {
         font-weight: ${tw.headingWeight || '600'} !important;
       }
 
-      .markdown,
-      .prose,
       [data-message-author-role] {
+        font-family: ${uiFont} !important;
+        font-weight: ${bodyWeight} !important;
+        font-synthesis-weight: none !important;
+      }
+
+      .markdown,
+      .prose {
         font-family: ${f.body} !important;
         font-weight: ${bodyWeight} !important;
         font-synthesis-weight: none !important;
@@ -384,6 +389,13 @@ const CHATTHEMES = (() => {
         line-height: ${tw.bodyLineHeight || '1.55'} !important;
         font-weight: ${bodyWeight} !important;
         text-wrap: pretty !important;
+      }
+
+      .markdown :where(p, li, td, blockquote) :where(span, div):not(strong, strong *, b, b *),
+      .prose :where(p, li, td, blockquote) :where(span, div):not(strong, strong *, b, b *),
+      .markdown :where(.font-semibold, .font-bold):not(strong, strong *, b, b *, th, h1, h2, h3, h4, h5, h6),
+      .prose :where(.font-semibold, .font-bold):not(strong, strong *, b, b *, th, h1, h2, h3, h4, h5, h6) {
+        font-weight: ${bodyWeight} !important;
       }
 
       .markdown p,
@@ -786,6 +798,7 @@ const CHATTHEMES = (() => {
         border-color: ${c.border} !important;
         border-radius: ${r.chip} !important;
         box-shadow: none !important;
+        font-weight: 400 !important;
       }
 
       form[data-type="unified"] button[aria-haspopup] svg,
@@ -1405,6 +1418,28 @@ const CHATTHEMES = (() => {
         border-color: transparent !important;
         box-shadow: none !important;
         font-family: ${uiFont} !important;
+        font-weight: 400 !important;
+      }
+
+      form[data-type="unified"] button[aria-haspopup]:not([aria-expanded="true"]),
+      form[data-type="unified"] [role="button"][aria-haspopup]:not([aria-expanded="true"]),
+      form[data-type="unified"] button[data-state="active"]:not([aria-expanded="true"]),
+      form[data-type="unified"] button[aria-pressed="true"]:not([aria-expanded="true"]),
+      [data-testid="composer"] button[aria-haspopup]:not([aria-expanded="true"]),
+      [data-testid="composer"] [role="button"][aria-haspopup]:not([aria-expanded="true"]),
+      [data-testid="composer"] button[data-state="active"]:not([aria-expanded="true"]),
+      [data-testid="composer"] button[aria-pressed="true"]:not([aria-expanded="true"]),
+      form:has([data-testid*="prompt-textarea"]) button[aria-haspopup]:not([aria-expanded="true"]),
+      form:has([data-testid*="prompt-textarea"]) [role="button"][aria-haspopup]:not([aria-expanded="true"]),
+      form:has([data-testid*="prompt-textarea"]) button[data-state="active"]:not([aria-expanded="true"]),
+      form:has([data-testid*="prompt-textarea"]) button[aria-pressed="true"]:not([aria-expanded="true"]),
+      form:has(#prompt-textarea) button[aria-haspopup]:not([aria-expanded="true"]),
+      form:has(#prompt-textarea) [role="button"][aria-haspopup]:not([aria-expanded="true"]),
+      form:has(#prompt-textarea) button[data-state="active"]:not([aria-expanded="true"]),
+      form:has(#prompt-textarea) button[aria-pressed="true"]:not([aria-expanded="true"]) {
+        background-color: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
       }
 
       form[data-type="unified"] button:hover,
