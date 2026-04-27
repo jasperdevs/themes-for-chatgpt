@@ -94,19 +94,23 @@ const baseHtml = `<!doctype html><html><head><style>
     </a>
     <form data-type="unified" id="composer">
       <div id="composer-nested" class="composer-nested-wrapper">
-        <div data-testid="prompt-textarea" id="prompt-textarea" contenteditable="true">Ask anything</div>
-        <button id="attach-button" aria-label="Attach files"><svg></svg></button>
-        <button id="active-model-chip" aria-haspopup="menu" data-state="active" class="bg-blue-500 text-white"><span class="bg-blue-600">x</span>Pro</button>
-        <button id="dictate-button" aria-label="Dictate"><svg></svg></button>
-        <button id="send-button" data-testid="send-button" aria-label="Send"><svg></svg></button>
+        <div id="composer-inner-frame" style="background:red;border:1px solid red;border-radius:24px;box-shadow:0 0 0 2px red;max-height:18px">
+          <div data-testid="prompt-textarea" id="prompt-textarea" contenteditable="true">Ask anything</div>
+          <button id="attach-button" aria-label="Attach files"><svg></svg></button>
+          <button id="active-model-chip" aria-haspopup="menu" data-state="active" class="bg-blue-500 text-white"><span class="bg-blue-600">x</span>Pro</button>
+          <button id="dictate-button" aria-label="Dictate"><svg></svg></button>
+          <button id="send-button" data-testid="send-button" aria-label="Send"><svg></svg></button>
+        </div>
       </div>
     </form>
     <form data-testid="composer" id="composer-alt">
       <div id="composer-alt-nested" style="overflow:hidden;max-height:18px;box-shadow:0 0 0 2px red;border-top:1px solid red">
-        <div data-testid="prompt-textarea" id="prompt-alt" contenteditable="true">Ask anything</div>
-        <button id="active-model-chip-alt" aria-haspopup="menu" data-state="active" class="bg-blue-500 text-white"><span class="bg-blue-600">x</span>Pro</button>
-        <button id="dictate-button-alt" aria-label="Dictate"><svg></svg></button>
-        <button id="send-button-alt" aria-label="Send"><svg></svg></button>
+        <div id="composer-alt-inner-frame" style="background:red;border:1px solid red;border-radius:24px;box-shadow:0 0 0 2px red;max-height:18px">
+          <div data-testid="prompt-textarea" id="prompt-alt" contenteditable="true">Ask anything</div>
+          <button id="active-model-chip-alt" aria-haspopup="menu" data-state="active" class="bg-blue-500 text-white"><span class="bg-blue-600">x</span>Pro</button>
+          <button id="dictate-button-alt" aria-label="Dictate"><svg></svg></button>
+          <button id="send-button-alt" aria-label="Send"><svg></svg></button>
+        </div>
       </div>
     </form>
     <div role="tooltip" id="tooltip">Dictate <kbd>Ctrl+Shift+D</kbd></div>
@@ -352,8 +356,15 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         composerOverflow: styleById('composer').overflow,
         composerBg: styleById('composer').backgroundColor,
         nestedBg: styleById('composer-nested').backgroundColor,
+        nestedOverflow: styleById('composer-nested').overflow,
+        nestedRadius: styleById('composer-nested').borderRadius,
         nestedShadow: styleById('composer-nested').boxShadow,
         nestedBorderTop: styleById('composer-nested').borderTopWidth,
+        innerFrameBg: styleById('composer-inner-frame').backgroundColor,
+        innerFrameBorderTop: styleById('composer-inner-frame').borderTopWidth,
+        innerFrameRadius: styleById('composer-inner-frame').borderRadius,
+        innerFrameShadow: styleById('composer-inner-frame').boxShadow,
+        innerFrameMaxHeight: styleById('composer-inner-frame').maxHeight,
         promptBg: styleById('prompt-textarea').backgroundColor,
         promptFont: styleById('prompt-textarea').fontFamily,
         promptWeight: styleById('prompt-textarea').fontWeight,
@@ -369,9 +380,15 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         composerAltBg: styleById('composer-alt').backgroundColor,
         nestedAltBg: styleById('composer-alt-nested').backgroundColor,
         nestedAltOverflow: styleById('composer-alt-nested').overflow,
+        nestedAltRadius: styleById('composer-alt-nested').borderRadius,
         nestedAltMaxHeight: styleById('composer-alt-nested').maxHeight,
         nestedAltShadow: styleById('composer-alt-nested').boxShadow,
         nestedAltBorderTop: styleById('composer-alt-nested').borderTopWidth,
+        innerAltFrameBg: styleById('composer-alt-inner-frame').backgroundColor,
+        innerAltFrameBorderTop: styleById('composer-alt-inner-frame').borderTopWidth,
+        innerAltFrameRadius: styleById('composer-alt-inner-frame').borderRadius,
+        innerAltFrameShadow: styleById('composer-alt-inner-frame').boxShadow,
+        innerAltFrameMaxHeight: styleById('composer-alt-inner-frame').maxHeight,
         promptAltBg: styleById('prompt-alt').backgroundColor,
         activeModelChipAltBg: styleById('active-model-chip-alt').backgroundColor,
         activeModelChipAltColor: styleById('active-model-chip-alt').color,
@@ -602,8 +619,15 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.composerOverflow === 'visible', `${theme.id}/${mode}: composer overflow is ${values.composerOverflow}`);
     assert(values.composerBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer outer should stay transparent`);
     assert(values.nestedBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer visible surface is transparent`);
+    assert(values.nestedOverflow === 'hidden', `${theme.id}/${mode}: composer visible surface overflow is ${values.nestedOverflow}`);
+    assert(values.nestedRadius === theme.radii.input, `${theme.id}/${mode}: composer visible surface radius is ${values.nestedRadius}`);
     assert(values.nestedShadow === 'none', `${theme.id}/${mode}: nested composer wrapper has unwanted shadow`);
     assert(values.nestedBorderTop === '1px', `${theme.id}/${mode}: nested composer wrapper border is ${values.nestedBorderTop}`);
+    assert(values.innerFrameBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: inner composer frame kept its own background ${values.innerFrameBg}`);
+    assert(values.innerFrameBorderTop === '0px', `${theme.id}/${mode}: inner composer frame kept its own border ${values.innerFrameBorderTop}`);
+    assert(values.innerFrameRadius === '0px', `${theme.id}/${mode}: inner composer frame kept its own radius ${values.innerFrameRadius}`);
+    assert(values.innerFrameShadow === 'none', `${theme.id}/${mode}: inner composer frame kept its own shadow ${values.innerFrameShadow}`);
+    assert(values.innerFrameMaxHeight === 'none', `${theme.id}/${mode}: inner composer frame max-height is ${values.innerFrameMaxHeight}`);
     assert(values.promptBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: prompt textarea should stay transparent inside composer`);
     assert(values.attachBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer attach button background is ${values.attachBg}`);
     assert(Number.parseFloat(values.promptWeight) <= 450, `${theme.id}/${mode}: composer prompt weight is too heavy (${values.promptWeight})`);
@@ -617,10 +641,16 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.composerAltOverflow === 'visible', `${theme.id}/${mode}: data-testid composer overflow is ${values.composerAltOverflow}`);
     assert(values.composerAltBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer outer should stay transparent`);
     assert(values.nestedAltBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer visible surface is transparent`);
-    assert(values.nestedAltOverflow === 'visible', `${theme.id}/${mode}: data-testid composer nested overflow is ${values.nestedAltOverflow}`);
+    assert(values.nestedAltOverflow === 'hidden', `${theme.id}/${mode}: data-testid composer nested overflow is ${values.nestedAltOverflow}`);
+    assert(values.nestedAltRadius === theme.radii.input, `${theme.id}/${mode}: data-testid composer visible surface radius is ${values.nestedAltRadius}`);
     assert(values.nestedAltMaxHeight === 'none', `${theme.id}/${mode}: data-testid composer nested max-height is ${values.nestedAltMaxHeight}`);
     assert(values.nestedAltShadow === 'none', `${theme.id}/${mode}: data-testid composer nested wrapper has unwanted shadow`);
     assert(values.nestedAltBorderTop === '1px', `${theme.id}/${mode}: data-testid composer nested wrapper border is ${values.nestedAltBorderTop}`);
+    assert(values.innerAltFrameBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer inner frame kept its own background ${values.innerAltFrameBg}`);
+    assert(values.innerAltFrameBorderTop === '0px', `${theme.id}/${mode}: data-testid composer inner frame kept its own border ${values.innerAltFrameBorderTop}`);
+    assert(values.innerAltFrameRadius === '0px', `${theme.id}/${mode}: data-testid composer inner frame kept its own radius ${values.innerAltFrameRadius}`);
+    assert(values.innerAltFrameShadow === 'none', `${theme.id}/${mode}: data-testid composer inner frame kept its own shadow ${values.innerAltFrameShadow}`);
+    assert(values.innerAltFrameMaxHeight === 'none', `${theme.id}/${mode}: data-testid composer inner frame max-height is ${values.innerAltFrameMaxHeight}`);
     assert(values.promptAltBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer prompt should stay transparent`);
     assert(values.activeModelChipAltBg !== 'rgb(59, 130, 246)', `${theme.id}/${mode}: data-testid composer model chip kept Tailwind blue`);
     assert(values.activeModelChipAltColor !== values.activeModelChipAltBg, `${theme.id}/${mode}: data-testid composer model chip text matches background`);

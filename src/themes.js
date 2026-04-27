@@ -922,16 +922,29 @@ const CHATTHEMES = (() => {
         font-family: ${uiFont} !important;
       }
 
-      form[data-type="unified"] > div,
-      [data-testid="composer"] > div,
-      form:has([data-testid*="prompt-textarea"]) > div,
-      form:has(#prompt-textarea) > div {
+      form[data-type="unified"] > div:has(:is([data-testid*="prompt-textarea"], #prompt-textarea, [contenteditable="true"][role="textbox"])),
+      [data-testid="composer"] > div:has(:is([data-testid*="prompt-textarea"], #prompt-textarea, [contenteditable="true"][role="textbox"])),
+      form:has([data-testid*="prompt-textarea"]) > div:has(:is([data-testid*="prompt-textarea"], #prompt-textarea, [contenteditable="true"][role="textbox"])),
+      form:has(#prompt-textarea) > div:has(:is([data-testid*="prompt-textarea"], #prompt-textarea, [contenteditable="true"][role="textbox"])) {
         background-color: ${c.bg2} !important;
         color: ${c.text1} !important;
         border: 1px solid ${c.border} !important;
         border-radius: ${r.input} !important;
+        background-clip: padding-box !important;
         box-shadow: none !important;
-        overflow: visible !important;
+        overflow: hidden !important;
+        max-height: none !important;
+        isolation: isolate !important;
+      }
+
+      form[data-type="unified"] > div:has(:is([data-testid*="prompt-textarea"], #prompt-textarea, [contenteditable="true"][role="textbox"])) > :is(div, label, section):not([data-testid*="prompt-textarea"]):not(#prompt-textarea),
+      [data-testid="composer"] > div:has(:is([data-testid*="prompt-textarea"], #prompt-textarea, [contenteditable="true"][role="textbox"])) > :is(div, label, section):not([data-testid*="prompt-textarea"]):not(#prompt-textarea),
+      form:has([data-testid*="prompt-textarea"]) > div:has(:is([data-testid*="prompt-textarea"], #prompt-textarea, [contenteditable="true"][role="textbox"])) > :is(div, label, section):not([data-testid*="prompt-textarea"]):not(#prompt-textarea),
+      form:has(#prompt-textarea) > div:has(:is([data-testid*="prompt-textarea"], #prompt-textarea, [contenteditable="true"][role="textbox"])) > :is(div, label, section):not([data-testid*="prompt-textarea"]):not(#prompt-textarea) {
+        background: transparent !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
         max-height: none !important;
       }
 
