@@ -35,6 +35,9 @@ const baseHtml = `<!doctype html><html><head></head><body>
         <img id="generated-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
         <button id="generated-image-action">Edit</button>
       </div>
+      <div id="generated-image-crop-frame" class="group/imagegen-image aspect-square overflow-hidden" style="position:relative;overflow:hidden;width:500px;height:360px;max-height:360px;aspect-ratio:1 / 1;border-radius:24px">
+        <img id="generated-image-cover" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:24px;border:1px solid red" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
+      </div>
     </section>
     <section data-message-author-role="user"><div class="bg-token-message-surface" id="user-bubble">User message</div></section>
     <button id="deep-research" data-testid="deep-research-button" aria-label="Deep research" class="text-blue-400 border-blue-400"><svg></svg>Deep research</button>
@@ -144,6 +147,17 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedImageCardOverflow: styleById('generated-image-card').overflow,
         generatedImageCardMaxHeight: styleById('generated-image-card').maxHeight,
         generatedImageHeight: styleById('generated-image').height,
+        generatedImageRadius: styleById('generated-image').borderRadius,
+        generatedImageBorderWidth: styleById('generated-image').borderTopWidth,
+        generatedCropFrameHeight: styleById('generated-image-crop-frame').height,
+        generatedCropFrameMaxHeight: styleById('generated-image-crop-frame').maxHeight,
+        generatedCropFrameOverflow: styleById('generated-image-crop-frame').overflow,
+        generatedCropFrameAspectRatio: styleById('generated-image-crop-frame').aspectRatio,
+        generatedCoverPosition: styleById('generated-image-cover').position,
+        generatedCoverObjectFit: styleById('generated-image-cover').objectFit,
+        generatedCoverHeight: styleById('generated-image-cover').height,
+        generatedCoverRadius: styleById('generated-image-cover').borderRadius,
+        generatedCoverBorderWidth: styleById('generated-image-cover').borderTopWidth,
         generatedImageActionBg: styleById('generated-image-action').backgroundColor,
         inlineCodeBg: styleById('inline-code').backgroundColor,
         sourceBg: styleById('source-chip').backgroundColor,
@@ -243,6 +257,17 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedImageCardOverflow === 'visible', `${theme.id}/${mode}: generated image card overflow is ${values.generatedImageCardOverflow}`);
     assert(values.generatedImageCardMaxHeight === 'none', `${theme.id}/${mode}: generated image card max-height is ${values.generatedImageCardMaxHeight}`);
     assert(Number.parseFloat(values.generatedImageHeight) > 220, `${theme.id}/${mode}: generated image appears clipped`);
+    assert(values.generatedImageRadius === '0px', `${theme.id}/${mode}: generated image kept rounded corners`);
+    assert(values.generatedImageBorderWidth === '0px', `${theme.id}/${mode}: generated image kept themed border`);
+    assert(values.generatedCropFrameOverflow === 'visible', `${theme.id}/${mode}: aspect image frame overflow is ${values.generatedCropFrameOverflow}`);
+    assert(values.generatedCropFrameMaxHeight === 'none', `${theme.id}/${mode}: aspect image frame max-height is ${values.generatedCropFrameMaxHeight}`);
+    assert(values.generatedCropFrameAspectRatio === 'auto', `${theme.id}/${mode}: aspect image frame aspect-ratio is ${values.generatedCropFrameAspectRatio}`);
+    assert(Number.parseFloat(values.generatedCropFrameHeight) > 360, `${theme.id}/${mode}: aspect image frame still crops height ${values.generatedCropFrameHeight}`);
+    assert(values.generatedCoverPosition === 'static', `${theme.id}/${mode}: generated cover image position is ${values.generatedCoverPosition}`);
+    assert(values.generatedCoverObjectFit === 'contain', `${theme.id}/${mode}: generated cover image object-fit is ${values.generatedCoverObjectFit}`);
+    assert(Number.parseFloat(values.generatedCoverHeight) > 360, `${theme.id}/${mode}: generated cover image still appears cropped`);
+    assert(values.generatedCoverRadius === '0px', `${theme.id}/${mode}: generated cover image kept rounded corners`);
+    assert(values.generatedCoverBorderWidth === '0px', `${theme.id}/${mode}: generated cover image kept themed border`);
     assert(values.generatedImageActionBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated image action should not be a solid block by default`);
     assert(values.sourceBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: source chip background is transparent`);
     assert(values.bubbleBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: user bubble background is transparent`);

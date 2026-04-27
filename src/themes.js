@@ -526,11 +526,30 @@ const CHATTHEMES = (() => {
       [data-testid*="conversation-turn"] [style*="overflow"]:has(img),
       [data-testid*="conversation-turn"] [class*="overflow-hidden"]:has(img),
       [data-testid*="conversation-turn"] [class*="max-h-"]:has(img),
+      [data-testid*="conversation-turn"] [class*="aspect-"]:has(img),
+      [data-testid*="conversation-turn"] [style*="aspect-ratio"]:has(img),
       [data-testid*="conversation-turn"] [class*="imagegen"]:has(img),
       [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) {
         overflow: visible !important;
         max-height: none !important;
         height: auto !important;
+        aspect-ratio: auto !important;
+        clip-path: none !important;
+      }
+
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) img,
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) img,
+      [data-testid*="conversation-turn"] [class*="aspect-"]:has(img) img,
+      [data-testid*="conversation-turn"] [style*="aspect-ratio"]:has(img) img {
+        position: static !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        object-fit: contain !important;
+        aspect-ratio: auto !important;
+        border: 0 !important;
+        border-radius: 0 !important;
         clip-path: none !important;
       }
 

@@ -27,6 +27,8 @@ const REQUIRED_CSS = [
   '[data-message-author-role] div:has(> img)',
   '[data-message-author-role] [style*="overflow"]:has(img)',
   '[data-testid*="conversation-turn"] [style*="overflow"]:has(img)',
+  '[data-testid*="conversation-turn"] [class*="aspect-"]:has(img)',
+  '[data-testid*="conversation-turn"] [class*="imagegen"]:has(img) img',
   '.markdown details',
   'pre [class*="sticky"]',
   '[data-message-author-role] button',
