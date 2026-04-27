@@ -207,12 +207,19 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         imageHeight: styleById('answer-image').height,
         imageWrapperOverflow: styleById('image-wrapper').overflow,
         imageWrapperMaxHeight: styleById('image-wrapper').maxHeight,
+        imageWrapperRadius: styleById('image-wrapper').borderRadius,
+        imageWrapperTopLeftRadius: styleById('image-wrapper').borderTopLeftRadius,
+        imageWrapperTopRightRadius: styleById('image-wrapper').borderTopRightRadius,
+        imageWrapperBottomRightRadius: styleById('image-wrapper').borderBottomRightRadius,
+        imageWrapperBottomLeftRadius: styleById('image-wrapper').borderBottomLeftRadius,
         imageSpanOverflow: styleById('image-span').overflow,
         imageSpanMaxHeight: styleById('image-span').maxHeight,
+        imageSpanRadius: styleById('image-span').borderRadius,
         nestedImageHeight: styleById('nested-answer-image').height,
         generatedImageCardOverflow: styleById('generated-image-card').overflow,
         generatedImageCardMaxHeight: styleById('generated-image-card').maxHeight,
         generatedImageCardBg: styleById('generated-image-card').backgroundColor,
+        generatedImageCardRadius: styleById('generated-image-card').borderRadius,
         generatedImageCardShadow: styleById('generated-image-card').boxShadow,
         generatedImageCardFilter: styleById('generated-image-card').filter,
         generatedImageCardBeforeDisplay: getComputedStyle(document.getElementById('generated-image-card'), '::before').display,
@@ -241,9 +248,17 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedMediaFrameHeight: styleById('generated-image-media-frame').height,
         generatedMediaFrameBg: styleById('generated-image-media-frame').backgroundColor,
         generatedMediaFrameRadius: styleById('generated-image-media-frame').borderRadius,
+        generatedMediaFrameTopLeftRadius: styleById('generated-image-media-frame').borderTopLeftRadius,
+        generatedMediaFrameTopRightRadius: styleById('generated-image-media-frame').borderTopRightRadius,
+        generatedMediaFrameBottomRightRadius: styleById('generated-image-media-frame').borderBottomRightRadius,
+        generatedMediaFrameBottomLeftRadius: styleById('generated-image-media-frame').borderBottomLeftRadius,
         generatedMediaPhotoHeight: styleById('generated-image-media-photo').height,
         generatedMediaPhotoObjectFit: styleById('generated-image-media-photo').objectFit,
         generatedMediaPhotoRadius: styleById('generated-image-media-photo').borderRadius,
+        generatedMediaPhotoTopLeftRadius: styleById('generated-image-media-photo').borderTopLeftRadius,
+        generatedMediaPhotoTopRightRadius: styleById('generated-image-media-photo').borderTopRightRadius,
+        generatedMediaPhotoBottomRightRadius: styleById('generated-image-media-photo').borderBottomRightRadius,
+        generatedMediaPhotoBottomLeftRadius: styleById('generated-image-media-photo').borderBottomLeftRadius,
         generatedMediaPhotoBorderWidth: styleById('generated-image-media-photo').borderTopWidth,
         generatedMediaPhotoTop: document.getElementById('generated-image-media-photo').getBoundingClientRect().top,
         generatedMediaPhotoBottom: document.getElementById('generated-image-media-photo').getBoundingClientRect().bottom,
@@ -441,20 +456,31 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     }
     assert(values.tableDisplay === 'table', `${theme.id}/${mode}: markdown table display is ${values.tableDisplay}`);
     assert(values.tableMinWidth === '0px', `${theme.id}/${mode}: markdown table min-width is ${values.tableMinWidth}`);
-    assert(values.imageWrapperOverflow === 'visible', `${theme.id}/${mode}: image wrapper overflow is ${values.imageWrapperOverflow}`);
+    const expectedImageRadius = theme.radii.card;
+    const expectedCornerRadii = [expectedImageRadius, expectedImageRadius, expectedImageRadius, expectedImageRadius].join('|');
+    const wrapperCornerRadii = [
+      values.imageWrapperTopLeftRadius,
+      values.imageWrapperTopRightRadius,
+      values.imageWrapperBottomRightRadius,
+      values.imageWrapperBottomLeftRadius,
+    ].join('|');
+    assert(values.imageWrapperOverflow === 'hidden', `${theme.id}/${mode}: image wrapper overflow is ${values.imageWrapperOverflow}`);
     assert(values.imageWrapperMaxHeight === 'none', `${theme.id}/${mode}: image wrapper max-height is ${values.imageWrapperMaxHeight}`);
+    assert(values.imageWrapperRadius === expectedImageRadius, `${theme.id}/${mode}: image wrapper radius is ${values.imageWrapperRadius}, expected ${expectedImageRadius}`);
+    assert(wrapperCornerRadii === expectedCornerRadii, `${theme.id}/${mode}: image wrapper corners are asymmetric ${wrapperCornerRadii}`);
     assert(Number.parseFloat(values.imageHeight) > 24, `${theme.id}/${mode}: answer image height appears clipped`);
-    assert(values.imageSpanOverflow === 'visible', `${theme.id}/${mode}: nested image span overflow is ${values.imageSpanOverflow}`);
+    assert(values.imageSpanOverflow === 'hidden', `${theme.id}/${mode}: nested image span overflow is ${values.imageSpanOverflow}`);
     assert(values.imageSpanMaxHeight === 'none', `${theme.id}/${mode}: nested image span max-height is ${values.imageSpanMaxHeight}`);
+    assert(values.imageSpanRadius === expectedImageRadius, `${theme.id}/${mode}: nested image span radius is ${values.imageSpanRadius}, expected ${expectedImageRadius}`);
     assert(Number.parseFloat(values.nestedImageHeight) > 12, `${theme.id}/${mode}: nested answer image height appears clipped`);
     assert(values.generatedImageCardOverflow === 'visible', `${theme.id}/${mode}: generated image card overflow is ${values.generatedImageCardOverflow}`);
     assert(values.generatedImageCardMaxHeight === 'none', `${theme.id}/${mode}: generated image card max-height is ${values.generatedImageCardMaxHeight}`);
     assert(values.generatedImageCardBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated image card kept halo background ${values.generatedImageCardBg}`);
+    assert(values.generatedImageCardRadius === expectedImageRadius, `${theme.id}/${mode}: generated image card radius is ${values.generatedImageCardRadius}, expected ${expectedImageRadius}`);
     assert(values.generatedImageCardShadow === 'none', `${theme.id}/${mode}: generated image card kept halo shadow ${values.generatedImageCardShadow}`);
     assert(values.generatedImageCardFilter === 'none', `${theme.id}/${mode}: generated image card kept halo filter ${values.generatedImageCardFilter}`);
     assert(values.generatedImageCardBeforeDisplay === 'none', `${theme.id}/${mode}: generated image card pseudo halo still displays ${values.generatedImageCardBeforeDisplay}`);
     assert(values.generatedImageGlowDisplay === 'none', `${theme.id}/${mode}: generated image glow child still displays ${values.generatedImageGlowDisplay}`);
-    const expectedImageRadius = theme.radii.card;
     assert(Number.parseFloat(values.generatedImageHeight) > 220, `${theme.id}/${mode}: generated image appears clipped`);
     assert(values.generatedImageRadius === expectedImageRadius, `${theme.id}/${mode}: generated image radius is ${values.generatedImageRadius}, expected ${expectedImageRadius}`);
     assert(values.generatedImageBorderWidth === '0px', `${theme.id}/${mode}: generated image kept themed border`);
@@ -474,14 +500,28 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedMediaShellBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media shell kept black background ${values.generatedMediaShellBg}`);
     assert(values.generatedMediaShellRadius === '0px', `${theme.id}/${mode}: generated media shell kept broken card radius ${values.generatedMediaShellRadius}`);
     assert(values.generatedMediaShellShadow === 'none', `${theme.id}/${mode}: generated media shell kept shadow ${values.generatedMediaShellShadow}`);
-    assert(values.generatedMediaFrameOverflow === 'visible', `${theme.id}/${mode}: generated media frame overflow is ${values.generatedMediaFrameOverflow}`);
+    const generatedMediaFrameCorners = [
+      values.generatedMediaFrameTopLeftRadius,
+      values.generatedMediaFrameTopRightRadius,
+      values.generatedMediaFrameBottomRightRadius,
+      values.generatedMediaFrameBottomLeftRadius,
+    ].join('|');
+    const generatedMediaPhotoCorners = [
+      values.generatedMediaPhotoTopLeftRadius,
+      values.generatedMediaPhotoTopRightRadius,
+      values.generatedMediaPhotoBottomRightRadius,
+      values.generatedMediaPhotoBottomLeftRadius,
+    ].join('|');
+    assert(values.generatedMediaFrameOverflow === 'hidden', `${theme.id}/${mode}: generated media frame overflow is ${values.generatedMediaFrameOverflow}`);
     assert(values.generatedMediaFrameMaxHeight === 'none', `${theme.id}/${mode}: generated media frame max-height is ${values.generatedMediaFrameMaxHeight}`);
     assert(Number.parseFloat(values.generatedMediaFrameHeight) > 360, `${theme.id}/${mode}: generated media frame still clips the photo`);
     assert(values.generatedMediaFrameBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media frame kept black background ${values.generatedMediaFrameBg}`);
-    assert(values.generatedMediaFrameRadius === '0px', `${theme.id}/${mode}: generated media frame kept partial rounded corners ${values.generatedMediaFrameRadius}`);
+    assert(values.generatedMediaFrameRadius === expectedImageRadius, `${theme.id}/${mode}: generated media frame radius is ${values.generatedMediaFrameRadius}, expected ${expectedImageRadius}`);
+    assert(generatedMediaFrameCorners === expectedCornerRadii, `${theme.id}/${mode}: generated media frame corners are asymmetric ${generatedMediaFrameCorners}`);
     assert(Number.parseFloat(values.generatedMediaPhotoHeight) > 360, `${theme.id}/${mode}: generated media photo remains cropped`);
     assert(values.generatedMediaPhotoObjectFit === 'contain', `${theme.id}/${mode}: generated media photo object-fit is ${values.generatedMediaPhotoObjectFit}`);
     assert(values.generatedMediaPhotoRadius === expectedImageRadius, `${theme.id}/${mode}: generated media photo radius is ${values.generatedMediaPhotoRadius}, expected ${expectedImageRadius}`);
+    assert(generatedMediaPhotoCorners === expectedCornerRadii, `${theme.id}/${mode}: generated media photo corners are asymmetric ${generatedMediaPhotoCorners}`);
     assert(values.generatedMediaPhotoBorderWidth === '0px', `${theme.id}/${mode}: generated media photo kept themed border`);
     assert(values.generatedMediaFooterBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media footer kept black background ${values.generatedMediaFooterBg}`);
     assert(values.generatedMediaFooterHeight === '32px', `${theme.id}/${mode}: generated media footer height is ${values.generatedMediaFooterHeight}`);

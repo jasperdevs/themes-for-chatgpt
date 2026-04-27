@@ -693,17 +693,28 @@ const CHATTHEMES = (() => {
         border: 0 !important;
         border-radius: ${r.card} !important;
         outline: 1px solid ${imageOutline} !important;
+        outline-offset: -1px !important;
         clip-path: none !important;
+        background-clip: padding-box !important;
       }
 
       .markdown :is(a, div, span, figure, picture):has(> img),
       .prose :is(a, div, span, figure, picture):has(> img) {
+        --ct-media-radius: ${r.card};
         max-height: none !important;
-        overflow: visible !important;
-        border-radius: ${r.card} !important;
+        overflow: hidden !important;
+        border-radius: var(--ct-media-radius) !important;
+        border-top-left-radius: var(--ct-media-radius) !important;
+        border-top-right-radius: var(--ct-media-radius) !important;
+        border-bottom-right-radius: var(--ct-media-radius) !important;
+        border-bottom-left-radius: var(--ct-media-radius) !important;
+        background: transparent !important;
+        background-clip: padding-box !important;
+        isolation: isolate !important;
       }
 
       [data-testid*="conversation-turn"] :is([class*="imagegen"], [data-testid*="imagegen"]):has(img) {
+        --ct-media-radius: ${r.card};
         background: transparent !important;
         position: relative !important;
         max-height: none !important;
@@ -714,6 +725,16 @@ const CHATTHEMES = (() => {
         box-shadow: none !important;
         filter: none !important;
         -webkit-filter: none !important;
+      }
+
+      [data-testid*="conversation-turn"] :is([class*="imagegen"], [data-testid*="imagegen"]):has(> img) {
+        border-radius: var(--ct-media-radius) !important;
+        border-top-left-radius: var(--ct-media-radius) !important;
+        border-top-right-radius: var(--ct-media-radius) !important;
+        border-bottom-right-radius: var(--ct-media-radius) !important;
+        border-bottom-left-radius: var(--ct-media-radius) !important;
+        background-clip: padding-box !important;
+        isolation: isolate !important;
       }
 
       [data-testid*="conversation-turn"] :is([class*="imagegen"], [data-testid*="imagegen"]):has(img)::before,
@@ -727,15 +748,22 @@ const CHATTHEMES = (() => {
       }
 
       [data-testid*="conversation-turn"] :is([class*="imagegen"], [data-testid*="imagegen"]):has(img) :is(div, span, figure, picture):has(> img) {
+        --ct-media-radius: ${r.card};
         background: transparent !important;
         max-height: none !important;
         height: auto !important;
         aspect-ratio: auto !important;
-        overflow: visible !important;
-        border-radius: 0 !important;
+        overflow: hidden !important;
+        border-radius: var(--ct-media-radius) !important;
+        border-top-left-radius: var(--ct-media-radius) !important;
+        border-top-right-radius: var(--ct-media-radius) !important;
+        border-bottom-right-radius: var(--ct-media-radius) !important;
+        border-bottom-left-radius: var(--ct-media-radius) !important;
         box-shadow: none !important;
         filter: none !important;
         -webkit-filter: none !important;
+        background-clip: padding-box !important;
+        isolation: isolate !important;
       }
 
       [data-testid*="conversation-turn"] :is([class*="imagegen"], [data-testid*="imagegen"]):has(img) img {
@@ -749,8 +777,14 @@ const CHATTHEMES = (() => {
         object-fit: contain !important;
         border: 0 !important;
         border-radius: ${r.card} !important;
+        border-top-left-radius: ${r.card} !important;
+        border-top-right-radius: ${r.card} !important;
+        border-bottom-right-radius: ${r.card} !important;
+        border-bottom-left-radius: ${r.card} !important;
         outline: 1px solid ${imageOutline} !important;
+        outline-offset: -1px !important;
         clip-path: none !important;
+        background-clip: padding-box !important;
       }
 
       [data-testid*="conversation-turn"] :is([class*="imagegen"], [data-testid*="imagegen"]):has(> img) > button {
