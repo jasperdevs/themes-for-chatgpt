@@ -47,12 +47,13 @@ const CHATTHEMES = (() => {
       },
       fonts: {
         ui: '-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, system-ui, sans-serif',
-        body: '"Anthropic Serif", Lora, Cambria, Georgia, "Times New Roman", serif',
+        body: '-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, system-ui, sans-serif',
         heading: '"Anthropic Serif", Lora, Cambria, Georgia, "Times New Roman", serif',
+        contentHeading: '-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, system-ui, sans-serif',
         mono: '"JetBrains Mono", "SF Mono", "Cascadia Code", monospace'
       },
       radii: { card: '12px', button: '10px', input: '12px', message: '16px', chip: '8px' },
-      tweaks: { bodyLineHeight: '1.6', headingWeight: '500', strongWeight: '500', tableHeaderWeight: '500' }
+      tweaks: { bodyLineHeight: '1.55', contentHeadingWeight: '600', strongWeight: '500', tableHeaderWeight: '500', mutedContentAccent: true }
     },
     {
       id: 'gemini',
@@ -199,9 +200,13 @@ const CHATTHEMES = (() => {
     const surfaceSoft = alpha(c.bg4, isDark ? 0.42 : 0.32);
     const surfaceOverlay = alpha(c.bg1, isDark ? 0.92 : 0.9);
     const uiFont = f.ui || '-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, system-ui, sans-serif';
+    const contentHeadingFont = f.contentHeading || f.heading || uiFont;
     const bodyWeight = tw.bodyWeight || '400';
     const strongWeight = tw.strongWeight || '650';
     const tableHeaderWeight = tw.tableHeaderWeight || '600';
+    const contentAccent = tw.mutedContentAccent ? c.text3 : c.accent;
+    const blockquoteBorder = tw.mutedContentAccent ? c.border : c.accent;
+    const inlineCodeColor = tw.mutedContentAccent ? c.text2 : c.accent;
 
     return `
       :root,
@@ -339,8 +344,8 @@ const CHATTHEMES = (() => {
       .prose h5,
       .prose h6 {
         color: ${c.text1} !important;
-        font-family: ${f.heading} !important;
-        font-weight: ${tw.headingWeight || '600'} !important;
+        font-family: ${contentHeadingFont} !important;
+        font-weight: ${tw.contentHeadingWeight || tw.headingWeight || '600'} !important;
         font-synthesis-weight: none !important;
         letter-spacing: 0 !important;
         line-height: 1.22 !important;
@@ -425,7 +430,7 @@ const CHATTHEMES = (() => {
 
       .markdown li::marker,
       .prose li::marker {
-        color: ${c.accent} !important;
+        color: ${contentAccent} !important;
       }
 
       .markdown blockquote,
@@ -433,7 +438,7 @@ const CHATTHEMES = (() => {
         margin: 1em 0 !important;
         padding: 0.1em 0 0.1em 1em !important;
         color: ${c.text2} !important;
-        border-left: 4px solid ${c.accent} !important;
+        border-left: 3px solid ${blockquoteBorder} !important;
         background: transparent !important;
       }
 
@@ -1058,9 +1063,12 @@ const CHATTHEMES = (() => {
       .prose div:has(> pre),
       [data-message-author-role] div:has(> pre) {
         background: transparent !important;
-        border-color: transparent !important;
+        border: 0 solid transparent !important;
         border-radius: ${r.card} !important;
+        box-shadow: none !important;
+        outline: 0 !important;
         overflow: visible !important;
+        padding: 0 !important;
       }
 
       pre,
@@ -1100,7 +1108,7 @@ const CHATTHEMES = (() => {
 
       code:not(pre code) {
         background-color: ${c.codeBg} !important;
-        color: ${c.accent} !important;
+        color: ${inlineCodeColor} !important;
         border-radius: ${r.chip} !important;
         padding: 1px 5px;
       }

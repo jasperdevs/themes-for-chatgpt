@@ -33,7 +33,7 @@ const baseHtml = `<!doctype html><html><head><style>
         <table id="answer-table" class="min-w-full" style="min-width: 1000px"><thead><tr><th>One</th></tr></thead><tbody><tr><td>Two</td></tr></tbody></table>
         <div id="image-wrapper" style="overflow:hidden;max-height:24px"><img id="answer-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80'%3E%3Crect width='120' height='80' fill='%23d97757'/%3E%3C/svg%3E" alt=""></div>
         <span id="image-span" class="overflow-hidden max-h-24" style="display:block;overflow:hidden;max-height:12px"><img id="nested-answer-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='60'%3E%3Crect width='100' height='60' fill='%2321808d'/%3E%3C/svg%3E" alt=""></span>
-        <div id="code-shell" style="background:red;border:1px solid red;border-radius:24px;overflow:hidden">
+        <div id="code-shell" style="background:red;border:1px solid red;border-radius:24px;overflow:hidden;padding:16px;box-shadow:0 0 0 3px red">
           <pre id="answer-pre" style="margin:0;border-radius:0;background:#000;overflow:hidden"><code id="answer-pre-code" style="display:block;background:#fff;color:#000;border-radius:24px;border:1px solid blue;padding:20px">const x = 1;</code></pre>
         </div><code id="inline-code">inline</code>
         <details><summary>More</summary><p>Detail text</p></details>
@@ -120,6 +120,10 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+function usesArticleFont(fontFamily) {
+  return /Anthropic Serif|Cambria|Georgia|Times New Roman|(^|,\s*)serif(\s*,|$)/i.test(fontFamily);
+}
+
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1100, height: 800 } });
 const checked = [];
@@ -181,9 +185,13 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedCoverBorderWidth: styleById('generated-image-cover').borderTopWidth,
         generatedImageActionBg: styleById('generated-image-action').backgroundColor,
         inlineCodeBg: styleById('inline-code').backgroundColor,
+        inlineCodeColor: styleById('inline-code').color,
         codeShellBg: styleById('code-shell').backgroundColor,
         codeShellBorderColor: styleById('code-shell').borderTopColor,
+        codeShellBorderWidth: styleById('code-shell').borderTopWidth,
         codeShellOverflow: styleById('code-shell').overflow,
+        codeShellPaddingTop: styleById('code-shell').paddingTop,
+        codeShellShadow: styleById('code-shell').boxShadow,
         preBg: styleById('answer-pre').backgroundColor,
         preRadius: styleById('answer-pre').borderRadius,
         preOverflowX: styleById('answer-pre').overflowX,
@@ -287,11 +295,12 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(Number.parseFloat(values.markdownTdWeight) <= 450, `${theme.id}/${mode}: markdown table cell weight is too heavy (${values.markdownTdWeight})`);
     assert(Number.parseFloat(values.markdownStrongWeight) <= 650, `${theme.id}/${mode}: markdown strong weight is too heavy (${values.markdownStrongWeight})`);
     if (theme.id === 'claude') {
-      assert(Number.parseFloat(values.h2Weight) <= 500, `${theme.id}/${mode}: Claude markdown heading weight is too heavy (${values.h2Weight})`);
+      assert(Number.parseFloat(values.h2Weight) <= 600, `${theme.id}/${mode}: Claude markdown heading weight is too heavy (${values.h2Weight})`);
       assert(Number.parseFloat(values.markdownStrongWeight) <= 500, `${theme.id}/${mode}: Claude markdown strong weight is too heavy (${values.markdownStrongWeight})`);
       assert(Number.parseFloat(values.tableThWeight) <= 500, `${theme.id}/${mode}: Claude markdown table header weight is too heavy (${values.tableThWeight})`);
-      assert(values.bubbleFont !== values.h2Font, `${theme.id}/${mode}: user bubble inherited Claude article font`);
-      assert(values.promptFont !== values.h2Font, `${theme.id}/${mode}: composer prompt inherited Claude article font`);
+      assert(!usesArticleFont(values.h2Font), `${theme.id}/${mode}: Claude markdown heading is still using an article font (${values.h2Font})`);
+      assert(values.blockquoteBorder !== values.contentLinkColor, `${theme.id}/${mode}: Claude quote rail still uses the orange link accent`);
+      assert(values.inlineCodeColor !== values.contentLinkColor, `${theme.id}/${mode}: Claude inline code still uses the orange link accent`);
     }
     assert(values.tableDisplay === 'table', `${theme.id}/${mode}: markdown table display is ${values.tableDisplay}`);
     assert(values.tableMinWidth === '0px', `${theme.id}/${mode}: markdown table min-width is ${values.tableMinWidth}`);
@@ -324,7 +333,10 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.inlineCodeBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: inline code lost its chip background`);
     assert(values.codeShellBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own background`);
     assert(values.codeShellBorderColor === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own border`);
+    assert(values.codeShellBorderWidth === '0px', `${theme.id}/${mode}: code wrapper still adds an outer border`);
     assert(values.codeShellOverflow === 'visible', `${theme.id}/${mode}: code wrapper clips rounded corners`);
+    assert(values.codeShellPaddingTop === '0px', `${theme.id}/${mode}: code wrapper still adds outer padding`);
+    assert(values.codeShellShadow === 'none', `${theme.id}/${mode}: code wrapper still adds outer shadow`);
     assert(values.preBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: pre kept original black background`);
     assert(values.preRadius !== '0px', `${theme.id}/${mode}: pre has no rounded corners`);
     assert(values.preOverflowX === 'auto', `${theme.id}/${mode}: pre horizontal overflow is ${values.preOverflowX}`);
@@ -403,7 +415,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.libraryRowBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: library row should stay transparent by default`);
     assert(values.libraryHeaderColor !== values.contentLinkColor, `${theme.id}/${mode}: library header matches accent link color`);
     if (theme.id === 'claude') {
-      assert(values.analyticsHeadingFont !== values.h2Font, `${theme.id}/${mode}: utility page heading inherited Claude article heading font`);
+      assert(!usesArticleFont(values.analyticsHeadingFont), `${theme.id}/${mode}: utility page heading inherited Claude article heading font`);
     }
     assert(values.analyticsHeadingColor !== values.contentLinkColor, `${theme.id}/${mode}: utility page heading matches accent link color`);
     assert(values.analyticsTabsShadow !== 'none', `${theme.id}/${mode}: utility tablist lacks divider shadow`);
