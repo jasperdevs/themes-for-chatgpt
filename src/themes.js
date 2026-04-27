@@ -983,8 +983,42 @@ const CHATTHEMES = (() => {
       .prose pre {
         background-color: ${c.codeBg} !important;
         color: ${c.text1} !important;
-        border-color: ${c.border} !important;
+        border: 1px solid ${c.border} !important;
         border-radius: ${r.card} !important;
+      }
+
+      .markdown div:has(> pre),
+      .prose div:has(> pre),
+      [data-message-author-role] div:has(> pre) {
+        background: transparent !important;
+        border-color: transparent !important;
+        border-radius: ${r.card} !important;
+        overflow: visible !important;
+      }
+
+      pre,
+      .markdown pre,
+      .prose pre {
+        background-clip: padding-box !important;
+        box-sizing: border-box !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        padding: 1rem 1.15rem !important;
+      }
+
+      pre > code,
+      .markdown pre code,
+      .prose pre code {
+        display: block !important;
+        min-width: 100% !important;
+        width: max-content !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        color: inherit !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
       }
 
       pre [class*="sticky"],

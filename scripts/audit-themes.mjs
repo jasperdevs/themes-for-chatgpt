@@ -30,6 +30,8 @@ const REQUIRED_CSS = [
   '[data-testid*="conversation-turn"] [class*="aspect-"]:has(img)',
   '[data-testid*="conversation-turn"] [class*="imagegen"]:has(img) img',
   '.markdown details',
+  '.markdown div:has(> pre)',
+  '.markdown pre code',
   'pre [class*="sticky"]',
   '[data-message-author-role] button',
   '[data-testid*="sources"]',
