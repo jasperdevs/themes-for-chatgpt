@@ -241,14 +241,18 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedImageActionBg: styleById('generated-image-action').backgroundColor,
         generatedImageActionPosition: styleById('generated-image-action').position,
         generatedImageActionBottom: styleById('generated-image-action').bottom,
+        generatedImageActionLeft: styleById('generated-image-action').left,
         generatedImageActionRadius: styleById('generated-image-action').borderRadius,
         generatedImageActionShadow: styleById('generated-image-action').boxShadow,
         generatedMediaEditPosition: styleById('generated-image-media-edit').position,
         generatedMediaEditBottom: styleById('generated-image-media-edit').bottom,
+        generatedMediaEditLeft: styleById('generated-image-media-edit').left,
         generatedMediaEditBg: styleById('generated-image-media-edit').backgroundColor,
         generatedMediaEditRadius: styleById('generated-image-media-edit').borderRadius,
         generatedMediaEditShadow: styleById('generated-image-media-edit').boxShadow,
         generatedMediaDownloadPosition: styleById('generated-image-media-download').position,
+        generatedMediaDownloadLeft: styleById('generated-image-media-download').left,
+        generatedMediaDownloadRight: styleById('generated-image-media-download').right,
         generatedMediaDownloadBg: styleById('generated-image-media-download').backgroundColor,
         inlineCodeBg: styleById('inline-code').backgroundColor,
         inlineCodeColor: styleById('inline-code').color,
@@ -431,7 +435,8 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedCoverBorderWidth === '0px', `${theme.id}/${mode}: generated cover image kept themed border`);
     assert(values.generatedMediaShellOverflow === 'visible', `${theme.id}/${mode}: generated media shell overflow is ${values.generatedMediaShellOverflow}`);
     assert(values.generatedMediaShellMaxHeight === 'none', `${theme.id}/${mode}: generated media shell max-height is ${values.generatedMediaShellMaxHeight}`);
-    assert(Number.parseFloat(values.generatedMediaShellHeight) > 440, `${theme.id}/${mode}: generated media shell still clips its footer/photo stack`);
+    assert(Number.parseFloat(values.generatedMediaShellHeight) > 360, `${theme.id}/${mode}: generated media shell still clips the photo`);
+    assert(Number.parseFloat(values.generatedMediaShellHeight) < 440, `${theme.id}/${mode}: generated media shell still reserves footer space ${values.generatedMediaShellHeight}`);
     assert(values.generatedMediaShellBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media shell kept black background ${values.generatedMediaShellBg}`);
     assert(values.generatedMediaShellRadius === '0px', `${theme.id}/${mode}: generated media shell kept broken card radius ${values.generatedMediaShellRadius}`);
     assert(values.generatedMediaShellShadow === 'none', `${theme.id}/${mode}: generated media shell kept shadow ${values.generatedMediaShellShadow}`);
@@ -448,18 +453,25 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(Number.parseFloat(values.generatedMediaFooterHeight) < 80, `${theme.id}/${mode}: generated media footer still reserves crop space ${values.generatedMediaFooterHeight}`);
     assert(values.generatedMediaFooterRadius === '0px', `${theme.id}/${mode}: generated media footer kept partial rounded corners ${values.generatedMediaFooterRadius}`);
     assert(values.generatedMediaFooterShadow === 'none', `${theme.id}/${mode}: generated media footer kept divider shadow ${values.generatedMediaFooterShadow}`);
-    assert(values.generatedImageActionBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated image action should not be a solid block by default`);
-    assert(values.generatedImageActionPosition === 'static', `${theme.id}/${mode}: generated image action position is ${values.generatedImageActionPosition}`);
-    assert(values.generatedImageActionBottom === 'auto', `${theme.id}/${mode}: generated image action bottom is ${values.generatedImageActionBottom}`);
+    assert(values.generatedImageActionBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: generated image action kept black overlay background`);
+    assert(values.generatedImageActionBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated image action lost overlay surface`);
+    assert(values.generatedImageActionPosition === 'absolute', `${theme.id}/${mode}: generated image action position is ${values.generatedImageActionPosition}`);
+    assert(values.generatedImageActionBottom === '12px', `${theme.id}/${mode}: generated image action bottom is ${values.generatedImageActionBottom}`);
+    assert(values.generatedImageActionLeft === '12px', `${theme.id}/${mode}: generated image action left is ${values.generatedImageActionLeft}`);
     assert(values.generatedImageActionRadius === theme.radii.chip, `${theme.id}/${mode}: generated image action radius is ${values.generatedImageActionRadius}`);
-    assert(values.generatedImageActionShadow === 'none', `${theme.id}/${mode}: generated image action kept overlay shadow ${values.generatedImageActionShadow}`);
-    assert(values.generatedMediaEditPosition === 'static', `${theme.id}/${mode}: generated media edit position is ${values.generatedMediaEditPosition}`);
-    assert(values.generatedMediaEditBottom === 'auto', `${theme.id}/${mode}: generated media edit bottom is ${values.generatedMediaEditBottom}`);
-    assert(values.generatedMediaEditBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media edit kept overlay background ${values.generatedMediaEditBg}`);
+    assert(values.generatedImageActionShadow !== 'none', `${theme.id}/${mode}: generated image action lost overlay depth`);
+    assert(values.generatedMediaEditPosition === 'absolute', `${theme.id}/${mode}: generated media edit position is ${values.generatedMediaEditPosition}`);
+    assert(values.generatedMediaEditBottom === '12px', `${theme.id}/${mode}: generated media edit bottom is ${values.generatedMediaEditBottom}`);
+    assert(values.generatedMediaEditLeft === '12px', `${theme.id}/${mode}: generated media edit left is ${values.generatedMediaEditLeft}`);
+    assert(values.generatedMediaEditBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: generated media edit kept black overlay background`);
+    assert(values.generatedMediaEditBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media edit lost overlay surface`);
     assert(values.generatedMediaEditRadius === theme.radii.chip, `${theme.id}/${mode}: generated media edit radius is ${values.generatedMediaEditRadius}`);
-    assert(values.generatedMediaEditShadow === 'none', `${theme.id}/${mode}: generated media edit kept overlay shadow ${values.generatedMediaEditShadow}`);
-    assert(values.generatedMediaDownloadPosition === 'static', `${theme.id}/${mode}: generated media download position is ${values.generatedMediaDownloadPosition}`);
-    assert(values.generatedMediaDownloadBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media download kept overlay background ${values.generatedMediaDownloadBg}`);
+    assert(values.generatedMediaEditShadow !== 'none', `${theme.id}/${mode}: generated media edit lost overlay depth`);
+    assert(values.generatedMediaDownloadPosition === 'absolute', `${theme.id}/${mode}: generated media download position is ${values.generatedMediaDownloadPosition}`);
+    assert(Number.parseFloat(values.generatedMediaDownloadLeft) > 400, `${theme.id}/${mode}: generated media download was not right anchored (${values.generatedMediaDownloadLeft})`);
+    assert(values.generatedMediaDownloadRight === '12px', `${theme.id}/${mode}: generated media download right is ${values.generatedMediaDownloadRight}`);
+    assert(values.generatedMediaDownloadBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: generated media download kept black overlay background`);
+    assert(values.generatedMediaDownloadBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media download lost overlay surface`);
     assert(values.inlineCodeBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: inline code lost its chip background`);
     assert(values.codeShellBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own background`);
     assert(values.codeShellBorderColor === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own border`);

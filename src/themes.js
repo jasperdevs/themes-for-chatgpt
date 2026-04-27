@@ -586,6 +586,7 @@ const CHATTHEMES = (() => {
       [data-testid*="conversation-turn"] [data-testid*="image"]:has(img),
       [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) {
         background: transparent !important;
+        position: relative !important;
         overflow: visible !important;
         max-height: none !important;
         min-height: 0 !important;
@@ -673,8 +674,12 @@ const CHATTHEMES = (() => {
       [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) button,
       [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > button,
       [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)) button {
-        position: static !important;
-        inset: auto !important;
+        position: absolute !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: 0.75rem !important;
+        left: 0.75rem !important;
+        z-index: 2 !important;
         transform: none !important;
         display: inline-flex !important;
         align-items: center !important;
@@ -683,13 +688,29 @@ const CHATTHEMES = (() => {
         min-width: 0 !important;
         height: 2rem !important;
         min-height: 2rem !important;
-        margin: 0.5rem 0 0 !important;
+        margin: 0 !important;
         padding: 0 0.75rem !important;
         color: ${c.text2} !important;
-        background-color: transparent !important;
-        border-color: transparent !important;
+        background-color: ${surfaceOverlay} !important;
+        border-color: ${c.border} !important;
         border-radius: ${r.chip} !important;
-        box-shadow: none !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, ${isDark ? '0.22' : '0.12'}) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+      }
+
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) button[aria-label*="Save"],
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) button[aria-label*="Save"],
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > button[aria-label*="Save"],
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)) button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)) button[aria-label*="Save"] {
+        right: 0.75rem !important;
+        left: auto !important;
+        width: 2rem !important;
+        padding: 0 !important;
       }
 
       pre,
