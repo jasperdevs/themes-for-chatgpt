@@ -186,6 +186,11 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         tableThWeight: styleBySelector('.markdown th').fontWeight,
         markdownTdWeight: styleBySelector('.markdown td').fontWeight,
         blockquoteBorder: styleBySelector('.markdown blockquote').borderLeftColor,
+        blockquoteBorderWidth: styleBySelector('.markdown blockquote').borderLeftWidth,
+        blockquoteMarginTop: styleBySelector('.markdown blockquote').marginTop,
+        blockquotePaddingLeft: styleBySelector('.markdown blockquote').paddingLeft,
+        blockquoteParagraphMarginTop: styleBySelector('.markdown blockquote p').marginTop,
+        blockquoteParagraphMarginBottom: styleBySelector('.markdown blockquote p').marginBottom,
         tableBg: styleBySelector('.markdown table').backgroundColor,
         tableDisplay: styleById('answer-table').display,
         tableMinWidth: styleById('answer-table').minWidth,
@@ -372,6 +377,11 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(Number.parseFloat(values.markdownPWeight) <= 450, `${theme.id}/${mode}: markdown paragraph weight is too heavy (${values.markdownPWeight})`);
     assert(Number.parseFloat(values.markdownTdWeight) <= 450, `${theme.id}/${mode}: markdown table cell weight is too heavy (${values.markdownTdWeight})`);
     assert(Number.parseFloat(values.markdownStrongWeight) <= 650, `${theme.id}/${mode}: markdown strong weight is too heavy (${values.markdownStrongWeight})`);
+    assert(values.blockquoteBorderWidth === '2px', `${theme.id}/${mode}: quote rail width is ${values.blockquoteBorderWidth}`);
+    assert(Number.parseFloat(values.blockquoteMarginTop) <= 11, `${theme.id}/${mode}: quote margin is too tall (${values.blockquoteMarginTop})`);
+    assert(Number.parseFloat(values.blockquotePaddingLeft) <= 14, `${theme.id}/${mode}: quote padding is too wide (${values.blockquotePaddingLeft})`);
+    assert(values.blockquoteParagraphMarginTop === '0px', `${theme.id}/${mode}: quote paragraph top margin is ${values.blockquoteParagraphMarginTop}`);
+    assert(values.blockquoteParagraphMarginBottom === '0px', `${theme.id}/${mode}: quote paragraph bottom margin is ${values.blockquoteParagraphMarginBottom}`);
     if (theme.id === 'claude') {
       assert(Number.parseFloat(values.h2Weight) <= 600, `${theme.id}/${mode}: Claude markdown heading weight is too heavy (${values.h2Weight})`);
       assert(Number.parseFloat(values.markdownStrongWeight) <= 500, `${theme.id}/${mode}: Claude markdown strong weight is too heavy (${values.markdownStrongWeight})`);

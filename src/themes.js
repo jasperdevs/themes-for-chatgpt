@@ -205,7 +205,7 @@ const CHATTHEMES = (() => {
     const strongWeight = tw.strongWeight || '650';
     const tableHeaderWeight = tw.tableHeaderWeight || '600';
     const contentAccent = tw.mutedContentAccent ? c.text3 : c.accent;
-    const blockquoteBorder = tw.mutedContentAccent ? c.border : c.accent;
+    const blockquoteBorder = tw.mutedContentAccent ? alpha(c.accent, isDark ? 0.72 : 0.64) : c.accent;
     const inlineCodeColor = tw.mutedContentAccent ? c.text2 : c.accent;
 
     return `
@@ -443,16 +443,33 @@ const CHATTHEMES = (() => {
 
       .markdown blockquote,
       .prose blockquote {
-        margin: 1em 0 !important;
-        padding: 0.1em 0 0.1em 1em !important;
+        margin: 0.65em 0 !important;
+        padding: 0.05em 0 0.05em 0.85em !important;
         color: ${c.text2} !important;
-        border-left: 3px solid ${blockquoteBorder} !important;
+        border-left: 2px solid ${blockquoteBorder} !important;
         background: transparent !important;
       }
 
       .markdown blockquote p,
       .prose blockquote p {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
         color: ${c.text2} !important;
+      }
+
+      .markdown blockquote > :where(p, ul, ol):first-child,
+      .prose blockquote > :where(p, ul, ol):first-child {
+        margin-top: 0 !important;
+      }
+
+      .markdown blockquote > :where(p, ul, ol):last-child,
+      .prose blockquote > :where(p, ul, ol):last-child {
+        margin-bottom: 0 !important;
+      }
+
+      .markdown blockquote > :where(p, ul, ol) + :where(p, ul, ol),
+      .prose blockquote > :where(p, ul, ol) + :where(p, ul, ol) {
+        margin-top: 0.55em !important;
       }
 
       .markdown hr,
