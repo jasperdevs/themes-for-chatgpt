@@ -67,6 +67,8 @@ const REQUIRED_CSS = [
   'main:has(input[placeholder*="Search library"]) [role="table"]',
   'main a[href*="/reports"]',
   '[role="switch"][aria-checked="true"]',
+  'input[type="range"]',
+  '[role="progressbar"]',
   '[aria-label*="Scroll to bottom"]',
   '[data-testid*="attachment"]',
   '[class*="file-preview"]',

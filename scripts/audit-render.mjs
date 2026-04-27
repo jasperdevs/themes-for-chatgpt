@@ -16,6 +16,20 @@ const baseHtml = `<!doctype html><html><head><style>
 </style></head><body>
   <main>
     <div id="hardcoded-dark-surface" class="bg-[#0d0d0d]" style="background-color:#0d0d0d">Hardcoded dark surface</div>
+    <section id="home-empty" style="width:1100px">
+      <h1 id="home-heading">How can I help, Jasper?</h1>
+      <form data-type="unified" id="home-composer" style="width:768px;margin-left:0;margin-right:0">
+        <div>
+          <div data-testid="prompt-textarea" id="home-prompt" contenteditable="true">hey</div>
+          <button id="home-attach" aria-label="Attach files"><svg></svg></button>
+          <button id="home-send" aria-label="Send"><svg></svg></button>
+        </div>
+      </form>
+    </section>
+    <section id="thinking-surface">
+      <input id="thinking-range" type="range" value="25" style="width:768px;height:34px;background:red;border:1px solid red;border-radius:9999px;box-shadow:0 0 0 3px red">
+      <div id="thinking-progress" role="progressbar" style="width:768px;height:34px;background:red;border:1px solid red;border-radius:9999px;box-shadow:0 0 0 3px red"></div>
+    </section>
     <aside data-testid="sidebar">
       <a id="side-link" href="#"><svg width="10" height="10"></svg><span>Recent chat</span></a>
       <a id="side-active" data-state="active" href="#"><svg width="10" height="10"></svg><span>Active chat</span></a>
@@ -147,6 +161,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         contentLinkColor: styleById('content-link').color,
         actionLinkColor: styleById('action-link').color,
         h2Font: styleBySelector('.markdown h2').fontFamily,
+        markdownH1TextAlign: styleBySelector('.markdown h1').textAlign,
         h2Color: styleBySelector('.markdown h2').color,
         h2Weight: styleBySelector('.markdown h2').fontWeight,
         h4Color: styleBySelector('.markdown h4').color,
@@ -211,6 +226,18 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         reportBg: styleById('report-card').backgroundColor,
         reportBodyColor: styleBySelector('#report-card p').color,
         reportFadeDisplay: styleById('report-fade').display,
+        homeHeadingTextAlign: styleById('home-heading').textAlign,
+        homeHeadingTextWrap: styleById('home-heading').textWrap,
+        homeComposerMarginLeft: styleById('home-composer').marginLeft,
+        homeComposerMarginRight: styleById('home-composer').marginRight,
+        thinkingRangeBg: styleById('thinking-range').backgroundColor,
+        thinkingRangeBorderWidth: styleById('thinking-range').borderTopWidth,
+        thinkingRangeRadius: styleById('thinking-range').borderRadius,
+        thinkingRangeShadow: styleById('thinking-range').boxShadow,
+        thinkingProgressBg: styleById('thinking-progress').backgroundColor,
+        thinkingProgressBorderWidth: styleById('thinking-progress').borderTopWidth,
+        thinkingProgressRadius: styleById('thinking-progress').borderRadius,
+        thinkingProgressShadow: styleById('thinking-progress').boxShadow,
         composerOverflow: styleById('composer').overflow,
         composerBg: styleById('composer').backgroundColor,
         nestedShadow: styleById('composer-nested').boxShadow,
@@ -291,6 +318,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.actionLinkColor !== values.contentLinkColor, `${theme.id}/${mode}: action link matches content accent`);
     assert(values.sideLabelColor !== values.contentLinkColor, `${theme.id}/${mode}: sidebar label matches content accent`);
     assert(values.h4Color === values.h2Color, `${theme.id}/${mode}: nested headers do not share heading color`);
+    assert(values.markdownH1TextAlign !== 'center', `${theme.id}/${mode}: markdown h1 was centered like a welcome heading`);
     assert(Number.parseFloat(values.markdownPWeight) <= 450, `${theme.id}/${mode}: markdown paragraph weight is too heavy (${values.markdownPWeight})`);
     assert(Number.parseFloat(values.markdownTdWeight) <= 450, `${theme.id}/${mode}: markdown table cell weight is too heavy (${values.markdownTdWeight})`);
     assert(Number.parseFloat(values.markdownStrongWeight) <= 650, `${theme.id}/${mode}: markdown strong weight is too heavy (${values.markdownStrongWeight})`);
@@ -346,6 +374,18 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.preCodeRadius === '0px', `${theme.id}/${mode}: inner pre code kept rounded corners`);
     assert(values.preCodeBorderWidth === '0px', `${theme.id}/${mode}: inner pre code kept border`);
     assert(values.preCodePaddingTop === '0px', `${theme.id}/${mode}: inner pre code kept padding`);
+    assert(values.homeHeadingTextAlign === 'center', `${theme.id}/${mode}: home heading alignment is ${values.homeHeadingTextAlign}`);
+    assert(values.homeHeadingTextWrap === 'balance', `${theme.id}/${mode}: home heading text-wrap is ${values.homeHeadingTextWrap}`);
+    assert(values.homeComposerMarginLeft === values.homeComposerMarginRight, `${theme.id}/${mode}: home composer margins are uneven (${values.homeComposerMarginLeft} / ${values.homeComposerMarginRight})`);
+    assert(Number.parseFloat(values.homeComposerMarginLeft) > 0, `${theme.id}/${mode}: home composer was not centered by auto margins`);
+    assert(values.thinkingRangeBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: range control became a filled composer-like bar`);
+    assert(values.thinkingRangeBorderWidth === '0px', `${theme.id}/${mode}: range control kept an input border`);
+    assert(values.thinkingRangeRadius === '0px', `${theme.id}/${mode}: range control kept input radius`);
+    assert(values.thinkingRangeShadow === 'none', `${theme.id}/${mode}: range control kept input shadow`);
+    assert(values.thinkingProgressBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: progress control became a filled composer-like bar`);
+    assert(values.thinkingProgressBorderWidth === '0px', `${theme.id}/${mode}: progress control kept an input border`);
+    assert(values.thinkingProgressRadius === '0px', `${theme.id}/${mode}: progress control kept input radius`);
+    assert(values.thinkingProgressShadow === 'none', `${theme.id}/${mode}: progress control kept input shadow`);
     assert(values.sourceBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: source chip background is transparent`);
     assert(values.bubbleBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: user bubble background is transparent`);
     assert(values.deepResearchColor !== 'rgb(96, 165, 250)', `${theme.id}/${mode}: deep research mode kept Tailwind blue`);

@@ -304,6 +304,14 @@ const CHATTHEMES = (() => {
       main h1 {
         font-family: ${f.heading} !important;
         font-weight: ${tw.headingWeight || '600'} !important;
+        letter-spacing: 0 !important;
+      }
+
+      [data-testid*="welcome"] h1,
+      main:has(form[data-type="unified"]) h1:not(.markdown h1):not(.prose h1),
+      main:has([data-testid="composer"]) h1:not(.markdown h1):not(.prose h1) {
+        text-align: center !important;
+        text-wrap: balance !important;
       }
 
       [data-message-author-role] {
@@ -757,6 +765,8 @@ const CHATTHEMES = (() => {
         background-color: ${c.bg2} !important;
         border-color: ${c.border} !important;
         border-radius: ${r.input} !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
 
       form[data-type="unified"] > *,
@@ -1585,7 +1595,7 @@ const CHATTHEMES = (() => {
         color: ${c.accent} !important;
       }
 
-      input,
+      input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]):not([type="color"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
       select,
       [role="combobox"],
       [role="switch"],
@@ -1595,6 +1605,19 @@ const CHATTHEMES = (() => {
         border-color: ${c.border} !important;
         border-radius: ${r.input} !important;
         font-family: ${uiFont} !important;
+      }
+
+      input[type="range"],
+      progress,
+      meter,
+      [role="progressbar"] {
+        background: transparent !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        color: ${c.accent} !important;
+        accent-color: ${c.accent} !important;
+        padding: 0 !important;
       }
 
       [role="switch"] {
