@@ -47,12 +47,12 @@ const CHATTHEMES = (() => {
       },
       fonts: {
         ui: '-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, system-ui, sans-serif',
-        body: '"Anthropic Serif", Lora, Georgia, "Times New Roman", serif',
-        heading: '"Anthropic Serif", Lora, Georgia, "Times New Roman", serif',
+        body: '"Anthropic Serif", Lora, Cambria, Georgia, "Times New Roman", serif',
+        heading: '"Anthropic Serif", Lora, Cambria, Georgia, "Times New Roman", serif',
         mono: '"JetBrains Mono", "SF Mono", "Cascadia Code", monospace'
       },
       radii: { card: '12px', button: '10px', input: '12px', message: '16px', chip: '8px' },
-      tweaks: { bodyLineHeight: '1.6', headingWeight: '600', strongWeight: '600', tableHeaderWeight: '600' }
+      tweaks: { bodyLineHeight: '1.6', headingWeight: '500', strongWeight: '500', tableHeaderWeight: '500' }
     },
     {
       id: 'gemini',
@@ -306,6 +306,7 @@ const CHATTHEMES = (() => {
       [data-message-author-role] {
         font-family: ${f.body} !important;
         font-weight: ${bodyWeight} !important;
+        font-synthesis-weight: none !important;
       }
 
       .markdown,
@@ -335,6 +336,7 @@ const CHATTHEMES = (() => {
         color: ${c.text1} !important;
         font-family: ${f.heading} !important;
         font-weight: ${tw.headingWeight || '600'} !important;
+        font-synthesis-weight: none !important;
         letter-spacing: 0 !important;
         line-height: 1.22 !important;
       }
@@ -394,6 +396,7 @@ const CHATTHEMES = (() => {
       .prose strong {
         color: ${c.text1} !important;
         font-weight: ${strongWeight} !important;
+        font-synthesis-weight: none !important;
       }
 
       .markdown em,
@@ -457,6 +460,7 @@ const CHATTHEMES = (() => {
         background-color: ${c.bg3} !important;
         color: ${c.text1} !important;
         font-weight: ${tableHeaderWeight} !important;
+        font-synthesis-weight: none !important;
         padding: 0.65em 0.85em !important;
       }
 

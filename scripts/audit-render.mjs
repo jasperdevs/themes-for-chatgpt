@@ -132,9 +132,11 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         actionLinkColor: styleById('action-link').color,
         h2Font: styleBySelector('.markdown h2').fontFamily,
         h2Color: styleBySelector('.markdown h2').color,
+        h2Weight: styleBySelector('.markdown h2').fontWeight,
         h4Color: styleBySelector('.markdown h4').color,
         markdownPWeight: styleBySelector('.markdown p').fontWeight,
         markdownStrongWeight: styleBySelector('.markdown strong').fontWeight,
+        tableThWeight: styleBySelector('.markdown th').fontWeight,
         markdownTdWeight: styleBySelector('.markdown td').fontWeight,
         blockquoteBorder: styleBySelector('.markdown blockquote').borderLeftColor,
         tableBg: styleBySelector('.markdown table').backgroundColor,
@@ -260,6 +262,11 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(Number.parseFloat(values.markdownPWeight) <= 450, `${theme.id}/${mode}: markdown paragraph weight is too heavy (${values.markdownPWeight})`);
     assert(Number.parseFloat(values.markdownTdWeight) <= 450, `${theme.id}/${mode}: markdown table cell weight is too heavy (${values.markdownTdWeight})`);
     assert(Number.parseFloat(values.markdownStrongWeight) <= 650, `${theme.id}/${mode}: markdown strong weight is too heavy (${values.markdownStrongWeight})`);
+    if (theme.id === 'claude') {
+      assert(Number.parseFloat(values.h2Weight) <= 500, `${theme.id}/${mode}: Claude markdown heading weight is too heavy (${values.h2Weight})`);
+      assert(Number.parseFloat(values.markdownStrongWeight) <= 500, `${theme.id}/${mode}: Claude markdown strong weight is too heavy (${values.markdownStrongWeight})`);
+      assert(Number.parseFloat(values.tableThWeight) <= 500, `${theme.id}/${mode}: Claude markdown table header weight is too heavy (${values.tableThWeight})`);
+    }
     assert(values.tableDisplay === 'table', `${theme.id}/${mode}: markdown table display is ${values.tableDisplay}`);
     assert(values.tableMinWidth === '0px', `${theme.id}/${mode}: markdown table min-width is ${values.tableMinWidth}`);
     assert(values.imageWrapperOverflow === 'visible', `${theme.id}/${mode}: image wrapper overflow is ${values.imageWrapperOverflow}`);
