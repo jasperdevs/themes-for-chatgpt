@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Themes for ChatGPT</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="header">
+    <img class="logo" src="icons/icon-48.png" alt="" width="28" height="28">
+    <div class="title">
+      <h1>Themes for ChatGPT</h1>
+      <p>Chrome · Firefox · Zen</p>
+    </div>
+  </header>
+
+  <section class="mode" aria-label="Theme mode">
+    <span class="mode-label">Mode</span>
+    <div class="segmented" role="radiogroup" aria-label="Theme mode">
+      <button class="mode-option" type="button" data-mode="auto" role="radio">Auto</button>
+      <button class="mode-option" type="button" data-mode="light" role="radio">Light</button>
+      <button class="mode-option" type="button" data-mode="dark" role="radio">Dark</button>
+    </div>
+  </section>
+
+  <main class="grid" id="grid" aria-label="Themes"></main>
+
+  <template id="card-template">
+    <button class="card" type="button">
+      <span class="swatches" aria-hidden="true"></span>
+      <span class="card-footer">
+        <span class="card-name"></span>
+        <span class="card-type"></span>
+      </span>
+      <span class="check" aria-hidden="true">
+        <svg viewBox="0 0 16 16" width="14" height="14">
+          <path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </button>
+  </template>
+
+  <script src="src/themes.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

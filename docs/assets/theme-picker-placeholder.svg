@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Theme picker placeholder</title>
+  <desc id="desc">Placeholder image for the Themes for ChatGPT popup.</desc>
+  <rect width="1200" height="760" fill="#111111"/>
+  <rect x="120" y="90" width="960" height="580" rx="34" fill="#1d1c1a" stroke="#3b382f" stroke-width="2"/>
+  <text x="170" y="165" fill="#faf9f5" font-family="Arial, sans-serif" font-size="40" font-weight="700">Themes for ChatGPT</text>
+  <text x="170" y="215" fill="#b0aea5" font-family="Arial, sans-serif" font-size="24">Placeholder screenshot: popup theme picker</text>
+  <rect x="170" y="280" width="395" height="145" rx="20" fill="#292722" stroke="#d97757" stroke-width="3"/>
+  <rect x="195" y="310" width="70" height="34" rx="10" fill="#faf9f5"/>
+  <rect x="275" y="310" width="70" height="34" rx="10" fill="#e8e6dc"/>
+  <rect x="355" y="310" width="70" height="34" rx="10" fill="#141413"/>
+  <rect x="435" y="310" width="70" height="34" rx="10" fill="#d97757"/>
+  <text x="195" y="388" fill="#faf9f5" font-family="Arial, sans-serif" font-size="25">Claude</text>
+  <rect x="635" y="280" width="395" height="145" rx="20" fill="#292722" stroke="#3b382f" stroke-width="2"/>
+  <rect x="660" y="310" width="70" height="34" rx="10" fill="#ffffff"/>
+  <rect x="740" y="310" width="70" height="34" rx="10" fill="#f1f3f4"/>
+  <rect x="820" y="310" width="70" height="34" rx="10" fill="#1f1f1f"/>
+  <rect x="900" y="310" width="70" height="34" rx="10" fill="#8ab4f8"/>
+  <text x="660" y="388" fill="#faf9f5" font-family="Arial, sans-serif" font-size="25">Gemini</text>
+  <rect x="170" y="465" width="395" height="145" rx="20" fill="#292722" stroke="#3b382f" stroke-width="2"/>
+  <rect x="195" y="495" width="70" height="34" rx="10" fill="#fbfaf4"/>
+  <rect x="275" y="495" width="70" height="34" rx="10" fill="#e2ebe8"/>
+  <rect x="355" y="495" width="70" height="34" rx="10" fill="#091717"/>
+  <rect x="435" y="495" width="70" height="34" rx="10" fill="#21808d"/>
+  <text x="195" y="573" fill="#faf9f5" font-family="Arial, sans-serif" font-size="25">Perplexity</text>
+  <rect x="635" y="465" width="395" height="145" rx="20" fill="#292722" stroke="#3b382f" stroke-width="2"/>
+  <text x="660" y="545" fill="#faf9f5" font-family="Arial, sans-serif" font-size="25">Auto light/dark mode</text>
+</svg>

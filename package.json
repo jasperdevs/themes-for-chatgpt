@@ -1,0 +1,25 @@
+{
+  "name": "chatthemes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Themes for ChatGPT — Chrome and Firefox extension.",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "web-ext run",
+    "build": "web-ext build",
+    "lint": "web-ext lint",
+    "check": "npm run audit && npm run lint && npm run build",
+    "audit": "npm run audit:themes && npm run audit:extension && npm run audit:render && npm run audit:popup",
+    "audit:themes": "node scripts/audit-themes.mjs",
+    "audit:extension": "node scripts/audit-extension.mjs",
+    "audit:render": "node scripts/audit-render.mjs",
+    "audit:popup": "node scripts/audit-popup.mjs",
+    "scan:chatgpt-dom": "node scripts/scan-chatgpt-dom.mjs",
+    "icons": "node scripts/build-icons.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.59.1",
+    "sharp": "^0.33.5",
+    "web-ext": "^10.1.0"
+  }
+}
