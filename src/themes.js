@@ -1033,13 +1033,16 @@ const CHATTHEMES = (() => {
       [data-slot="tooltip-content"],
       [data-radix-tooltip-content],
       [data-radix-popper-content-wrapper] > [data-side][data-align]:has(kbd),
-      [data-radix-popper-content-wrapper] > [data-side][data-align]:has(code) {
+      [data-radix-popper-content-wrapper] > [data-side][data-align]:has(code),
+      [data-radix-popper-content-wrapper] [data-side][data-align]:has(kbd),
+      [data-radix-popper-content-wrapper] [data-side][data-align]:has(code) {
         background-color: ${c.bg3} !important;
         color: ${c.text1} !important;
         border: 1px solid ${c.border} !important;
         border-radius: ${r.chip} !important;
         box-shadow: 0 10px 30px rgba(0, 0, 0, ${isDark ? '0.28' : '0.12'}) !important;
         font-family: ${uiFont} !important;
+        padding: 0.45rem 0.6rem !important;
       }
 
       [role="tooltip"] kbd,
@@ -1051,7 +1054,9 @@ const CHATTHEMES = (() => {
       [data-radix-tooltip-content] kbd,
       [data-radix-tooltip-content] code,
       [data-radix-popper-content-wrapper] > [data-side][data-align] kbd,
-      [data-radix-popper-content-wrapper] > [data-side][data-align] code {
+      [data-radix-popper-content-wrapper] > [data-side][data-align] code,
+      [data-radix-popper-content-wrapper] [data-side][data-align] kbd,
+      [data-radix-popper-content-wrapper] [data-side][data-align] code {
         background-color: ${c.bg2} !important;
         color: ${c.text2} !important;
         border: 1px solid ${c.border} !important;

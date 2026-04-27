@@ -96,6 +96,13 @@ const baseHtml = `<!doctype html><html><head><style>
         <span>Use Voice</span><kbd style="background:#222;color:#bbb;border:0">Ctrl+Alt+V</kbd>
       </div>
     </div>
+    <div data-radix-popper-content-wrapper>
+      <div id="nested-tooltip-shell" style="background:#000;color:#fff;border:0;padding:0">
+        <div id="nested-shortcut-tooltip" data-side="bottom" data-align="center" style="background:#000;color:#fff;border:0">
+          <span>Dictate</span><kbd style="background:#222;color:#bbb;border:0">Ctrl+Shift+D</kbd>
+        </div>
+      </div>
+    </div>
     <button id="menu-trigger" aria-haspopup="menu" aria-expanded="true">Pro</button>
     <div role="menu" id="model-menu">
       <div role="menuitemradio" aria-checked="true" id="checked-menu-item">Standard <kbd>Ctrl</kbd></div>
@@ -275,6 +282,12 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         shortcutTooltipBorderWidth: styleById('shortcut-tooltip').borderTopWidth,
         shortcutTooltipKbdBg: styleBySelector('#shortcut-tooltip kbd').backgroundColor,
         shortcutTooltipKbdColor: styleBySelector('#shortcut-tooltip kbd').color,
+        nestedShortcutTooltipBg: styleById('nested-shortcut-tooltip').backgroundColor,
+        nestedShortcutTooltipColor: styleById('nested-shortcut-tooltip').color,
+        nestedShortcutTooltipBorderWidth: styleById('nested-shortcut-tooltip').borderTopWidth,
+        nestedShortcutTooltipPaddingTop: styleById('nested-shortcut-tooltip').paddingTop,
+        nestedShortcutTooltipKbdBg: styleBySelector('#nested-shortcut-tooltip kbd').backgroundColor,
+        nestedShortcutTooltipKbdColor: styleBySelector('#nested-shortcut-tooltip kbd').color,
         menuTriggerBg: styleById('menu-trigger').backgroundColor,
         menuBg: styleById('model-menu').backgroundColor,
         menuCheckedBg: styleById('checked-menu-item').backgroundColor,
@@ -430,6 +443,12 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.shortcutTooltipBorderWidth !== '0px', `${theme.id}/${mode}: Radix shortcut tooltip has no visible border`);
     assert(values.shortcutTooltipKbdBg !== 'rgb(34, 34, 34)', `${theme.id}/${mode}: Radix shortcut tooltip kbd kept default dark chip`);
     assert(values.shortcutTooltipKbdColor !== values.shortcutTooltipKbdBg, `${theme.id}/${mode}: Radix shortcut tooltip kbd text matches background`);
+    assert(values.nestedShortcutTooltipBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: nested Radix shortcut tooltip kept black background`);
+    assert(values.nestedShortcutTooltipColor !== values.nestedShortcutTooltipBg, `${theme.id}/${mode}: nested Radix shortcut tooltip text matches background`);
+    assert(values.nestedShortcutTooltipBorderWidth !== '0px', `${theme.id}/${mode}: nested Radix shortcut tooltip has no visible border`);
+    assert(values.nestedShortcutTooltipPaddingTop !== '0px', `${theme.id}/${mode}: nested Radix shortcut tooltip kept cramped default padding`);
+    assert(values.nestedShortcutTooltipKbdBg !== 'rgb(34, 34, 34)', `${theme.id}/${mode}: nested Radix shortcut tooltip kbd kept default dark chip`);
+    assert(values.nestedShortcutTooltipKbdColor !== values.nestedShortcutTooltipKbdBg, `${theme.id}/${mode}: nested Radix shortcut tooltip kbd text matches background`);
     assert(values.menuTriggerBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: open model trigger background is transparent`);
     assert(values.menuBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: model menu background is transparent`);
     assert(values.menuCheckedBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: checked menu item background is transparent`);
