@@ -278,6 +278,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedMediaDownloadLeft: styleById('generated-image-media-download').left,
         generatedMediaDownloadRight: styleById('generated-image-media-download').right,
         generatedMediaDownloadBg: styleById('generated-image-media-download').backgroundColor,
+        generatedToolbarImageCardBottom: document.getElementById('generated-toolbar-image-card').getBoundingClientRect().bottom,
         generatedToolbarImageBottom: document.getElementById('generated-toolbar-image').getBoundingClientRect().bottom,
         generatedMessageToolbarPosition: styleById('generated-message-toolbar').position,
         generatedMessageToolbarTop: document.getElementById('generated-message-toolbar').getBoundingClientRect().top,
@@ -335,6 +336,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         thinkingProgressShadow: styleById('thinking-progress').boxShadow,
         composerOverflow: styleById('composer').overflow,
         composerBg: styleById('composer').backgroundColor,
+        nestedBg: styleById('composer-nested').backgroundColor,
         nestedShadow: styleById('composer-nested').boxShadow,
         nestedBorderTop: styleById('composer-nested').borderTopWidth,
         promptBg: styleById('prompt-textarea').backgroundColor,
@@ -350,6 +352,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         sendColor: styleById('send-button').color,
         composerAltOverflow: styleById('composer-alt').overflow,
         composerAltBg: styleById('composer-alt').backgroundColor,
+        nestedAltBg: styleById('composer-alt-nested').backgroundColor,
         nestedAltOverflow: styleById('composer-alt-nested').overflow,
         nestedAltMaxHeight: styleById('composer-alt-nested').maxHeight,
         nestedAltShadow: styleById('composer-alt-nested').boxShadow,
@@ -514,11 +517,11 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedMediaDownloadBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: generated media download kept black overlay background`);
     assert(values.generatedMediaDownloadBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media download lost overlay surface`);
     assert(values.generatedMessageToolbarPosition === 'static', `${theme.id}/${mode}: generated message toolbar became ${values.generatedMessageToolbarPosition}`);
-    assert(values.generatedMessageToolbarTop >= values.generatedToolbarImageBottom, `${theme.id}/${mode}: generated message toolbar overlaps the image`);
+    assert(values.generatedMessageToolbarTop >= values.generatedToolbarImageCardBottom, `${theme.id}/${mode}: generated message toolbar overlaps the image`);
     assert(values.generatedToolbarCopyPosition === 'static', `${theme.id}/${mode}: generated toolbar copy became ${values.generatedToolbarCopyPosition}`);
     assert(values.generatedToolbarCopyBottom === 'auto', `${theme.id}/${mode}: generated toolbar copy bottom is ${values.generatedToolbarCopyBottom}`);
     assert(values.generatedToolbarCopyLeft === 'auto', `${theme.id}/${mode}: generated toolbar copy left is ${values.generatedToolbarCopyLeft}`);
-    assert(values.generatedToolbarCopyTop >= values.generatedToolbarImageBottom, `${theme.id}/${mode}: generated toolbar copy overlaps the image`);
+    assert(values.generatedToolbarCopyTop >= values.generatedToolbarImageCardBottom, `${theme.id}/${mode}: generated toolbar copy overlaps the image`);
     assert(values.inlineCodeBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: inline code lost its chip background`);
     assert(values.codeShellBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own background`);
     assert(values.codeShellBorderColor === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own border`);
@@ -557,9 +560,10 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.reportBodyColor !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: report card body is transparent`);
     assert(values.reportFadeDisplay === 'none', `${theme.id}/${mode}: report card fade still covers text`);
     assert(values.composerOverflow === 'visible', `${theme.id}/${mode}: composer overflow is ${values.composerOverflow}`);
-    assert(values.composerBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer background is transparent`);
+    assert(values.composerBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer outer should stay transparent`);
+    assert(values.nestedBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer visible surface is transparent`);
     assert(values.nestedShadow === 'none', `${theme.id}/${mode}: nested composer wrapper has unwanted shadow`);
-    assert(values.nestedBorderTop === '0px', `${theme.id}/${mode}: nested composer wrapper has unwanted border`);
+    assert(values.nestedBorderTop === '1px', `${theme.id}/${mode}: nested composer wrapper border is ${values.nestedBorderTop}`);
     assert(values.promptBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: prompt textarea should stay transparent inside composer`);
     assert(values.attachBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: composer attach button background is ${values.attachBg}`);
     assert(Number.parseFloat(values.promptWeight) <= 450, `${theme.id}/${mode}: composer prompt weight is too heavy (${values.promptWeight})`);
@@ -571,11 +575,12 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.sendBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: send button background is transparent`);
     assert(values.sendColor !== values.sendBg, `${theme.id}/${mode}: send button text matches background`);
     assert(values.composerAltOverflow === 'visible', `${theme.id}/${mode}: data-testid composer overflow is ${values.composerAltOverflow}`);
-    assert(values.composerAltBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer background is transparent`);
+    assert(values.composerAltBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer outer should stay transparent`);
+    assert(values.nestedAltBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer visible surface is transparent`);
     assert(values.nestedAltOverflow === 'visible', `${theme.id}/${mode}: data-testid composer nested overflow is ${values.nestedAltOverflow}`);
     assert(values.nestedAltMaxHeight === 'none', `${theme.id}/${mode}: data-testid composer nested max-height is ${values.nestedAltMaxHeight}`);
     assert(values.nestedAltShadow === 'none', `${theme.id}/${mode}: data-testid composer nested wrapper has unwanted shadow`);
-    assert(values.nestedAltBorderTop === '0px', `${theme.id}/${mode}: data-testid composer nested wrapper has unwanted border`);
+    assert(values.nestedAltBorderTop === '1px', `${theme.id}/${mode}: data-testid composer nested wrapper border is ${values.nestedAltBorderTop}`);
     assert(values.promptAltBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer prompt should stay transparent`);
     assert(values.activeModelChipAltBg !== 'rgb(59, 130, 246)', `${theme.id}/${mode}: data-testid composer model chip kept Tailwind blue`);
     assert(values.activeModelChipAltColor !== values.activeModelChipAltBg, `${theme.id}/${mode}: data-testid composer model chip text matches background`);
