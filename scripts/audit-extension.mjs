@@ -33,10 +33,16 @@ requireCondition(popupJs.includes('aria-pressed'), 'popup: theme cards need pres
 
 requireCondition(contentJs.includes("const THEME_KEY = 'selectedTheme'"), 'content: missing selectedTheme storage key');
 requireCondition(contentJs.includes("const MODE_KEY = 'themeMode'"), 'content: missing themeMode storage key');
+requireCondition(contentJs.includes("const RESOLVED_MODE_KEY = 'resolvedMode'"), 'content: missing cached resolved mode key');
 requireCondition(contentJs.includes('detectChatGptMode'), 'content: missing ChatGPT mode detection');
 requireCondition(contentJs.includes('MutationObserver'), 'content: missing style/root observer');
 requireCondition(contentJs.includes('watchBodyTheme'), 'content: missing body-level theme observer');
 requireCondition(contentJs.includes('data-chattheme-mode'), 'content: missing resolved mode marker');
+requireCondition(contentJs.includes('moveStyleIntoHead'), 'content: missing early style head migration');
+
+const cachedApplyIndex = contentJs.indexOf('const cachedState = readCachedState();');
+const storageLoadIndex = contentJs.indexOf('storageGet([THEME_KEY, MODE_KEY])');
+requireCondition(cachedApplyIndex >= 0 && storageLoadIndex >= 0 && cachedApplyIndex < storageLoadIndex, 'content: cached theme must apply before async storage read');
 
 if (failures.length) {
   console.error(failures.join('\n'));
