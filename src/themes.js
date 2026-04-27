@@ -801,6 +801,31 @@ const CHATTHEMES = (() => {
         margin-right: auto !important;
       }
 
+      main :is(section, div):not(:has([role="tablist"])):has(> h1):has(form[data-type="unified"]),
+      main :is(section, div):not(:has([role="tablist"])):has(> h1):has([data-testid="composer"]) {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+      }
+
+      main :is(section, div):not(:has([role="tablist"])):has(> h1):has(form[data-type="unified"]) > h1:not(.markdown h1):not(.prose h1),
+      main :is(section, div):not(:has([role="tablist"])):has(> h1):has([data-testid="composer"]) > h1:not(.markdown h1):not(.prose h1) {
+        align-self: center !important;
+        width: min(100%, 48rem) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      main :is(section, div):not(:has([role="tablist"])):has(> h1):has(form[data-type="unified"]) > form[data-type="unified"],
+      main :is(section, div):not(:has([role="tablist"])):has(> h1):has([data-testid="composer"]) > [data-testid="composer"],
+      main :is(section, div):not(:has([role="tablist"])):has(> h1):has([data-testid*="prompt-textarea"]) > form:has([data-testid*="prompt-textarea"]) {
+        align-self: center !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+      }
+
       form[data-type="unified"] > *,
       [data-testid="composer"] > *,
       form:has([data-testid*="prompt-textarea"]) > *,

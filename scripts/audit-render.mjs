@@ -18,7 +18,7 @@ const baseHtml = `<!doctype html><html><head><style>
     <div id="hardcoded-dark-surface" class="bg-[#0d0d0d]" style="background-color:#0d0d0d">Hardcoded dark surface</div>
     <section id="home-empty" style="width:1100px">
       <h1 id="home-heading">How can I help, Jasper?</h1>
-      <form data-type="unified" id="home-composer" style="width:768px;margin-left:0;margin-right:0">
+      <form data-type="unified" id="home-composer" style="width:768px;margin-left:0;margin-right:0;transform:translateX(44px)">
         <div>
           <div data-testid="prompt-textarea" id="home-prompt" contenteditable="true">hey</div>
           <button id="home-attach" aria-label="Attach files"><svg></svg></button>
@@ -265,6 +265,15 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         homeHeadingTextWrap: styleById('home-heading').textWrap,
         homeComposerMarginLeft: styleById('home-composer').marginLeft,
         homeComposerMarginRight: styleById('home-composer').marginRight,
+        homeComposerTransform: styleById('home-composer').transform,
+        homeHeadingCenterX: (() => {
+          const rect = document.getElementById('home-heading').getBoundingClientRect();
+          return rect.left + rect.width / 2;
+        })(),
+        homeComposerCenterX: (() => {
+          const rect = document.getElementById('home-composer').getBoundingClientRect();
+          return rect.left + rect.width / 2;
+        })(),
         thinkingRangeBg: styleById('thinking-range').backgroundColor,
         thinkingRangeBorderWidth: styleById('thinking-range').borderTopWidth,
         thinkingRangeRadius: styleById('thinking-range').borderRadius,
@@ -439,6 +448,8 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.homeHeadingTextWrap === 'balance', `${theme.id}/${mode}: home heading text-wrap is ${values.homeHeadingTextWrap}`);
     assert(values.homeComposerMarginLeft === values.homeComposerMarginRight, `${theme.id}/${mode}: home composer margins are uneven (${values.homeComposerMarginLeft} / ${values.homeComposerMarginRight})`);
     assert(Number.parseFloat(values.homeComposerMarginLeft) > 0, `${theme.id}/${mode}: home composer was not centered by auto margins`);
+    assert(values.homeComposerTransform === 'none', `${theme.id}/${mode}: home composer kept transform ${values.homeComposerTransform}`);
+    assert(Math.abs(values.homeHeadingCenterX - values.homeComposerCenterX) <= 1, `${theme.id}/${mode}: home heading/composer centers differ (${values.homeHeadingCenterX} / ${values.homeComposerCenterX})`);
     assert(values.thinkingRangeBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: range control became a filled composer-like bar`);
     assert(values.thinkingRangeBorderWidth === '0px', `${theme.id}/${mode}: range control kept an input border`);
     assert(values.thinkingRangeRadius === '0px', `${theme.id}/${mode}: range control kept input radius`);
