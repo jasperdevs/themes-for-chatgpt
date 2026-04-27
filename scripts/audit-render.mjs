@@ -65,6 +65,15 @@ const baseHtml = `<!doctype html><html><head><style>
       <div id="generated-image-crop-frame" class="group/imagegen-image aspect-square overflow-hidden" style="position:relative;overflow:hidden;width:500px;height:360px;max-height:360px;aspect-ratio:1 / 1;border-radius:24px">
         <img id="generated-image-cover" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:24px;border:1px solid red" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
       </div>
+      <div id="generated-image-media-shell" style="position:relative;overflow:hidden;width:500px;height:440px;max-height:440px;background:#000;border-radius:28px;box-shadow:0 0 0 1px #000">
+        <div id="generated-image-media-frame" style="position:relative;overflow:hidden;width:500px;height:360px;max-height:360px;background:#000;border-radius:28px 28px 0 0">
+          <img id="generated-image-media-photo" style="display:block;width:500px;height:360px;object-fit:cover;border-radius:28px;border:1px solid red" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
+        </div>
+        <div id="generated-image-media-footer" style="height:80px;background:#000;border-radius:0 0 28px 28px;box-shadow:inset 0 1px #000">
+          <button id="generated-image-media-edit">Edit</button>
+          <button id="generated-image-media-download" aria-label="Download"></button>
+        </div>
+      </div>
     </section>
     <section data-message-author-role="user"><div class="bg-token-message-surface" id="user-bubble">User message</div></section>
     <button id="deep-research" data-testid="deep-research-button" aria-label="Deep research" class="text-blue-400 border-blue-400"><svg></svg>Deep research</button>
@@ -205,6 +214,25 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedCoverHeight: styleById('generated-image-cover').height,
         generatedCoverRadius: styleById('generated-image-cover').borderRadius,
         generatedCoverBorderWidth: styleById('generated-image-cover').borderTopWidth,
+        generatedMediaShellOverflow: styleById('generated-image-media-shell').overflow,
+        generatedMediaShellMaxHeight: styleById('generated-image-media-shell').maxHeight,
+        generatedMediaShellHeight: styleById('generated-image-media-shell').height,
+        generatedMediaShellBg: styleById('generated-image-media-shell').backgroundColor,
+        generatedMediaShellRadius: styleById('generated-image-media-shell').borderRadius,
+        generatedMediaShellShadow: styleById('generated-image-media-shell').boxShadow,
+        generatedMediaFrameOverflow: styleById('generated-image-media-frame').overflow,
+        generatedMediaFrameMaxHeight: styleById('generated-image-media-frame').maxHeight,
+        generatedMediaFrameHeight: styleById('generated-image-media-frame').height,
+        generatedMediaFrameBg: styleById('generated-image-media-frame').backgroundColor,
+        generatedMediaFrameRadius: styleById('generated-image-media-frame').borderRadius,
+        generatedMediaPhotoHeight: styleById('generated-image-media-photo').height,
+        generatedMediaPhotoObjectFit: styleById('generated-image-media-photo').objectFit,
+        generatedMediaPhotoRadius: styleById('generated-image-media-photo').borderRadius,
+        generatedMediaPhotoBorderWidth: styleById('generated-image-media-photo').borderTopWidth,
+        generatedMediaFooterBg: styleById('generated-image-media-footer').backgroundColor,
+        generatedMediaFooterHeight: styleById('generated-image-media-footer').height,
+        generatedMediaFooterRadius: styleById('generated-image-media-footer').borderRadius,
+        generatedMediaFooterShadow: styleById('generated-image-media-footer').boxShadow,
         generatedImageActionBg: styleById('generated-image-action').backgroundColor,
         inlineCodeBg: styleById('inline-code').backgroundColor,
         inlineCodeColor: styleById('inline-code').color,
@@ -370,6 +398,25 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(Number.parseFloat(values.generatedCoverHeight) > 360, `${theme.id}/${mode}: generated cover image still appears cropped`);
     assert(values.generatedCoverRadius === '0px', `${theme.id}/${mode}: generated cover image kept rounded corners`);
     assert(values.generatedCoverBorderWidth === '0px', `${theme.id}/${mode}: generated cover image kept themed border`);
+    assert(values.generatedMediaShellOverflow === 'visible', `${theme.id}/${mode}: generated media shell overflow is ${values.generatedMediaShellOverflow}`);
+    assert(values.generatedMediaShellMaxHeight === 'none', `${theme.id}/${mode}: generated media shell max-height is ${values.generatedMediaShellMaxHeight}`);
+    assert(Number.parseFloat(values.generatedMediaShellHeight) > 440, `${theme.id}/${mode}: generated media shell still clips its footer/photo stack`);
+    assert(values.generatedMediaShellBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media shell kept black background ${values.generatedMediaShellBg}`);
+    assert(values.generatedMediaShellRadius === '0px', `${theme.id}/${mode}: generated media shell kept broken card radius ${values.generatedMediaShellRadius}`);
+    assert(values.generatedMediaShellShadow === 'none', `${theme.id}/${mode}: generated media shell kept shadow ${values.generatedMediaShellShadow}`);
+    assert(values.generatedMediaFrameOverflow === 'visible', `${theme.id}/${mode}: generated media frame overflow is ${values.generatedMediaFrameOverflow}`);
+    assert(values.generatedMediaFrameMaxHeight === 'none', `${theme.id}/${mode}: generated media frame max-height is ${values.generatedMediaFrameMaxHeight}`);
+    assert(Number.parseFloat(values.generatedMediaFrameHeight) > 360, `${theme.id}/${mode}: generated media frame still clips the photo`);
+    assert(values.generatedMediaFrameBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media frame kept black background ${values.generatedMediaFrameBg}`);
+    assert(values.generatedMediaFrameRadius === '0px', `${theme.id}/${mode}: generated media frame kept partial rounded corners ${values.generatedMediaFrameRadius}`);
+    assert(Number.parseFloat(values.generatedMediaPhotoHeight) > 360, `${theme.id}/${mode}: generated media photo remains cropped`);
+    assert(values.generatedMediaPhotoObjectFit === 'contain', `${theme.id}/${mode}: generated media photo object-fit is ${values.generatedMediaPhotoObjectFit}`);
+    assert(values.generatedMediaPhotoRadius === '0px', `${theme.id}/${mode}: generated media photo kept rounded corners`);
+    assert(values.generatedMediaPhotoBorderWidth === '0px', `${theme.id}/${mode}: generated media photo kept themed border`);
+    assert(values.generatedMediaFooterBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media footer kept black background ${values.generatedMediaFooterBg}`);
+    assert(Number.parseFloat(values.generatedMediaFooterHeight) < 80, `${theme.id}/${mode}: generated media footer still reserves crop space ${values.generatedMediaFooterHeight}`);
+    assert(values.generatedMediaFooterRadius === '0px', `${theme.id}/${mode}: generated media footer kept partial rounded corners ${values.generatedMediaFooterRadius}`);
+    assert(values.generatedMediaFooterShadow === 'none', `${theme.id}/${mode}: generated media footer kept divider shadow ${values.generatedMediaFooterShadow}`);
     assert(values.generatedImageActionBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated image action should not be a solid block by default`);
     assert(values.inlineCodeBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: inline code lost its chip background`);
     assert(values.codeShellBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own background`);

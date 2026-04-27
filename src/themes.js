@@ -550,20 +550,31 @@ const CHATTHEMES = (() => {
       [data-message-author-role] button:has(> img),
       [data-message-author-role] figure:has(img),
       [data-message-author-role] [style*="overflow"]:has(img),
+      [data-message-author-role] [style*="height"]:has(img),
       [data-message-author-role] [class*="overflow-hidden"]:has(img),
-      [data-message-author-role] [class*="max-h-"]:has(img),
+      [data-message-author-role] [class*="overflow-clip"]:has(img),
+      [data-message-author-role] [class*="max-h"]:has(img),
+      [data-message-author-role] [class*="h-"]:has(img),
+      [data-message-author-role] [class*="size-"]:has(img),
       [data-testid*="conversation-turn"] [style*="overflow"]:has(img),
+      [data-testid*="conversation-turn"] [style*="height"]:has(img),
       [data-testid*="conversation-turn"] [class*="overflow-hidden"]:has(img),
-      [data-testid*="conversation-turn"] [class*="max-h-"]:has(img),
+      [data-testid*="conversation-turn"] [class*="overflow-clip"]:has(img),
+      [data-testid*="conversation-turn"] [class*="max-h"]:has(img),
+      [data-testid*="conversation-turn"] [class*="h-"]:has(img),
+      [data-testid*="conversation-turn"] [class*="size-"]:has(img),
       [data-testid*="conversation-turn"] [class*="aspect-"]:has(img),
       [data-testid*="conversation-turn"] [style*="aspect-ratio"]:has(img),
       [data-testid*="conversation-turn"] [class*="imagegen"]:has(img),
-      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) {
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img),
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) {
         background: transparent !important;
         overflow: visible !important;
         max-height: none !important;
+        min-height: 0 !important;
         height: auto !important;
         aspect-ratio: auto !important;
+        border-radius: 0 !important;
         clip-path: none !important;
         box-shadow: none !important;
         filter: none !important;
@@ -604,10 +615,31 @@ const CHATTHEMES = (() => {
         display: none !important;
       }
 
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) :is(div, span, figure, picture):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) :is(div, span, figure, picture):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > :is(div, span, figure, picture):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):not(button):not(a):not([role="button"]) {
+        background: transparent !important;
+        overflow: visible !important;
+        max-height: none !important;
+        min-height: 0 !important;
+        height: auto !important;
+        aspect-ratio: auto !important;
+        border-radius: 0 !important;
+        clip-path: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+
       [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) img,
       [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) img,
       [data-testid*="conversation-turn"] [class*="aspect-"]:has(img) img,
-      [data-testid*="conversation-turn"] [style*="aspect-ratio"]:has(img) img {
+      [data-testid*="conversation-turn"] [style*="aspect-ratio"]:has(img) img,
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > img,
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img) > :is(div, span, figure, picture):has(> img) > img {
         position: static !important;
         inset: auto !important;
         width: 100% !important;
