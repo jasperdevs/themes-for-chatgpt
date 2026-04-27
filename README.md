@@ -12,30 +12,32 @@
     <img src="https://img.shields.io/github/license/jasperdevs/themes-for-chatgpt?style=flat&color=555" alt="Repository license" />
   </a>
   <a href="https://github.com/jasperdevs/themes-for-chatgpt/releases/latest">
-    <img src="https://img.shields.io/badge/release-v1.0.0-555?style=flat&logo=github" alt="Latest release" />
+    <img src="https://img.shields.io/github/v/release/jasperdevs/themes-for-chatgpt?style=flat&logo=github&label=release&color=555" alt="Latest release" />
   </a>
 </p>
 
 <h2 align="center">Install</h2>
 
 <p align="center">
-  <a href="https://github.com/jasperdevs/themes-for-chatgpt/releases/latest">Download the packaged release files</a>
+  <a href="https://github.com/jasperdevs/themes-for-chatgpt/releases/latest">Download the latest release zip</a>, unzip it, then load the folder in your browser.
 </p>
 
 <table align="center">
 <tr>
 <td width="50%" valign="top" align="center">
 <h3><img src="https://cdn.simpleicons.org/googlechrome/4285F4" alt="Chrome" width="16" height="16" /> Chrome</h3>
-<p>1. Open <code>chrome://extensions</code></p>
-<p>2. Enable <code>Developer mode</code></p>
-<p>3. Click <code>Load unpacked</code></p>
-<p>4. Select the repository folder</p>
+<p>1. Unzip <code>themes_for_chatgpt-*.zip</code></p>
+<p>2. Open <code>chrome://extensions</code></p>
+<p>3. Enable <code>Developer mode</code></p>
+<p>4. Click <code>Load unpacked</code></p>
+<p>5. Select the unzipped extension folder</p>
 </td>
 <td width="50%" valign="top" align="center">
 <h3><img src="https://cdn.simpleicons.org/firefoxbrowser/FF7139" alt="Firefox" width="16" height="16" /> Firefox / Zen</h3>
-<p>1. Open <code>about:debugging#/runtime/this-firefox</code></p>
-<p>2. Click <code>Load Temporary Add-on</code></p>
-<p>3. Select <code>manifest.json</code></p>
+<p>1. Unzip <code>themes_for_chatgpt-*.zip</code></p>
+<p>2. Open <code>about:debugging#/runtime/this-firefox</code></p>
+<p>3. Click <code>Load Temporary Add-on</code></p>
+<p>4. Select <code>manifest.json</code> from the unzipped folder</p>
 </td>
 </tr>
 </table>
@@ -77,6 +79,7 @@ Keeps common ChatGPT surfaces readable and usable, including the composer, menus
 <p align="center">Uses only the browser <code>storage</code> permission</p>
 <p align="center">Runs on <code>chatgpt.com</code> and <code>chat.openai.com</code></p>
 <p align="center">Supports Chrome, Firefox, Edge, Brave, and Zen from one MV3 WebExtension codebase</p>
+<p align="center">Loads at <code>document_start</code> and reuses cached settings to reduce theme flash on reload</p>
 <p align="center">Includes render audits and a live DOM scanner for clipped, invisible, or unthemed ChatGPT surfaces</p>
 
 <h2 align="center">Development</h2>
