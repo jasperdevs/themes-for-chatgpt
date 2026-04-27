@@ -65,13 +65,23 @@ const baseHtml = `<!doctype html><html><head><style>
       <div id="generated-image-crop-frame" class="group/imagegen-image aspect-square overflow-hidden" style="position:relative;overflow:hidden;width:500px;height:360px;max-height:360px;aspect-ratio:1 / 1;border-radius:24px">
         <img id="generated-image-cover" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:24px;border:1px solid red" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
       </div>
-      <div id="generated-image-media-shell" style="position:relative;overflow:hidden;width:500px;height:440px;max-height:440px;background:#000;border-radius:28px;box-shadow:0 0 0 1px #000">
+      <div id="generated-image-media-shell" class="group/imagegen-image" style="position:relative;overflow:hidden;width:500px;height:440px;max-height:440px;background:#000;border-radius:28px;box-shadow:0 0 0 1px #000">
         <div id="generated-image-media-frame" style="position:relative;overflow:hidden;width:500px;height:360px;max-height:360px;background:#000;border-radius:28px 28px 0 0">
           <img id="generated-image-media-photo" style="display:block;width:500px;height:360px;object-fit:cover;border-radius:28px;border:1px solid red" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
         </div>
         <div id="generated-image-media-footer" style="height:80px;background:#000;border-radius:0 0 28px 28px;box-shadow:inset 0 1px #000">
           <button id="generated-image-media-edit" style="position:absolute;left:16px;bottom:10px;background:#000;border-radius:9999px;box-shadow:0 0 0 1px #000">Edit</button>
           <button id="generated-image-media-download" aria-label="Download" style="position:absolute;right:16px;bottom:10px;background:#000;border-radius:9999px;box-shadow:0 0 0 1px #000"></button>
+        </div>
+      </div>
+      <div id="generated-toolbar-shell" style="position:relative;width:500px">
+        <div id="generated-toolbar-image-card" style="position:relative;overflow:hidden;max-height:220px;width:500px;background:#fff4df">
+          <img id="generated-toolbar-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
+        </div>
+        <div id="generated-message-toolbar" style="display:flex;gap:8px;position:static;margin-top:8px;background:#000;border-radius:9999px;box-shadow:0 0 0 1px #000">
+          <button id="generated-toolbar-copy" aria-label="Copy" style="position:static;background:#000;border-radius:9999px"></button>
+          <button id="generated-toolbar-like" aria-label="Good response" style="position:static;background:#000;border-radius:9999px"></button>
+          <button id="generated-toolbar-more" aria-label="More actions" style="position:static;background:#000;border-radius:9999px"></button>
         </div>
       </div>
     </section>
@@ -268,6 +278,13 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         generatedMediaDownloadLeft: styleById('generated-image-media-download').left,
         generatedMediaDownloadRight: styleById('generated-image-media-download').right,
         generatedMediaDownloadBg: styleById('generated-image-media-download').backgroundColor,
+        generatedToolbarImageBottom: document.getElementById('generated-toolbar-image').getBoundingClientRect().bottom,
+        generatedMessageToolbarPosition: styleById('generated-message-toolbar').position,
+        generatedMessageToolbarTop: document.getElementById('generated-message-toolbar').getBoundingClientRect().top,
+        generatedToolbarCopyPosition: styleById('generated-toolbar-copy').position,
+        generatedToolbarCopyBottom: styleById('generated-toolbar-copy').bottom,
+        generatedToolbarCopyLeft: styleById('generated-toolbar-copy').left,
+        generatedToolbarCopyTop: document.getElementById('generated-toolbar-copy').getBoundingClientRect().top,
         inlineCodeBg: styleById('inline-code').backgroundColor,
         inlineCodeColor: styleById('inline-code').color,
         codeShellBg: styleById('code-shell').backgroundColor,
@@ -496,6 +513,12 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.generatedMediaDownloadRight === 'auto', `${theme.id}/${mode}: generated media download right is ${values.generatedMediaDownloadRight}`);
     assert(values.generatedMediaDownloadBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: generated media download kept black overlay background`);
     assert(values.generatedMediaDownloadBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated media download lost overlay surface`);
+    assert(values.generatedMessageToolbarPosition === 'static', `${theme.id}/${mode}: generated message toolbar became ${values.generatedMessageToolbarPosition}`);
+    assert(values.generatedMessageToolbarTop >= values.generatedToolbarImageBottom, `${theme.id}/${mode}: generated message toolbar overlaps the image`);
+    assert(values.generatedToolbarCopyPosition === 'static', `${theme.id}/${mode}: generated toolbar copy became ${values.generatedToolbarCopyPosition}`);
+    assert(values.generatedToolbarCopyBottom === 'auto', `${theme.id}/${mode}: generated toolbar copy bottom is ${values.generatedToolbarCopyBottom}`);
+    assert(values.generatedToolbarCopyLeft === 'auto', `${theme.id}/${mode}: generated toolbar copy left is ${values.generatedToolbarCopyLeft}`);
+    assert(values.generatedToolbarCopyTop >= values.generatedToolbarImageBottom, `${theme.id}/${mode}: generated toolbar copy overlaps the image`);
     assert(values.inlineCodeBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: inline code lost its chip background`);
     assert(values.codeShellBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own background`);
     assert(values.codeShellBorderColor === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: code wrapper kept its own border`);

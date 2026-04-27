@@ -677,10 +677,11 @@ const CHATTHEMES = (() => {
         position: relative !important;
       }
 
-      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) button,
-      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) button,
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > button,
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)) button {
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(> img) > button,
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(> img) > button,
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) > :is(div, span, figure, picture):has(> img) > button,
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) > :is(div, span, figure, picture):has(> img) > button,
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > button {
         position: absolute !important;
         top: auto !important;
         right: auto !important;
@@ -706,21 +707,24 @@ const CHATTHEMES = (() => {
         -webkit-backdrop-filter: blur(10px) !important;
       }
 
-      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) button[aria-label*="Download"],
-      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) button[aria-label*="Download"],
-      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) button[aria-label*="Save"],
-      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) button[aria-label*="Save"],
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(> img) > button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(> img) > button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(> img) > button[aria-label*="Save"],
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(> img) > button[aria-label*="Save"],
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) > :is(div, span, figure, picture):has(> img) > button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) > :is(div, span, figure, picture):has(> img) > button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) > :is(div, span, figure, picture):has(> img) > button[aria-label*="Save"],
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) > :is(div, span, figure, picture):has(> img) > button[aria-label*="Save"],
       [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > button[aria-label*="Download"],
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > button[aria-label*="Save"],
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)) button[aria-label*="Download"],
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)) button[aria-label*="Save"] {
+      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(> img) > button[aria-label*="Save"] {
         right: 0.75rem !important;
         left: auto !important;
         width: 2rem !important;
         padding: 0 !important;
       }
 
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):has(button) {
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) > :is(div, span, figure, picture):not(:has(img)):has(> button[aria-label*="Download"], > button[aria-label*="Save"]),
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) > :is(div, span, figure, picture):not(:has(img)):has(> button[aria-label*="Download"], > button[aria-label*="Save"]) {
         position: absolute !important;
         inset: auto 0.75rem 0.75rem 0.75rem !important;
         z-index: 3 !important;
@@ -742,7 +746,8 @@ const CHATTHEMES = (() => {
         pointer-events: none !important;
       }
 
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):has(button) button {
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) > :is(div, span, figure, picture):not(:has(img)):has(> button[aria-label*="Download"], > button[aria-label*="Save"]) button,
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) > :is(div, span, figure, picture):not(:has(img)):has(> button[aria-label*="Download"], > button[aria-label*="Save"]) button {
         position: static !important;
         inset: auto !important;
         top: auto !important;
@@ -750,16 +755,36 @@ const CHATTHEMES = (() => {
         bottom: auto !important;
         left: auto !important;
         flex: 0 0 auto !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: auto !important;
         max-width: none !important;
+        min-width: 0 !important;
+        height: 2rem !important;
+        min-height: 2rem !important;
+        margin: 0 !important;
+        padding: 0 0.75rem !important;
+        color: ${c.text2} !important;
+        background-color: ${surfaceOverlay} !important;
+        border-color: ${c.border} !important;
+        border-radius: ${r.chip} !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, ${isDark ? '0.22' : '0.12'}) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
         overflow: visible !important;
         white-space: nowrap !important;
         pointer-events: auto !important;
       }
 
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):has(button) button[aria-label*="Download"],
-      [data-testid*="conversation-turn"] :is(div, span, figure, picture):has(img):not(.markdown):not(.prose):not([class*="markdown"]):not([class*="prose"]) > :is(div, span, figure, picture):not(:has(img)):has(button) button[aria-label*="Save"] {
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) > :is(div, span, figure, picture):not(:has(img)):has(> button[aria-label*="Download"], > button[aria-label*="Save"]) button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) > :is(div, span, figure, picture):not(:has(img)):has(> button[aria-label*="Download"], > button[aria-label*="Save"]) button[aria-label*="Download"],
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) > :is(div, span, figure, picture):not(:has(img)):has(> button[aria-label*="Download"], > button[aria-label*="Save"]) button[aria-label*="Save"],
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) > :is(div, span, figure, picture):not(:has(img)):has(> button[aria-label*="Download"], > button[aria-label*="Save"]) button[aria-label*="Save"] {
         right: auto !important;
         left: auto !important;
+        width: 2rem !important;
+        padding: 0 !important;
         margin-left: auto !important;
       }
 
