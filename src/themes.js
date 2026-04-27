@@ -546,11 +546,49 @@ const CHATTHEMES = (() => {
       [data-testid*="conversation-turn"] [style*="aspect-ratio"]:has(img),
       [data-testid*="conversation-turn"] [class*="imagegen"]:has(img),
       [data-testid*="conversation-turn"] [data-testid*="image"]:has(img) {
+        background: transparent !important;
         overflow: visible !important;
         max-height: none !important;
         height: auto !important;
         aspect-ratio: auto !important;
         clip-path: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+        -webkit-filter: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+
+      [data-message-author-role] a:has(> img)::before,
+      [data-message-author-role] a:has(> img)::after,
+      [data-message-author-role] div:has(> img)::before,
+      [data-message-author-role] div:has(> img)::after,
+      [data-message-author-role] span:has(> img)::before,
+      [data-message-author-role] span:has(> img)::after,
+      [data-message-author-role] figure:has(img)::before,
+      [data-message-author-role] figure:has(img)::after,
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img)::before,
+      [data-testid*="conversation-turn"] [class*="imagegen"]:has(img)::after,
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img)::before,
+      [data-testid*="conversation-turn"] [data-testid*="image"]:has(img)::after,
+      [data-testid*="conversation-turn"] [class*="aspect-"]:has(img)::before,
+      [data-testid*="conversation-turn"] [class*="aspect-"]:has(img)::after,
+      [data-testid*="conversation-turn"] [style*="aspect-ratio"]:has(img)::before,
+      [data-testid*="conversation-turn"] [style*="aspect-ratio"]:has(img)::after {
+        content: none !important;
+        display: none !important;
+      }
+
+      [data-testid*="conversation-turn"] [class*="imagegen"] [class*="blur"]:not(img):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [class*="imagegen"] [class*="Blur"]:not(img):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [class*="imagegen"] [class*="shadow"]:not(img):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [class*="imagegen"] [class*="Shadow"]:not(img):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [class*="imagegen"] [class*="gradient"]:not(img):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [class*="imagegen"] [class*="Gradient"]:not(img):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [data-testid*="image"] [class*="blur"]:not(img):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [data-testid*="image"] [class*="shadow"]:not(img):not(button):not(a):not([role="button"]),
+      [data-testid*="conversation-turn"] [data-testid*="image"] [class*="gradient"]:not(img):not(button):not(a):not([role="button"]) {
+        display: none !important;
       }
 
       [data-testid*="conversation-turn"] [class*="imagegen"]:has(img) img,

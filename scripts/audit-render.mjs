@@ -4,7 +4,16 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const CHATTHEMES = require('../src/themes.js');
 
-const baseHtml = `<!doctype html><html><head></head><body>
+const baseHtml = `<!doctype html><html><head><style>
+  #generated-image-card::before {
+    content: "";
+    position: absolute;
+    inset: -72px;
+    display: block;
+    background: rgb(255, 244, 223);
+    filter: blur(44px);
+  }
+</style></head><body>
   <main>
     <div id="hardcoded-dark-surface" class="bg-[#0d0d0d]" style="background-color:#0d0d0d">Hardcoded dark surface</div>
     <aside data-testid="sidebar">
@@ -34,7 +43,8 @@ const baseHtml = `<!doctype html><html><head></head><body>
       <a id="action-link" role="button" href="#">Share</a>
     </section>
     <section data-testid="conversation-turn" id="image-turn">
-      <div id="generated-image-card" class="group/imagegen-image overflow-hidden max-h-80" style="overflow:hidden;max-height:220px;width:500px">
+      <div id="generated-image-card" class="group/imagegen-image overflow-hidden max-h-80" style="position:relative;overflow:hidden;max-height:220px;width:500px;background:#fff4df;box-shadow:0 0 90px 44px #fff4df;filter:drop-shadow(0 0 32px #fff4df)">
+        <div id="generated-image-glow" class="image-blur-gradient"></div>
         <img id="generated-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='420'%3E%3Crect width='500' height='420' fill='%23b56f09'/%3E%3Ctext x='100' y='235' font-size='120' fill='%23fff4df'%3Ecato%3C/text%3E%3C/svg%3E" alt="">
         <button id="generated-image-action">Edit</button>
       </div>
@@ -152,6 +162,11 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         nestedImageHeight: styleById('nested-answer-image').height,
         generatedImageCardOverflow: styleById('generated-image-card').overflow,
         generatedImageCardMaxHeight: styleById('generated-image-card').maxHeight,
+        generatedImageCardBg: styleById('generated-image-card').backgroundColor,
+        generatedImageCardShadow: styleById('generated-image-card').boxShadow,
+        generatedImageCardFilter: styleById('generated-image-card').filter,
+        generatedImageCardBeforeDisplay: getComputedStyle(document.getElementById('generated-image-card'), '::before').display,
+        generatedImageGlowDisplay: styleById('generated-image-glow').display,
         generatedImageHeight: styleById('generated-image').height,
         generatedImageRadius: styleById('generated-image').borderRadius,
         generatedImageBorderWidth: styleById('generated-image').borderTopWidth,
@@ -288,6 +303,11 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(Number.parseFloat(values.nestedImageHeight) > 12, `${theme.id}/${mode}: nested answer image height appears clipped`);
     assert(values.generatedImageCardOverflow === 'visible', `${theme.id}/${mode}: generated image card overflow is ${values.generatedImageCardOverflow}`);
     assert(values.generatedImageCardMaxHeight === 'none', `${theme.id}/${mode}: generated image card max-height is ${values.generatedImageCardMaxHeight}`);
+    assert(values.generatedImageCardBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: generated image card kept halo background ${values.generatedImageCardBg}`);
+    assert(values.generatedImageCardShadow === 'none', `${theme.id}/${mode}: generated image card kept halo shadow ${values.generatedImageCardShadow}`);
+    assert(values.generatedImageCardFilter === 'none', `${theme.id}/${mode}: generated image card kept halo filter ${values.generatedImageCardFilter}`);
+    assert(values.generatedImageCardBeforeDisplay === 'none', `${theme.id}/${mode}: generated image card pseudo halo still displays ${values.generatedImageCardBeforeDisplay}`);
+    assert(values.generatedImageGlowDisplay === 'none', `${theme.id}/${mode}: generated image glow child still displays ${values.generatedImageGlowDisplay}`);
     assert(Number.parseFloat(values.generatedImageHeight) > 220, `${theme.id}/${mode}: generated image appears clipped`);
     assert(values.generatedImageRadius === '0px', `${theme.id}/${mode}: generated image kept rounded corners`);
     assert(values.generatedImageBorderWidth === '0px', `${theme.id}/${mode}: generated image kept themed border`);

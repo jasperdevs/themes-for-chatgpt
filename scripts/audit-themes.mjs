@@ -29,6 +29,8 @@ const REQUIRED_CSS = [
   '[data-testid*="conversation-turn"] [style*="overflow"]:has(img)',
   '[data-testid*="conversation-turn"] [class*="aspect-"]:has(img)',
   '[data-testid*="conversation-turn"] [class*="imagegen"]:has(img) img',
+  '[data-testid*="conversation-turn"] [class*="imagegen"]:has(img)::before',
+  '[data-testid*="conversation-turn"] [class*="imagegen"] [class*="blur"]',
   '.markdown details',
   '.markdown div:has(> pre)',
   '.markdown pre code',
