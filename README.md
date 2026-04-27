@@ -34,7 +34,7 @@ Download the latest package from the [releases page](https://github.com/jasperde
 ## Themes
 
 <p align="center">
-  <img src="./docs/assets/theme-picker-placeholder.svg" alt="Theme picker preview" width="720" />
+  <img src="./docs/assets/theme-picker-placeholder.svg" alt="Theme picker preview" width="100%" />
 </p>
 
 The popup includes a theme picker and a mode switcher. `Auto` follows the current ChatGPT appearance. `Light` and `Dark` force the selected mode.

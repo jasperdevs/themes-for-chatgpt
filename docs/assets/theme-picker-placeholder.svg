@@ -1,55 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">Theme picker mockup</title>
-  <desc id="desc">Simple shape-only mockup of the extension popup.</desc>
+  <title id="title">Theme picker preview</title>
+  <desc id="desc">Large simple preview of the extension popup with theme cards and Auto, Light, and Dark controls.</desc>
   <rect width="1200" height="760" fill="#111110"/>
-  <rect x="420" y="72" width="360" height="616" rx="32" fill="#161615"/>
-  <rect x="421" y="73" width="358" height="614" rx="31" fill="none" stroke="#ffffff" stroke-opacity=".1"/>
 
-  <rect x="452" y="108" width="44" height="44" rx="13" fill="#d97757"/>
-  <path d="M463 130h22M474 119v22" stroke="#141413" stroke-width="3" stroke-linecap="round"/>
-  <rect x="514" y="112" width="170" height="14" rx="7" fill="#faf9f5"/>
-  <rect x="514" y="136" width="105" height="10" rx="5" fill="#8f8a82"/>
+  <rect x="200" y="66" width="800" height="628" rx="34" fill="#161615"/>
+  <rect x="201" y="67" width="798" height="626" rx="33" fill="none" stroke="#ffffff" stroke-opacity=".1"/>
 
-  <rect x="452" y="190" width="296" height="44" rx="15" fill="#1d1c1a" stroke="#ffffff" stroke-opacity=".08"/>
-  <rect x="457" y="195" width="94" height="34" rx="12" fill="#faf9f5"/>
-  <rect x="572" y="206" width="54" height="12" rx="6" fill="#8f8a82"/>
-  <rect x="660" y="206" width="48" height="12" rx="6" fill="#8f8a82"/>
+  <rect x="250" y="116" width="54" height="54" rx="14" fill="#d97757"/>
+  <path d="M265 143h24M277 131v24" stroke="#141413" stroke-width="4" stroke-linecap="round"/>
+  <text x="326" y="139" fill="#faf9f5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Themes for ChatGPT</text>
+  <text x="326" y="166" fill="#b0aea5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="17">Claude, Gemini, and Perplexity presets</text>
 
-  <g transform="translate(452 276)">
-    <rect width="136" height="112" rx="19" fill="#24221f" stroke="#d97757" stroke-width="2"/>
-    <rect x="16" y="18" width="22" height="22" rx="7" fill="#faf9f5"/>
-    <rect x="44" y="18" width="22" height="22" rx="7" fill="#e8e6dc"/>
-    <rect x="72" y="18" width="22" height="22" rx="7" fill="#141413"/>
-    <rect x="100" y="18" width="22" height="22" rx="7" fill="#d97757"/>
-    <rect x="16" y="70" width="74" height="13" rx="7" fill="#faf9f5"/>
-    <circle cx="111" cy="78" r="11" fill="#d97757"/>
-    <path d="M106 78l4 4 8-9" fill="none" stroke="#141413" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="250" y="240" fill="#b0aea5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="18" font-weight="650">Mode</text>
+  <rect x="340" y="206" width="390" height="58" rx="17" fill="#1d1c1a" stroke="#ffffff" stroke-opacity=".08"/>
+  <rect x="348" y="214" width="122" height="42" rx="13" fill="#faf9f5"/>
+  <text x="388" y="241" fill="#141413" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">Auto</text>
+  <text x="514" y="241" fill="#b0aea5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="17" font-weight="650">Light</text>
+  <text x="640" y="241" fill="#b0aea5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="17" font-weight="650">Dark</text>
+
+  <g transform="translate(250 314)">
+    <rect width="320" height="128" rx="22" fill="#24221f" stroke="#d97757" stroke-width="2"/>
+    <rect x="24" y="24" width="32" height="32" rx="9" fill="#faf9f5"/>
+    <rect x="66" y="24" width="32" height="32" rx="9" fill="#e8e6dc"/>
+    <rect x="108" y="24" width="32" height="32" rx="9" fill="#141413"/>
+    <rect x="150" y="24" width="32" height="32" rx="9" fill="#d97757"/>
+    <text x="24" y="92" fill="#faf9f5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Claude</text>
+    <text x="118" y="92" fill="#b0aea5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="16">selected</text>
+    <circle cx="276" cy="76" r="16" fill="#d97757"/>
+    <path d="M268 76l6 6 13-15" fill="none" stroke="#141413" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
-  <g transform="translate(612 276)">
-    <rect width="136" height="112" rx="19" fill="#1d1c1a" stroke="#ffffff" stroke-opacity=".08"/>
-    <rect x="16" y="18" width="22" height="22" rx="7" fill="#ffffff"/>
-    <rect x="44" y="18" width="22" height="22" rx="7" fill="#f1f3f4"/>
-    <rect x="72" y="18" width="22" height="22" rx="7" fill="#1f1f1f"/>
-    <rect x="100" y="18" width="22" height="22" rx="7" fill="#8ab4f8"/>
-    <rect x="16" y="70" width="70" height="13" rx="7" fill="#faf9f5"/>
+  <g transform="translate(610 314)">
+    <rect width="320" height="128" rx="22" fill="#1d1c1a" stroke="#ffffff" stroke-opacity=".08"/>
+    <rect x="24" y="24" width="32" height="32" rx="9" fill="#ffffff"/>
+    <rect x="66" y="24" width="32" height="32" rx="9" fill="#f1f3f4"/>
+    <rect x="108" y="24" width="32" height="32" rx="9" fill="#1f1f1f"/>
+    <rect x="150" y="24" width="32" height="32" rx="9" fill="#8ab4f8"/>
+    <text x="24" y="92" fill="#faf9f5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Gemini</text>
+    <text x="112" y="92" fill="#b0aea5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="16">adaptive</text>
   </g>
 
-  <g transform="translate(452 414)">
-    <rect width="136" height="112" rx="19" fill="#1d1c1a" stroke="#ffffff" stroke-opacity=".08"/>
-    <rect x="16" y="18" width="22" height="22" rx="7" fill="#fbfaf4"/>
-    <rect x="44" y="18" width="22" height="22" rx="7" fill="#e2ebe8"/>
-    <rect x="72" y="18" width="22" height="22" rx="7" fill="#091717"/>
-    <rect x="100" y="18" width="22" height="22" rx="7" fill="#21808d"/>
-    <rect x="16" y="70" width="88" height="13" rx="7" fill="#faf9f5"/>
+  <g transform="translate(250 482)">
+    <rect width="320" height="128" rx="22" fill="#1d1c1a" stroke="#ffffff" stroke-opacity=".08"/>
+    <rect x="24" y="24" width="32" height="32" rx="9" fill="#fbfaf4"/>
+    <rect x="66" y="24" width="32" height="32" rx="9" fill="#e2ebe8"/>
+    <rect x="108" y="24" width="32" height="32" rx="9" fill="#091717"/>
+    <rect x="150" y="24" width="32" height="32" rx="9" fill="#21808d"/>
+    <text x="24" y="92" fill="#faf9f5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Perplexity</text>
+    <text x="148" y="92" fill="#b0aea5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="16">adaptive</text>
   </g>
 
-  <g transform="translate(612 414)">
-    <rect width="136" height="112" rx="19" fill="#1d1c1a" stroke="#ffffff" stroke-opacity=".08"/>
-    <rect x="16" y="18" width="22" height="22" rx="7" fill="#212121"/>
-    <rect x="44" y="18" width="22" height="22" rx="7" fill="#f7f7f8"/>
-    <rect x="72" y="18" width="22" height="22" rx="7" fill="#10a37f"/>
-    <rect x="100" y="18" width="22" height="22" rx="7" fill="#ececf1"/>
-    <rect x="16" y="70" width="62" height="13" rx="7" fill="#faf9f5"/>
+  <g transform="translate(610 482)">
+    <rect width="320" height="128" rx="22" fill="#1d1c1a" stroke="#ffffff" stroke-opacity=".08"/>
+    <rect x="24" y="24" width="32" height="32" rx="9" fill="#212121"/>
+    <rect x="66" y="24" width="32" height="32" rx="9" fill="#f7f7f8"/>
+    <rect x="108" y="24" width="32" height="32" rx="9" fill="#10a37f"/>
+    <rect x="150" y="24" width="32" height="32" rx="9" fill="#ececf1"/>
+    <text x="24" y="92" fill="#faf9f5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">Default</text>
+    <text x="116" y="92" fill="#b0aea5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif" font-size="16">native</text>
   </g>
 </svg>
