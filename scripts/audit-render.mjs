@@ -61,6 +61,11 @@ const baseHtml = `<!doctype html><html><head></head><body>
       </div>
     </form>
     <div role="tooltip" id="tooltip">Dictate <kbd>Ctrl+Shift+D</kbd></div>
+    <div data-radix-popper-content-wrapper>
+      <div id="shortcut-tooltip" data-side="bottom" data-align="center" style="background:#000;color:#fff;border:0">
+        <span>Use Voice</span><kbd style="background:#222;color:#bbb;border:0">Ctrl+Alt+V</kbd>
+      </div>
+    </div>
     <button id="menu-trigger" aria-haspopup="menu" aria-expanded="true">Pro</button>
     <div role="menu" id="model-menu">
       <div role="menuitemradio" aria-checked="true" id="checked-menu-item">Standard <kbd>Ctrl</kbd></div>
@@ -175,7 +180,13 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         sendAltBg: styleById('send-button-alt').backgroundColor,
         sendAltColor: styleById('send-button-alt').color,
         tooltipBg: styleById('tooltip').backgroundColor,
+        tooltipBorderWidth: styleById('tooltip').borderTopWidth,
         tooltipKbdBg: styleBySelector('#tooltip kbd').backgroundColor,
+        shortcutTooltipBg: styleById('shortcut-tooltip').backgroundColor,
+        shortcutTooltipColor: styleById('shortcut-tooltip').color,
+        shortcutTooltipBorderWidth: styleById('shortcut-tooltip').borderTopWidth,
+        shortcutTooltipKbdBg: styleBySelector('#shortcut-tooltip kbd').backgroundColor,
+        shortcutTooltipKbdColor: styleBySelector('#shortcut-tooltip kbd').color,
         menuTriggerBg: styleById('menu-trigger').backgroundColor,
         menuBg: styleById('model-menu').backgroundColor,
         menuCheckedBg: styleById('checked-menu-item').backgroundColor,
@@ -267,7 +278,14 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.sendAltBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: data-testid composer send button background is transparent`);
     assert(values.sendAltColor !== values.sendAltBg, `${theme.id}/${mode}: data-testid composer send button text matches background`);
     assert(values.tooltipBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: tooltip background is transparent`);
+    assert(values.tooltipBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: tooltip kept black background`);
+    assert(values.tooltipBorderWidth !== '0px', `${theme.id}/${mode}: tooltip has no visible border`);
     assert(values.tooltipKbdBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: tooltip keyboard shortcut background is transparent`);
+    assert(values.shortcutTooltipBg !== 'rgb(0, 0, 0)', `${theme.id}/${mode}: Radix shortcut tooltip kept black background`);
+    assert(values.shortcutTooltipColor !== values.shortcutTooltipBg, `${theme.id}/${mode}: Radix shortcut tooltip text matches background`);
+    assert(values.shortcutTooltipBorderWidth !== '0px', `${theme.id}/${mode}: Radix shortcut tooltip has no visible border`);
+    assert(values.shortcutTooltipKbdBg !== 'rgb(34, 34, 34)', `${theme.id}/${mode}: Radix shortcut tooltip kbd kept default dark chip`);
+    assert(values.shortcutTooltipKbdColor !== values.shortcutTooltipKbdBg, `${theme.id}/${mode}: Radix shortcut tooltip kbd text matches background`);
     assert(values.menuTriggerBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: open model trigger background is transparent`);
     assert(values.menuBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: model menu background is transparent`);
     assert(values.menuCheckedBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: checked menu item background is transparent`);

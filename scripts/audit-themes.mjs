@@ -45,6 +45,7 @@ const REQUIRED_CSS = [
   '[data-testid*="prompt-textarea"]',
   'button[aria-label*="Dictate"]',
   '[role="tooltip"] kbd',
+  '[data-radix-popper-content-wrapper] > [data-side][data-align]:has(kbd)',
   '[role="menuitem"][aria-checked="true"]',
   '[role="menuitemcheckbox"][aria-checked="true"]',
   '[role="tab"][aria-selected="true"]',

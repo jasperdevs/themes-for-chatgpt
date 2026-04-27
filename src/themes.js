@@ -927,16 +927,30 @@ const CHATTHEMES = (() => {
         font-family: ${f.mono} !important;
       }
 
-      [role="tooltip"] {
-        background-color: ${c.bg4} !important;
+      [role="tooltip"],
+      [data-testid*="tooltip"],
+      [data-slot="tooltip-content"],
+      [data-radix-tooltip-content],
+      [data-radix-popper-content-wrapper] > [data-side][data-align]:has(kbd),
+      [data-radix-popper-content-wrapper] > [data-side][data-align]:has(code) {
+        background-color: ${c.bg3} !important;
         color: ${c.text1} !important;
-        border-color: ${c.border} !important;
+        border: 1px solid ${c.border} !important;
+        border-radius: ${r.chip} !important;
         box-shadow: 0 10px 30px rgba(0, 0, 0, ${isDark ? '0.28' : '0.12'}) !important;
         font-family: ${uiFont} !important;
       }
 
       [role="tooltip"] kbd,
-      [role="tooltip"] code {
+      [role="tooltip"] code,
+      [data-testid*="tooltip"] kbd,
+      [data-testid*="tooltip"] code,
+      [data-slot="tooltip-content"] kbd,
+      [data-slot="tooltip-content"] code,
+      [data-radix-tooltip-content] kbd,
+      [data-radix-tooltip-content] code,
+      [data-radix-popper-content-wrapper] > [data-side][data-align] kbd,
+      [data-radix-popper-content-wrapper] > [data-side][data-align] code {
         background-color: ${c.bg2} !important;
         color: ${c.text2} !important;
         border: 1px solid ${c.border} !important;
