@@ -9,6 +9,7 @@ const baseHtml = `<!doctype html><html><head></head><body>
     <aside data-testid="sidebar">
       <a id="side-link" href="#"><svg width="10" height="10"></svg><span>Recent chat</span></a>
       <a id="side-active" data-state="active" href="#"><svg width="10" height="10"></svg><span>Active chat</span></a>
+      <button id="side-heading" data-state="active">Recents</button>
       <button id="side-button"><svg width="10" height="10"></svg>New chat</button>
       <div class="text-token-text-tertiary uppercase" id="side-label">Projects</div>
     </aside>
@@ -96,6 +97,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
         sideLinkColor: styleById('side-link').color,
         sideActiveBg: styleById('side-active').backgroundColor,
         sideActiveColor: styleById('side-active').color,
+        sideHeadingBg: styleById('side-heading').backgroundColor,
         sideLabelColor: styleById('side-label').color,
         contentLinkColor: styleById('content-link').color,
         actionLinkColor: styleById('action-link').color,
@@ -170,6 +172,7 @@ for (const theme of CHATTHEMES.themes.filter(theme => theme.id !== 'default')) {
     assert(values.sideLinkColor !== values.contentLinkColor, `${theme.id}/${mode}: sidebar link matches content accent`);
     assert(values.sideActiveBg !== 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: active sidebar row background is transparent`);
     assert(values.sideActiveColor !== values.sideLinkColor, `${theme.id}/${mode}: active sidebar row did not get selected text color`);
+    assert(values.sideHeadingBg === 'rgba(0, 0, 0, 0)', `${theme.id}/${mode}: sidebar section heading should not receive selected background`);
     assert(values.actionLinkColor !== values.contentLinkColor, `${theme.id}/${mode}: action link matches content accent`);
     assert(values.sideLabelColor !== values.contentLinkColor, `${theme.id}/${mode}: sidebar label matches content accent`);
     assert(values.h4Color === values.h2Color, `${theme.id}/${mode}: nested headers do not share heading color`);

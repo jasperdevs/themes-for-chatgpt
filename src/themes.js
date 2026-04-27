@@ -583,6 +583,7 @@ const CHATTHEMES = (() => {
       aside button,
       [class*="sidebar"] button,
       [data-testid*="sidebar"] button {
+        background-color: transparent !important;
         color: ${c.text2} !important;
         font-family: ${uiFont} !important;
       }
@@ -607,14 +608,14 @@ const CHATTHEMES = (() => {
       aside [aria-pressed="true"],
       [class*="sidebar"] [aria-pressed="true"],
       [data-testid*="sidebar"] [aria-pressed="true"],
-      nav [data-state="active"],
-      aside [data-state="active"],
-      [class*="sidebar"] [data-state="active"],
-      [data-testid*="sidebar"] [data-state="active"],
-      nav [data-active="true"],
-      aside [data-active="true"],
-      [class*="sidebar"] [data-active="true"],
-      [data-testid*="sidebar"] [data-active="true"] {
+      nav a[data-state="active"],
+      aside a[data-state="active"],
+      [class*="sidebar"] a[data-state="active"],
+      [data-testid*="sidebar"] a[data-state="active"],
+      nav a[data-active="true"],
+      aside a[data-active="true"],
+      [class*="sidebar"] a[data-active="true"],
+      [data-testid*="sidebar"] a[data-active="true"] {
         background-color: ${c.bg3} !important;
         color: ${c.text1} !important;
       }
@@ -901,12 +902,6 @@ const CHATTHEMES = (() => {
       *::-webkit-scrollbar-thumb:hover { background: ${c.text3}; }
 
       hr { border-color: ${c.border} !important; }
-
-      [aria-selected="true"],
-      [data-state="active"] {
-        background-color: ${c.bg3} !important;
-        color: ${c.text1} !important;
-      }
 
       [role="tablist"] {
         background: transparent !important;
